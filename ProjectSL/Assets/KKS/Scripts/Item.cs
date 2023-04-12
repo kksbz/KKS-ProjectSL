@@ -5,16 +5,12 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     [Header("아이템 정보")]
+    public int itemID;
+    public Sprite icon;
     [SerializeField] private ItemData itemData;
-    // Start is called before the first frame update
+
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        itemData = ItemManager.Instance.items[itemID - 1];
     }
 }
