@@ -1,14 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class WeaponSlot : MonoBehaviour
+public class WeaponSlot : MonoBehaviour, IPointerEnterHandler
 {
     private Button button;
     [SerializeField] private GameObject itemIcon;
     private Image icon; // 슬롯에 표시될 icon
-    private GameObject selectPanel; // 슬롯 선택시 나올 선택창
+    private ItemDescriptionPanel descriptionPanel; // 아이템 설명 패널
     private Item item; // 슬롯에 담길 아이템 변수
     public Item Item
     {
@@ -18,11 +20,13 @@ public class WeaponSlot : MonoBehaviour
             item = value;
             if (item != null)
             {
+                // 아이템이 있으면 이미지 출력
                 icon.sprite = item.icon;
                 icon.color = new Color(1, 1, 1, 1);
             }
             else
             {
+                // 아이템이 없으면 알파값 0으로 숨김
                 icon.color = new Color(1, 1, 1, 0);
             }
         }
@@ -32,17 +36,26 @@ public class WeaponSlot : MonoBehaviour
     {
         button = GetComponent<Button>();
         icon = itemIcon.GetComponent<Image>();
-        selectPanel = Inventory.Instance.selectPanel;
-        RectTransform panelRect = selectPanel.GetComponent<RectTransform>();
-        RectTransform buttonRect = gameObject.GetComponent<RectTransform>();
+        descriptionPanel = Inventory.Instance.descriptionPanel;
         button.onClick.AddListener(() =>
         {
             Debug.Log("무기 슬롯 선택함");
-            // 설명창의 위치를 슬롯의 왼쪽과 일치시켜주고 거기에 슬롯의 x길이만큼 오른쪽으로 더해줌
-            float xPos = (panelRect.sizeDelta.x - buttonRect.sizeDelta.x) * 0.5f + buttonRect.sizeDelta.x;
-            // 설명창의 위치를 슬롯의 오른쪽으로 설정
-            selectPanel.transform.position = transform.position + new Vector3(xPos, 0, 0);
-            selectPanel.SetActive(true);
+            Inventory.Instance.invenPanel.SetActive(true);
         });
     } // Start
+
+    public void AddItem(Item _item)
+    {
+        //Debug.Log($"템획득 : {_item.itemData.itemName}");
+        Item = _item;
+    } // AddItem
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        //if (item != null)
+        {
+            Debug.Log("템있는 슬롯에 커서 들옴");
+            descriptionPanel.ShowItemData(item);
+        }
+    } // OnPointerEnter
 } // WeaponSlot

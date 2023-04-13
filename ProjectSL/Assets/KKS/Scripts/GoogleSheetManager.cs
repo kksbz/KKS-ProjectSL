@@ -18,7 +18,7 @@ public class GoogleSheetManager
         List<string[]> itemDatas = CSVReader.CSVRead(itemDataBase);
         List<ItemData> items = CSVDataParser.ItemDataParser(itemDatas);
         // 아이템매니저 items 변수에 파싱된 아이템리스트를 캐싱
-        Inventory.Instance.items = items;
+        Inventory.Instance.itemDatas = items;
         Debug.Log("데이터 불러오기 완료");
     } // Start
 } // GoogleSheetManager
