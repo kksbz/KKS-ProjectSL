@@ -21,10 +21,10 @@ public class ItemDescriptionPanel : MonoBehaviour
     } // Start
 
     //! 아이템 설명 패널에 보여질 데이터 정하는 함수
-    public void ShowItemData(Item item)
+    public void ShowItemData(ItemData item)
     {
-        showIcon.sprite = item.icon;
-        showItemName.text = item.itemData.itemName;
-        showDescription.text = item.itemData.description;
+        showIcon.sprite = Resources.Load<Sprite>(item.itemIcon);
+        showItemName.text = item.itemName;
+        showDescription.text = item.description;
     } // ShowItemData
 } // ItemDescriptionPanel

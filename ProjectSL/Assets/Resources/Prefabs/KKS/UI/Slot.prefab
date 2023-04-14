@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3212160156310932432}
   - component: {fileID: 3212160156310932428}
   - component: {fileID: 3212160156310932435}
-  - component: {fileID: 3212160156310932434}
+  - component: {fileID: 4670724072071741541}
   - component: {fileID: 3212160156310932433}
   m_Layer: 0
   m_Name: Slot
@@ -79,7 +79,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3212160156310932434
+--- !u!114 &4670724072071741541
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -88,10 +88,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 3212160156310932439}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8af066a95f0f8c4458563a47f0b2ec70, type: 3}
+  m_Script: {fileID: 11500000, guid: 5d74ee5cec5b7d74f8042822c4e568c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemIcon: {fileID: 3212160156361742963}
+  icon: {fileID: 3212160156361742957}
+  item:
+    itemID: 0
+    itemName: 
+    itemType: 
+    itemValue: 0
+    buyPrice: 0
+    sellPrice: 0
+    quantity: 0
+    description: 
+    itemIcon: 
 --- !u!114 &3212160156310932433
 MonoBehaviour:
   m_ObjectHideFlags: 0
