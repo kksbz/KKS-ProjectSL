@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static ItemData;
 
-public class ArmorSlot : MonoBehaviour, PublicSlot, IPointerEnterHandler
+public class Slot : MonoBehaviour, IPublicSlot, IPointerEnterHandler
 {
     private Button button;
     [SerializeField] private Image icon; // 슬롯에 표시될 icon
     private ItemDescriptionPanel descriptionPanel; // 아이템 설명 패널
+    private SelectPanel selectPanel;
+    [SerializeField] private ItemType slotType; // 슬롯에 담길 아이템타입 제한 변수
+    public ItemType SlotType { get; set; }
     [SerializeField] private ItemData item; // 슬롯에 담길 아이템 변수
     public ItemData Item
     {
@@ -24,7 +28,6 @@ public class ArmorSlot : MonoBehaviour, PublicSlot, IPointerEnterHandler
             }
             else
             {
-                Debug.Log(item);
                 // 아이템이 없으면 알파값 0으로 숨김
                 icon.color = new Color(1, 1, 1, 0);
             }
@@ -35,10 +38,17 @@ public class ArmorSlot : MonoBehaviour, PublicSlot, IPointerEnterHandler
     {
         button = GetComponent<Button>();
         descriptionPanel = Inventory.Instance.descriptionPanel;
+        selectPanel = Inventory.Instance.selectPanel;
+        RectTransform panelRect = selectPanel.GetComponent<RectTransform>();
+        RectTransform buttonRect = gameObject.GetComponent<RectTransform>();
         button.onClick.AddListener(() =>
         {
-            Debug.Log("방어구 슬롯 선택함");
-            Inventory.Instance.invenPanel.SetActive(true);
+            Debug.Log("슬롯 선택함");
+            // 설명창의 위치를 슬롯의 왼쪽과 일치시켜주고 거기에 슬롯의 x길이만큼 오른쪽으로 더해줌
+            float xPos = (panelRect.sizeDelta.x - buttonRect.sizeDelta.x) * 0.5f + buttonRect.sizeDelta.x;
+            // 설명창의 위치를 슬롯의 오른쪽으로 설정
+            selectPanel.transform.position = transform.position + new Vector3(xPos, 0, 0);
+            selectPanel.gameObject.SetActive(true);
         });
     } // Start
 
@@ -70,4 +80,4 @@ public class ArmorSlot : MonoBehaviour, PublicSlot, IPointerEnterHandler
             descriptionPanel.ShowItemData(item);
         }
     } // OnPointerEnter
-} // ArmorSlot
+} // Slot

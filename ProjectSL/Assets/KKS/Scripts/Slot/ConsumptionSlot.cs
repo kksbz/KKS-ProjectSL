@@ -1,14 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static ItemData;
 
-public class WeaponSlot : MonoBehaviour, PublicSlot, IPointerEnterHandler
+public class ConsumptionSlot : MonoBehaviour, IPublicSlot, IPointerEnterHandler
 {
     private Button button;
+    [SerializeField] TMP_Text quantity;
     [SerializeField] private Image icon; // 슬롯에 표시될 icon
     private ItemDescriptionPanel descriptionPanel; // 아이템 설명 패널
+    [SerializeField] private ItemType slotType; // 슬롯에 담길 아이템타입 제한 변수
+    public ItemType SlotType { get; set; }
+    //[SerializeField] private string slotType; // 슬롯에 담길 아이템타입 제한 변수
+    //public string SlotType { get { return slotType; } set { slotType = value; } }
     [SerializeField] private ItemData item; // 슬롯에 담길 아이템 변수
     public ItemData Item
     {
@@ -21,12 +28,14 @@ public class WeaponSlot : MonoBehaviour, PublicSlot, IPointerEnterHandler
                 // 아이템이 있으면 이미지 출력
                 icon.sprite = Resources.Load<Sprite>(item.itemIcon);
                 icon.color = new Color(1, 1, 1, 1);
+                quantity.text = item.quantity.ToString();
+                quantity.gameObject.SetActive(true);
             }
             else
             {
-                Debug.Log(item);
                 // 아이템이 없으면 알파값 0으로 숨김
                 icon.color = new Color(1, 1, 1, 0);
+                quantity.gameObject.SetActive(false);
             }
         }
     } // Item
@@ -37,10 +46,10 @@ public class WeaponSlot : MonoBehaviour, PublicSlot, IPointerEnterHandler
         descriptionPanel = Inventory.Instance.descriptionPanel;
         button.onClick.AddListener(() =>
         {
-            Debug.Log("무기 슬롯 선택함");
+            Debug.Log("소모품 슬롯 선택함");
+            Inventory.Instance.InitEquipInven(slotType);
             Inventory.Instance.invenPanel.SetActive(true);
             Inventory.Instance.equipPanel.SetActive(false);
-            Inventory.Instance.selectPanel.SelectSlot(gameObject);
         });
     } // Start
 
@@ -72,4 +81,4 @@ public class WeaponSlot : MonoBehaviour, PublicSlot, IPointerEnterHandler
             descriptionPanel.ShowItemData(item);
         }
     } // OnPointerEnter
-} // WeaponSlot
+} // ConsumptionSlot

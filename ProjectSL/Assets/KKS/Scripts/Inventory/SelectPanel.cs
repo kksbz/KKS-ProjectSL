@@ -15,7 +15,7 @@ public class SelectPanel : MonoBehaviour
         useBt.onClick.AddListener(() =>
         {
             ItemData hp = DataManager.Instance.itemDatas[0];
-            slot.GetComponent<PublicSlot>().AddItem(hp);
+            slot.GetComponent<IPublicSlot>().AddItem(hp);
             Inventory.Instance.equipPanel.SetActive(true);
             Inventory.Instance.invenPanel.SetActive(false);
             gameObject.SetActive(false);

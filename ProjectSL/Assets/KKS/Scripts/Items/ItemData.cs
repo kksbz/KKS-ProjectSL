@@ -7,9 +7,21 @@ using static UnityEditor.Progress;
 [Serializable]
 public class ItemData
 {
+    public enum ItemType
+    {
+        NONE,
+        CONSUMPTION,
+        WEAPON,
+        HELMET,
+        CHEST,
+        GLOVES,
+        PANTS,
+        RING
+    } // ItemType
+
     public int itemID; // 고유번호
     public string itemName; // 이름
-    public string itemType; // 타입
+    public ItemType itemType; // 타입
     public int itemValue; // 벨류 (데미지 or 회복량)
     public int buyPrice; // 구매가격
     public int sellPrice; // 판매가격
@@ -26,7 +38,7 @@ public class ItemData
         }
         itemID = int.Parse(data[0]);
         itemName = data[1];
-        itemType = data[2];
+        itemType = (ItemType)Enum.Parse(typeof(ItemType), data[2]);
         itemValue = int.Parse(data[3]);
         buyPrice = int.Parse(data[4]);
         sellPrice = int.Parse(data[5]);

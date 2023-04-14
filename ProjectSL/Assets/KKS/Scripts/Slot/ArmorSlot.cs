@@ -1,20 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static ItemData;
 
-public class EquipSlot : MonoBehaviour, IPointerEnterHandler
+public class ArmorSlot : MonoBehaviour, IPublicSlot, IPointerEnterHandler
 {
     private Button button;
     [SerializeField] private Image icon; // 슬롯에 표시될 icon
-    [SerializeField] private GameObject equipIcon; // 장착여부 표시 icon
-    [SerializeField] private TMP_Text quantity; // 수량표시 Text
     private ItemDescriptionPanel descriptionPanel; // 아이템 설명 패널
-    private GameObject equipSlot; // 선택한 장비 슬롯
+    [SerializeField] private ItemType slotType; // 슬롯에 담길 아이템타입 제한 변수
+    public ItemType SlotType { get; set; }
     [SerializeField] private ItemData item; // 슬롯에 담길 아이템 변수
-    private bool isEquipItem = false;
     public ItemData Item
     {
         get { return item; }
@@ -26,19 +24,9 @@ public class EquipSlot : MonoBehaviour, IPointerEnterHandler
                 // 아이템이 있으면 이미지 출력
                 icon.sprite = Resources.Load<Sprite>(item.itemIcon);
                 icon.color = new Color(1, 1, 1, 1);
-                if (item.maxQuantity != 1)
-                {
-                    quantity.text = item.quantity.ToString();
-                    quantity.gameObject.SetActive(true);
-                }
-                else
-                {
-                    quantity.gameObject.SetActive(false);
-                }
             }
             else
             {
-                Debug.Log(item);
                 // 아이템이 없으면 알파값 0으로 숨김
                 icon.color = new Color(1, 1, 1, 0);
             }
@@ -51,26 +39,32 @@ public class EquipSlot : MonoBehaviour, IPointerEnterHandler
         descriptionPanel = Inventory.Instance.descriptionPanel;
         button.onClick.AddListener(() =>
         {
-            if (isEquipItem == false)
-            {
-                equipSlot.GetComponent<PublicSlot>().AddItem(item);
-                equipIcon.SetActive(true);
-            }
-            else
-            {
-                equipSlot.GetComponent<PublicSlot>().RemoveItem();
-                equipIcon.SetActive(false);
-            }
-            isEquipItem = !isEquipItem;
+            Debug.Log("방어구 슬롯 선택함");
+            Inventory.Instance.InitEquipInven(slotType);
+            Inventory.Instance.invenPanel.SetActive(true);
+            Inventory.Instance.equipPanel.SetActive(false);
         });
     } // Start
 
-    //! 선택된 슬롯 가져오는 함수
-    public void SelectSlot(GameObject _slot)
+    public void AddItem(ItemData _item)
     {
-        equipSlot = _slot;
-        Debug.Log($"선택된 슬롯 : {equipSlot}");
-    } // SelectSlot
+        if (_item == null)
+        {
+            Item = null;
+            return;
+        }
+        Debug.Log($"템획득 : {_item.itemName}");
+        Item = _item;
+        Debug.Log(Item);
+        Debug.Log(Item.itemIcon);
+    } // AddItem
+
+    public void RemoveItem()
+    {
+        ItemData item = new ItemData(null);
+        item = null;
+        Item = item;
+    } // RemoveItem
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -80,4 +74,4 @@ public class EquipSlot : MonoBehaviour, IPointerEnterHandler
             descriptionPanel.ShowItemData(item);
         }
     } // OnPointerEnter
-} // EquipSlot
+} // ArmorSlot
