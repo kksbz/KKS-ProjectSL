@@ -25,17 +25,15 @@ public class ItemData
     public int itemValue; // 벨류 (데미지 or 회복량)
     public int buyPrice; // 구매가격
     public int sellPrice; // 판매가격
-    public int quantity = 1; // 현재 수량
     public int maxQuantity; // 최대 수량
     public string description; // 설명
     public string itemIcon; // 이미지주소
-
+    [SerializeField] private int quantity = 1; // 보유 수량
+    public int Quantity { get { return quantity; } set { quantity = value; } }
+    [SerializeField] private bool isEquip = false; // 장착 여부
+    public bool IsEquip { get { return isEquip; } set { isEquip = value; } }
     public ItemData(string[] data)
     {
-        if (data == null)
-        {
-            return;
-        }
         itemID = int.Parse(data[0]);
         itemName = data[1];
         itemType = (ItemType)Enum.Parse(typeof(ItemType), data[2]);
@@ -43,7 +41,7 @@ public class ItemData
         buyPrice = int.Parse(data[4]);
         sellPrice = int.Parse(data[5]);
         maxQuantity = int.Parse(data[6]);
-        description = data[7];
+        description = data[7].Replace("\"", "");
         itemIcon = data[8];
     } // ItemData
 } // ItemData

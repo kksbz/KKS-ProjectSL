@@ -175,14 +175,15 @@ MonoBehaviour:
   item:
     itemID: 0
     itemName: 
-    itemType: 
+    itemType: 0
     itemValue: 0
     buyPrice: 0
     sellPrice: 0
-    quantity: 0
     maxQuantity: 0
     description: 
     itemIcon: 
+    quantity: 0
+    isEquip: 0
 --- !u!114 &4143502205784191614
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -9,26 +9,27 @@ public class SelectPanel : MonoBehaviour
     public Button throwBt; // 버리기 버튼
     public Button destroyBt; // 파괴 버튼
     public Button cancelBt; // 취소 버튼
-    private GameObject slot; // 선택한 슬롯
+    private Slot slot; // 선택한 슬롯
     void Start()
     {
         useBt.onClick.AddListener(() =>
         {
-            ItemData hp = DataManager.Instance.itemDatas[0];
-            slot.GetComponent<IPublicSlot>().AddItem(hp);
-            Inventory.Instance.equipPanel.SetActive(true);
-            Inventory.Instance.invenPanel.SetActive(false);
+            Inventory.Instance.equipSlotPanel.SetActive(true);
+            Inventory.Instance.equipInvenPanel.SetActive(false);
             gameObject.SetActive(false);
         });
 
         throwBt.onClick.AddListener(() =>
         {
-
+            Inventory.Instance.ThrowItem(slot.Item);
+            gameObject.SetActive(false);
         });
 
         destroyBt.onClick.AddListener(() =>
         {
-
+            Inventory.Instance.RemoveItem(slot.Item);
+            Inventory.Instance.InitSameTypeTotalSlot(slot.Item.itemType);
+            gameObject.SetActive(false);
         });
 
         cancelBt.onClick.AddListener(() =>
@@ -38,7 +39,7 @@ public class SelectPanel : MonoBehaviour
     } // Start
 
     //! 선택된 슬롯 가져오는 함수
-    public void SelectSlot(GameObject _slot)
+    public void SelectSlot(Slot _slot)
     {
         slot = _slot;
         Debug.Log($"선택된 슬롯 : {slot}");
