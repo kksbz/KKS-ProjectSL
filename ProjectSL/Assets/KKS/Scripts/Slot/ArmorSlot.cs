@@ -57,7 +57,7 @@ public class ArmorSlot : MonoBehaviour, IPublicSlot, IPointerEnterHandler, IPoin
 
     public void RemoveItem()
     {
-        Item = item;
+        Item = null;
     } // RemoveItem
 
     private void ShowInvenText()
@@ -74,7 +74,7 @@ public class ArmorSlot : MonoBehaviour, IPublicSlot, IPointerEnterHandler, IPoin
                 invenText = "장갑";
                 break;
             case ItemType.PANTS:
-                invenText = "바지";
+                invenText = "하의";
                 break;
             case ItemType.RING:
                 invenText = "반지";

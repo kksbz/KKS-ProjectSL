@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using static ItemData;
+using static UnityEditor.Progress;
 
 public class Inventory : Singleton<Inventory>
 {
     [SerializeField] private GameObject invenObj;
-    private int invenCount = 28;
+    private int invenCount = 52;
     public GameObject equipSlotPrefab; // 장비슬롯 프리팹
     public GameObject totalSlotPrefab; // 통합인벤 슬롯 프리팹
     public GameObject equipSlotPanel; // 장비슬롯 패널
@@ -35,6 +37,19 @@ public class Inventory : Singleton<Inventory>
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            // 장비인벤 슬롯 세팅
+            GameObject slot = Instantiate(equipSlotPrefab);
+            EquipSlot equipSlot = slot.GetComponent<EquipSlot>();
+            slot.transform.parent = equipInvenPanel.transform.Find("Scroll View/Viewport/Content").transform;
+            equipSlot.Item = null;
+            // 통합인벤 슬롯 세팅
+            GameObject tSlot = Instantiate(totalSlotPrefab);
+            Slot totalSlot = tSlot.GetComponent<Slot>();
+            tSlot.transform.parent = totalInvenPanel.transform.Find("Scroll View/Viewport/Content").transform;
+            totalSlot.Item = null;
+        }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             invenObj.SetActive(false);
@@ -68,11 +83,11 @@ public class Inventory : Singleton<Inventory>
             // 장비인벤 슬롯 세팅
             GameObject slot = Instantiate(equipSlotPrefab);
             EquipSlot equipSlot = slot.GetComponent<EquipSlot>();
-            slot.transform.parent = equipInvenPanel.transform.GetChild(0).transform;
+            slot.transform.parent = equipInvenPanel.transform.Find("Scroll View/Viewport/Content").transform;
             // 통합인벤 슬롯 세팅
             GameObject tSlot = Instantiate(totalSlotPrefab);
             Slot totalSlot = tSlot.GetComponent<Slot>();
-            tSlot.transform.parent = totalInvenPanel.transform.GetChild(0).transform;
+            tSlot.transform.parent = totalInvenPanel.transform.Find("Scroll View/Viewport/Content").transform;
             equipSlots.Add(equipSlot);
             totalSlots.Add(totalSlot);
             inventory.Add(null);
@@ -112,18 +127,44 @@ public class Inventory : Singleton<Inventory>
                 return;
             }
         }
+        // 인벤토리가 꽉찬 경우 새로운 슬롯 추가
+        // 장비인벤 슬롯 추가
+        GameObject slot = Instantiate(equipSlotPrefab);
+        EquipSlot equipSlot = slot.GetComponent<EquipSlot>();
+        slot.transform.parent = equipInvenPanel.transform.Find("Scroll View/Viewport/Content").transform;
+        equipSlot.Item = null;
+        // 통합인벤 슬롯 추가
+        GameObject tSlot = Instantiate(totalSlotPrefab);
+        Slot totalSlot = tSlot.GetComponent<Slot>();
+        tSlot.transform.parent = totalInvenPanel.transform.Find("Scroll View/Viewport/Content").transform;
+        totalSlot.Item = null;
+        inventory.Add(item);
     } // AddItem
 
     //! 아이템 버리는 함수
     public void ThrowItem(ItemData item)
     {
-        inventory.Remove(item);
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            if (inventory[i] == item)
+            {
+                inventory[i] = null;
+                return;
+            }
+        }
     } // ThrowItem
 
     //! 아이템 파괴하는 함수
     public void RemoveItem(ItemData item)
     {
-        inventory.Remove(item);
+        for (int i = 0; i < inventory.Count; i++)
+        {
+            if (inventory[i] == item)
+            {
+                inventory[i] = null;
+                return;
+            }
+        }
     } // RemoveItem
 
     //! 정해진 itemType을 장비해야하는 슬롯일 경우 장비인벤슬롯에 같은 itemType인 아이템만 보여주는 함수
@@ -160,7 +201,26 @@ public class Inventory : Singleton<Inventory>
     //! 선택한 itemType인 아이템만 통합인벤에 보여주는 함수
     public void InitSameTypeTotalSlot(ItemType _itemType)
     {
-        Debug.Log(_itemType);
+        // NONE이면 모든타입의 아이템을 보여줌
+        if (_itemType == ItemType.NONE)
+        {
+            // itemID 순으로 정렬
+            for (int i = 0; i < totalSlots.Count; i++)
+            {
+                if (inventory[i] != null)
+                {
+                    // 인벤토리 아이템을 슬롯에 표시
+                    totalSlots[i].Item = inventory[i];
+                }
+                else
+                {
+                    // 빈곳 표시를 위한 null값
+                    totalSlots[i].Item = null;
+                }
+            }
+            return;
+        }
+
         List<ItemData> sameTypes = new List<ItemData>();
         foreach (ItemData _item in inventory)
         {
