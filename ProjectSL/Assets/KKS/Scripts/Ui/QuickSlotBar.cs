@@ -5,41 +5,72 @@ using UnityEngine.UI;
 
 public class QuickSlotBar : MonoBehaviour
 {
-    public Button equip; // 장비창
-    public Button inven; // 통합인벤
-    public Button stat; // 플레이어 스텟
-    public Button option; // 옵션
-    public GameObject inventory;
-
+    [SerializeField] private QuickSlot LeftArm; // 왼손 이미지
+    [SerializeField] private QuickSlot RightArm; // 오른손 이미지
+    [SerializeField] private QuickSlot consumption; // 소모품 이미지
+    [SerializeField] private QuickSlot spell; // 스펠 이미지
+    private int leftArmNum = 2;
+    private int rightArmNum = -1;
+    private int consumptionNum = -1;
+    private int spellNum = 0;
+    // Start is called before the first frame update
     void Start()
     {
-        equip.onClick.AddListener(() =>
-        {
-            Debug.Log("장비 인벤 선택함");
-            inventory.SetActive(true);
-            gameObject.SetActive(false);
-        });
+        LeftArm.Item = Inventory.Instance.weaponSlotList[0].Item;
+        RightArm.Item = Inventory.Instance.weaponSlotList[3].Item;
+        consumption.Item = Inventory.Instance.consumptionSlotList[0].Item;
+    }
 
-        inven.onClick.AddListener(() =>
-        {
-            Debug.Log("통합 인벤 선택함");
-            inventory.SetActive(true);
-            Inventory.Instance.equipSlotPanel.SetActive(false);
-            Inventory.Instance.InitSameTypeTotalSlot(ItemData.ItemType.CONSUMPTION);
-            Inventory.Instance.totalInvenPanel.SetActive(true);
-            gameObject.SetActive(false);
-        });
 
-        stat.onClick.AddListener(() =>
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            Debug.Log("스테이터스 선택함");
-            gameObject.SetActive(false);
-        });
+            float scroll = Input.GetAxis("Mouse ScrollWheel");
+            if (scroll > 0f)
+            {
+                // 마우스 휠을 위로 스크롤했을 때 처리할 코드
+                if (rightArmNum == 2)
+                {
+                    rightArmNum = -1;
+                }
+                rightArmNum++;
+                RightArm.Item = Inventory.Instance.weaponSlotList[rightArmNum].Item;
+                Debug.Log($"쉬프트+휠업 : {rightArmNum}");
 
-        option.onClick.AddListener(() =>
+            }
+            else if (scroll < 0f)
+            {
+                // 마우스 휠을 아래로 스크롤했을 때 처리할 코드
+                if (leftArmNum == 5)
+                {
+                    leftArmNum = 2;
+                }
+                leftArmNum++;
+                LeftArm.Item = Inventory.Instance.weaponSlotList[leftArmNum].Item;
+                Debug.Log($"쉬프트+휠다운 : {leftArmNum}");
+
+            }
+        }
+
+        if (Input.GetKey(KeyCode.LeftControl))
         {
-            Debug.Log("옵션창 선택함");
-            gameObject.SetActive(false);
-        });
-    } // Start
-} // QuickSlotBar
+            float scroll = Input.GetAxis("Mouse ScrollWheel");
+            if (scroll > 0f)
+            {
+                // 마우스 휠을 위로 스크롤했을 때 처리할 코드
+            }
+            else if (scroll < 0f)
+            {
+                // 마우스 휠을 아래로 스크롤했을 때 처리할 코드
+                if (consumptionNum == Inventory.Instance.consumptionSlotList.Count - 1)
+                {
+                    consumptionNum = -1;
+                }
+                consumptionNum++;
+                consumption.Item = Inventory.Instance.consumptionSlotList[consumptionNum].Item;
+            }
+        }
+    }
+}
