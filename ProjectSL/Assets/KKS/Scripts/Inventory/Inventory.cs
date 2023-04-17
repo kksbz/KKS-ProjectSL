@@ -116,7 +116,7 @@ public class Inventory : Singleton<Inventory>
                 }
             }
         }
-        Debug.Log($"템획득했소 {inventory[1]}");
+        Debug.Log($"템획득했소");
         // 인벤토리에 같은 아이템이 없을 경우
         for (int i = 0; i < inventory.Count; i++)
         {
@@ -133,11 +133,13 @@ public class Inventory : Singleton<Inventory>
         EquipSlot equipSlot = slot.GetComponent<EquipSlot>();
         slot.transform.parent = equipInvenPanel.transform.Find("Scroll View/Viewport/Content").transform;
         equipSlot.Item = null;
+        equipSlots.Add(equipSlot);
         // 통합인벤 슬롯 추가
         GameObject tSlot = Instantiate(totalSlotPrefab);
         Slot totalSlot = tSlot.GetComponent<Slot>();
         tSlot.transform.parent = totalInvenPanel.transform.Find("Scroll View/Viewport/Content").transform;
         totalSlot.Item = null;
+        totalSlots.Add(totalSlot);
         inventory.Add(item);
     } // AddItem
 
@@ -180,7 +182,10 @@ public class Inventory : Singleton<Inventory>
                 sameTypes.Add(_item);
             }
         }
-        Debug.Log($"{sameTypes.Count}");
+        for (int i = 0; i < sameTypes.Count; i++)
+        {
+            Debug.Log($"{sameTypes.Count}, {sameTypes[i].itemName}, {sameTypes[i].Quantity}");
+        }
         // itemID 기준으로 오름차순 정렬
         sameTypes = sameTypes.OrderBy(x => x.itemID).ToList();
         for (int i = 0; i < equipSlots.Count; i++)
