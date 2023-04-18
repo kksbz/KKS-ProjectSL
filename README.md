@@ -14,3 +14,6 @@
 2023-04-17 / v0.1.0 / [KKS] MainUi statBar, QuickSlotBar prototype setup</br>
 2023-04-17 / v0.1.1 / [Merge] Project SL
 2023-04-18 / v0.1.2 / [KKS] work on 포션 및 무기 아이템</br>
+2023-04-18 / v0.1.3 / [KKS] 아이템 데이터 연동 로직, 같은 ID값의 데이터를 가져오는 방식으로 변경</br>
+                        이슈 : CSV의 id값과 itemID값을 비교하기 위해 itemID값을 string타입으로 형변환해서 비교함, 인식하지 못하는 문제발생</br>
+                        해결 : CSV의 데이터를 int로 형변환해서 int형으로 비교하니 정상적으로 비교됨</br>

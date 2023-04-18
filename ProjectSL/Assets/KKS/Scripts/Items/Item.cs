@@ -12,12 +12,12 @@ public class Item : MonoBehaviour
     {
         foreach (string[] _itemData in DataManager.Instance.itemDatas)
         {
-            if (_itemData[0] == itemID.ToString())
+            // 아이템데이터 테이블에서 자기 ID의 아이템데이터를 가져옴
+            if (int.Parse(_itemData[0]) == itemID)
             {
                 itemData = new ItemData(_itemData);
             }
         }
-        //itemData = new ItemData(DataManager.Instance.itemDatas[itemID - 1]);
     } // Start
 
     // 아이템 삭제 시 아이템 데이터도 삭제

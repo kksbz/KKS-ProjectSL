@@ -28,6 +28,8 @@ public class ItemPickup : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 Pickup();
+                UiManager.Instance.InteractionBar.SetActive(false);
+                UiManager.Instance.InteractionText.text = null;
             }
         }
     } // OnTriggerStay
