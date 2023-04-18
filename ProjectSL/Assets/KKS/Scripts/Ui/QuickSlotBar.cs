@@ -19,18 +19,23 @@ public class QuickSlotBar : MonoBehaviour
         LeftArm.Item = Inventory.Instance.weaponSlotList[0].Item;
         RightArm.Item = Inventory.Instance.weaponSlotList[3].Item;
         consumption.Item = Inventory.Instance.consumptionSlotList[0].Item;
-    }
-
+    } // Start
 
     // Update is called once per frame
     void Update()
+    {
+        InPutQuickSlot();
+    } // Update
+
+    //! 퀵슬롯 사용 커멘드
+    private void InPutQuickSlot()
     {
         if (Input.GetKey(KeyCode.LeftShift))
         {
             float scroll = Input.GetAxis("Mouse ScrollWheel");
             if (scroll > 0f)
             {
-                // 마우스 휠을 위로 스크롤했을 때 처리할 코드
+                // 마우스 휠을 위로 스크롤했을 때 오른손 무기 장착
                 if (rightArmNum == 2)
                 {
                     rightArmNum = -1;
@@ -42,7 +47,7 @@ public class QuickSlotBar : MonoBehaviour
             }
             else if (scroll < 0f)
             {
-                // 마우스 휠을 아래로 스크롤했을 때 처리할 코드
+                // 마우스 휠을 아래로 스크롤했을 때 왼손 무기 장착
                 if (leftArmNum == 5)
                 {
                     leftArmNum = 2;
@@ -59,11 +64,11 @@ public class QuickSlotBar : MonoBehaviour
             float scroll = Input.GetAxis("Mouse ScrollWheel");
             if (scroll > 0f)
             {
-                // 마우스 휠을 위로 스크롤했을 때 처리할 코드
+                // 마우스 휠을 위로 스크롤했을 때 스펠 장착
             }
             else if (scroll < 0f)
             {
-                // 마우스 휠을 아래로 스크롤했을 때 처리할 코드
+                // 마우스 휠을 아래로 스크롤했을 때 소모품 장착
                 if (consumptionNum == Inventory.Instance.consumptionSlotList.Count - 1)
                 {
                     consumptionNum = -1;
@@ -72,5 +77,5 @@ public class QuickSlotBar : MonoBehaviour
                 consumption.Item = Inventory.Instance.consumptionSlotList[consumptionNum].Item;
             }
         }
-    }
-}
+    } // InPutQuickSlot
+} // QuickSlotBar

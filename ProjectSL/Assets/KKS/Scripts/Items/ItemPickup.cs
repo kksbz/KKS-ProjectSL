@@ -12,8 +12,32 @@ public class ItemPickup : MonoBehaviour
         Destroy(gameObject);
     } // Pickup
 
-    private void OnMouseDown()
+    private void OnTriggerEnter(Collider other)
     {
-        Pickup();
-    }
+        if (other.tag == GData.PLAYER_MARK)
+        {
+            UiManager.Instance.InteractionBar.SetActive(true);
+            UiManager.Instance.InteractionText.text = "æ∆¿Ã≈€ »πµÊ : E ≈∞";
+        }
+    } // OnTriggerEnter
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == GData.PLAYER_MARK)
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Pickup();
+            }
+        }
+    } // OnTriggerStay
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == GData.PLAYER_MARK)
+        {
+            UiManager.Instance.InteractionBar.SetActive(false);
+            UiManager.Instance.InteractionText.text = null;
+        }
+    } // OnTriggerExit
 } // ItemPickup

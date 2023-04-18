@@ -13,3 +13,4 @@
 2023-04-17 / v0.0.9 / [KKS] 통합인벤, 인벤토리 스크롤기능, 타입별로 볼수 있게하는 버튼기능, 아이템 삭제 구현</br>
 2023-04-17 / v0.1.0 / [KKS] MainUi statBar, QuickSlotBar prototype setup</br>
 2023-04-17 / v0.1.1 / [Merge] Project SL
+2023-04-18 / v0.1.2 / [KKS] work on 포션 및 무기 아이템</br>

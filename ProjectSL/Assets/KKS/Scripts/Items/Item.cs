@@ -10,7 +10,14 @@ public class Item : MonoBehaviour
 
     void Awake()
     {
-        itemData = new ItemData(DataManager.Instance.itemDatas[itemID - 1]);
+        foreach (string[] _itemData in DataManager.Instance.itemDatas)
+        {
+            if (_itemData[0] == itemID.ToString())
+            {
+                itemData = new ItemData(_itemData);
+            }
+        }
+        //itemData = new ItemData(DataManager.Instance.itemDatas[itemID - 1]);
     } // Start
 
     // 아이템 삭제 시 아이템 데이터도 삭제
