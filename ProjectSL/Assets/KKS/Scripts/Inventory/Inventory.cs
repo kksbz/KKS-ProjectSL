@@ -38,15 +38,11 @@ public class Inventory : Singleton<Inventory>
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            if (inventory[0] != null)
-            {
-                Debug.Log($"1번째 Item: {inventory[0].itemName}");
-            }
-            if (inventory[1] != null)
-            {
-                Debug.Log($"2번째 Item: {inventory[1].itemName}");
-            }
-            Debug.Log($"B버튼 클릭 -> {inventory[0]}, {inventory[1]}");
+            DataManager.Instance.SaveData();
+        }
+        if(Input.GetKeyDown(KeyCode.N))
+        {
+            DataManager.Instance.LoadData();
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -97,6 +93,7 @@ public class Inventory : Singleton<Inventory>
     //! 인벤토리에 아이템 추가하는 함수
     public void AddItem(ItemData item)
     {
+        Debug.Log(item.itemName);
         ItemData itemData = null;
         foreach (string[] _itemData in DataManager.Instance.itemDatas)
         {
