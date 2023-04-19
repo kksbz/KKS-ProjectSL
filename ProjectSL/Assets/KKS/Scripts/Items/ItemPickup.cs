@@ -9,7 +9,7 @@ public class ItemPickup : MonoBehaviour
     private void Pickup()
     {
         Inventory.Instance.AddItem(item.itemData);
-        Destroy(gameObject);
+        Destroy(item.gameObject);
     } // Pickup
 
     private void OnTriggerEnter(Collider other)

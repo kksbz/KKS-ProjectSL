@@ -13,6 +13,7 @@ public class EquipSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     [SerializeField] private TMP_Text quantity; // 수량표시 Text
     private ItemDescriptionPanel descriptionPanel; // 아이템 설명 패널
     private IPublicSlot equipSlot; // 선택한 장비 슬롯
+    private GameObject equipItem; // 장착한 아이템
     [SerializeField] private ItemData item; // 슬롯에 담길 아이템 변수
     public ItemData Item
     {
@@ -69,7 +70,7 @@ public class EquipSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             {
                 // 아이템 장착
                 SelectSlot();
-                Inventory.Instance.selectSlot.AddItem(item);
+                equipSlot.AddItem(item);
                 Inventory.Instance.equipSlotPanel.SetActive(true);
                 Inventory.Instance.equipInvenPanel.SetActive(false);
             }

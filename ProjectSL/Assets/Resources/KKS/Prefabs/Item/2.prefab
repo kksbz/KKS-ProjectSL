@@ -183,6 +183,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemID: 2
+  pickupArea: {fileID: 4081624179765766444}
   itemData:
     itemID: 0
     itemName: 

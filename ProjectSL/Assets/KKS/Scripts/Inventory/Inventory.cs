@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using static ItemData;
 using static UnityEditor.Progress;
@@ -39,16 +38,15 @@ public class Inventory : Singleton<Inventory>
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            // 장비인벤 슬롯 세팅
-            GameObject slot = Instantiate(equipSlotPrefab);
-            EquipSlot equipSlot = slot.GetComponent<EquipSlot>();
-            slot.transform.parent = equipInvenPanel.transform.Find("Scroll View/Viewport/Content").transform;
-            equipSlot.Item = null;
-            // 통합인벤 슬롯 세팅
-            GameObject tSlot = Instantiate(totalSlotPrefab);
-            Slot totalSlot = tSlot.GetComponent<Slot>();
-            tSlot.transform.parent = totalInvenPanel.transform.Find("Scroll View/Viewport/Content").transform;
-            totalSlot.Item = null;
+            if (inventory[0] != null)
+            {
+                Debug.Log($"1번째 Item: {inventory[0].itemName}");
+            }
+            if (inventory[1] != null)
+            {
+                Debug.Log($"2번째 Item: {inventory[1].itemName}");
+            }
+            Debug.Log($"B버튼 클릭 -> {inventory[0]}, {inventory[1]}");
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -99,7 +97,17 @@ public class Inventory : Singleton<Inventory>
     //! 인벤토리에 아이템 추가하는 함수
     public void AddItem(ItemData item)
     {
-        ItemData itemData = new ItemData(DataManager.Instance.itemDatas[item.itemID - 1]);
+        ItemData itemData = null;
+        foreach (string[] _itemData in DataManager.Instance.itemDatas)
+        {
+            // 아이템데이터 테이블에서 입력받은 ID의 아이템데이터를 가져옴
+            if (int.Parse(_itemData[0]) == item.itemID)
+            {
+                itemData = new ItemData(_itemData);
+            }
+        }
+        Debug.Log(itemData.itemName);
+
         // 인벤토리에 같은 아이템이 있는지 체크
         foreach (ItemData _item in inventory)
         {
@@ -120,7 +128,7 @@ public class Inventory : Singleton<Inventory>
         // 인벤토리에 같은 아이템이 없을 경우
         for (int i = 0; i < inventory.Count; i++)
         {
-            if (inventory[i] == null)
+            if (inventory[i] == null || inventory[i].itemType.Equals(ItemType.NONE))
             {
                 inventory[i] = item;
                 Debug.Log($"{inventory[i].itemName}");

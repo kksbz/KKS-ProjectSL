@@ -6,6 +6,7 @@ public class Item : MonoBehaviour
 {
     [Header("아이템 정보")]
     [SerializeField] private int itemID; // 아이템 데이터 맵핑에 사용될 ID
+    public GameObject pickupArea;
     public ItemData itemData; // 아이템 데이터
 
     void Awake()
