@@ -12,8 +12,7 @@ public class EquipSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     [SerializeField] private GameObject equipIcon; // 장착여부 표시 icon
     [SerializeField] private TMP_Text quantity; // 수량표시 Text
     private ItemDescriptionPanel descriptionPanel; // 아이템 설명 패널
-    private IPublicSlot equipSlot; // 선택한 장비 슬롯
-    private GameObject equipItem; // 장착한 아이템
+    public IPublicSlot equipSlot; // 선택한 장비 슬롯
     [SerializeField] private ItemData item; // 슬롯에 담길 아이템 변수
     public ItemData Item
     {

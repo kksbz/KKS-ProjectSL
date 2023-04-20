@@ -40,7 +40,7 @@ public class Inventory : Singleton<Inventory>
         {
             DataManager.Instance.SaveData();
         }
-        if(Input.GetKeyDown(KeyCode.N))
+        if (Input.GetKeyDown(KeyCode.N))
         {
             DataManager.Instance.LoadData();
         }
@@ -93,7 +93,6 @@ public class Inventory : Singleton<Inventory>
     //! 인벤토리에 아이템 추가하는 함수
     public void AddItem(ItemData item)
     {
-        Debug.Log(item.itemName);
         ItemData itemData = null;
         foreach (string[] _itemData in DataManager.Instance.itemDatas)
         {
@@ -103,7 +102,7 @@ public class Inventory : Singleton<Inventory>
                 itemData = new ItemData(_itemData);
             }
         }
-        Debug.Log(itemData.itemName);
+        Debug.Log($"인벤에 넣기 전 획득한 아이템 : {itemData.itemName}");
 
         // 인벤토리에 같은 아이템이 있는지 체크
         foreach (ItemData _item in inventory)
@@ -128,7 +127,7 @@ public class Inventory : Singleton<Inventory>
             if (inventory[i] == null || inventory[i].itemType.Equals(ItemType.NONE))
             {
                 inventory[i] = item;
-                Debug.Log($"{inventory[i].itemName}");
+                Debug.Log($"인벤토리 빈 슬롯에 추가된 아이템 : {inventory[i].itemName}");
                 return;
             }
         }
@@ -177,7 +176,6 @@ public class Inventory : Singleton<Inventory>
     //! 정해진 itemType을 장비해야하는 슬롯일 경우 장비인벤슬롯에 같은 itemType인 아이템만 보여주는 함수
     public void InitSameTypeEquipSlot(ItemType _itemType)
     {
-        Debug.Log(_itemType);
         List<ItemData> sameTypes = new List<ItemData>();
         foreach (ItemData _item in inventory)
         {
@@ -199,6 +197,61 @@ public class Inventory : Singleton<Inventory>
             {
                 // 캐싱해둔 같은 타입의 아이템을 슬롯에 표시
                 equipSlots[i].Item = sameTypes[i];
+                // 세이브 데이터 로드 시 장비슬롯과 장착슬롯 연동 처리
+                if (equipSlots[i].Item.IsEquip == true)
+                {
+                    switch (equipSlots[i].Item.itemType)
+                    {
+                        case ItemType.WEAPON:
+                            for (int j = 0; j < weaponSlotList.Count; j++)
+                            {
+                                // 무기슬롯의 아이템이 존재할 경우
+                                if (weaponSlotList[j].Item != null)
+                                {
+                                    // 무기슬롯의 아이템과 장착슬롯의 아이템이 같고 장착슬롯의 아이템이 장착 중일 때
+                                    if (weaponSlotList[j].Item.itemID == equipSlots[i].Item.itemID
+                                        && equipSlots[i].Item.IsEquip == true)
+                                    {
+                                        // 슬롯 연동
+                                        equipSlots[i].equipSlot = weaponSlotList[j];
+                                    }
+                                }
+                            }
+                            break;
+                        case ItemType.CONSUMPTION:
+                            for (int j = 0; j < consumptionSlotList.Count; j++)
+                            {
+                                // 소모품슬롯의 아이템이 존재할 경우
+                                if (consumptionSlotList[j].Item != null)
+                                {
+                                    // 소모품슬롯의 아이템과 장착슬롯의 아이템이 같고 장착슬롯의 아이템이 장착 중일 때
+                                    if (consumptionSlotList[j].Item.itemID == equipSlots[i].Item.itemID
+                                        && equipSlots[i].Item.IsEquip == true)
+                                    {
+                                        // 슬롯 연동
+                                        equipSlots[i].equipSlot = consumptionSlotList[j];
+                                    }
+                                }
+                            }
+                            break;
+                        default:
+                            for (int j = 0; j < armorSlotList.Count; j++)
+                            {
+                                // 방어구슬롯의 아이템이 존재할 경우
+                                if (armorSlotList[j].Item != null)
+                                {
+                                    // 방어구슬롯의 아이템과 장착슬롯의 아이템이 같고 장착슬롯의 아이템이 장착 중일 때
+                                    if (armorSlotList[j].Item.itemID == equipSlots[i].Item.itemID
+                                        && equipSlots[i].Item.IsEquip == true)
+                                    {
+                                        // 슬롯 연동
+                                        equipSlots[i].equipSlot = armorSlotList[j];
+                                    }
+                                }
+                            }
+                            break;
+                    } // switch
+                }
             }
             else
             {
@@ -256,5 +309,5 @@ public class Inventory : Singleton<Inventory>
                 totalSlots[i].Item = null;
             }
         }
-    } // InitEquipInven
+    } // InitSameTypeTotalSlot
 } // Inventory

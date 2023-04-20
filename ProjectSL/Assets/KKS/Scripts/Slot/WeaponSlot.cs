@@ -12,6 +12,9 @@ public class WeaponSlot : MonoBehaviour, IPublicSlot, IPointerEnterHandler, IPoi
     [SerializeField] private Image equipSlotBg; // 아이템 장착 시 슬롯의 배경 이미지
     private ItemDescriptionPanel descriptionPanel; // 아이템 설명 패널
     public GameObject equipItem; // 슬롯에 장착한 아이템오브젝트
+    public GameObject SlotObj { get { return gameObject; } }
+
+    public IPublicSlot equipSlot; // 연동된 장착슬롯
     [SerializeField] private ItemType slotType; // 슬롯에 담길 아이템타입 제한 변수
     public ItemType SlotType { get { return slotType; } set { slotType = value; } }
     [SerializeField] private ItemData item; // 슬롯에 담길 아이템 변수
