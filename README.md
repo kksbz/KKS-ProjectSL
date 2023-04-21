@@ -20,5 +20,7 @@
 2023-04-19 / v0.1.4 / [KKS] 퀵슬롯에 등록한 아이템 선택시 플레이어 장비 장착 및 해제</br>
 2023-04-19 / v0.1.5 / [KKS] 인벤토리의 아이템 데이터 세이브, 로드 구현</br>
 2023-04-20 / v0.1.6 / [KKS] 모든 슬롯 데이터 세이브, 로드 구현</br>
-2023-04-20 / v0.1.7 / [Merge]PrijectSL Merge kks to suminKim</br>
+2023-04-20 / v0.1.7 / [Merge] ProjectSL Merge kks to suminKim</br>
 2023-04-21 / v0.1.8 / [KKS] 타이틀씬 세이브데이터 로드패널, 세이브 슬롯 오토1개 선택3개 구현</br>
+2023-04-21 / v0.1.9 / [KKS] 반지, 투척소모품, 화톳불 구현</br>
+2023-04-21 / v0.2.0 / [Merge] ProjectSL Merge kks to suminKim</br>
