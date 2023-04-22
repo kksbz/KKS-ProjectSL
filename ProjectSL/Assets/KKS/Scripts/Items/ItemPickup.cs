@@ -16,8 +16,8 @@ public class ItemPickup : MonoBehaviour
     {
         if (other.tag == GData.PLAYER_MARK)
         {
-            UiManager.Instance.InteractionBar.SetActive(true);
             UiManager.Instance.InteractionText.text = "æ∆¿Ã≈€ »πµÊ : E ≈∞";
+            UiManager.Instance.InteractionBar.SetActive(true);
         }
     } // OnTriggerEnter
 

@@ -7,4 +7,5 @@ public class GameManager : Singleton<GameManager>
 {
     public GameObject playerLeftArm;
     public GameObject playerRightArm;
+    public GameObject player;
 } // GameManager
