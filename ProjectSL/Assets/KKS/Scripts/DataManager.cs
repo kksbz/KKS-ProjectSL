@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.Linq;
 
 public class DataManager : Singleton<DataManager>
 {
@@ -128,6 +129,11 @@ public class DataManager : Singleton<DataManager>
     //! 세이브데이터 로드하는 함수
     public void LoadData()
     {
+        // 데이터 로드전 인벤토리 초기화
+        for (int i = 0; i < Inventory.Instance.inventory.Count; i++)
+        {
+            Inventory.Instance.inventory[i] = null;
+        }
         List<string> newItemDatas = new List<string>();
         // 저장된 Json파일을 불러옴
         string data = File.ReadAllText(path + slotNum.ToString());
@@ -233,9 +239,14 @@ public class DataManager : Singleton<DataManager>
         //! 화톳불 리스트 데이터 로드
         for (int i = number; i < itemDatas.Length - 1; i++)
         {
-            Debug.Log($"화톳불 데이터 : {itemDatas[i]}");
-            UiManager.Instance.warp.bonfireList.Add(JsonUtility.FromJson<BonfireData>(itemDatas[i]));
-            UiManager.Instance.warp.CreateWarpSlot(JsonUtility.FromJson<BonfireData>(itemDatas[i]));
+            BonfireData bonfire = JsonUtility.FromJson<BonfireData>(itemDatas[i]);
+            // bonfireList에 불러온 화톳불데이터의 이름과 동일한 이름이 존재하지 않는 경우에만 add 및 slot생성
+            if (!UiManager.Instance.warp.bonfireList.Any(b => b.bonfireName == bonfire.bonfireName))
+            {
+                UiManager.Instance.warp.bonfireList.Add(bonfire);
+                UiManager.Instance.warp.CreateWarpSlot(bonfire);
+            }
         }
+        Debug.Log("저장된 데이터 로드 완료!");
     } // LoadData
 } // DataManager

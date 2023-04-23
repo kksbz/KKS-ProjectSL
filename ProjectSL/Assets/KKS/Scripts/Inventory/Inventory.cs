@@ -62,7 +62,7 @@ public class Inventory : Singleton<Inventory>
     } // Update
 
     //! ΩΩ∑‘ √ ±‚»≠
-    private void InitSlot()
+    public void InitSlot()
     {
         for (int i = 0; i < weaponSlotList.Count; i++)
         {

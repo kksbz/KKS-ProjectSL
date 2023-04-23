@@ -4106,7 +4106,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 343260777}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7d3e89f84b07fa24ea17814cf616b31b, type: 3}
   m_Name: 
@@ -4116,9 +4116,10 @@ MonoBehaviour:
   exitBt: {fileID: 965176795}
   warpSlotList: {fileID: 178287769}
   selectPanel: {fileID: 423834943}
+  warpPanel: {fileID: 0}
   warpSelect: {fileID: 2041705844}
+  bonfireList: []
   selectWarp: {fileID: 0}
-  bonfires: []
 --- !u!1 &385660029
 GameObject:
   m_ObjectHideFlags: 0
@@ -8853,6 +8854,7 @@ GameObject:
   - component: {fileID: 879696974}
   - component: {fileID: 879696973}
   - component: {fileID: 879696972}
+  - component: {fileID: 879696975}
   m_Layer: 0
   m_Name: BonfirePanel
   m_TagString: Untagged
@@ -8943,6 +8945,27 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 2
   m_TargetDisplay: 0
+--- !u!114 &879696975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 879696970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d3e89f84b07fa24ea17814cf616b31b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  warpSlotPrefab: {fileID: 5214809997133959396, guid: 2cd150096ca6b224caa85d48c38e1b97,
+    type: 3}
+  exitBt: {fileID: 965176795}
+  warpSlotList: {fileID: 178287769}
+  selectPanel: {fileID: 423834943}
+  warpPanel: {fileID: 343260777}
+  warpSelect: {fileID: 2041705844}
+  bonfireList: []
+  selectWarp: {fileID: 0}
 --- !u!1 &895354653
 GameObject:
   m_ObjectHideFlags: 0
@@ -10512,9 +10535,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   optionBar: {fileID: 1222466669}
   bonfirePanel: {fileID: 423834943}
-  interactionBar: {fileID: 0}
-  interactionText: {fileID: 0}
-  warp: {fileID: 343260781}
+  interactionBar: {fileID: 258913615}
+  interactionText: {fileID: 385660031}
+  warp: {fileID: 879696975}
   loadingPanel: {fileID: 675142360}
 --- !u!1 &1083040540
 GameObject:
@@ -11915,6 +11938,11 @@ PrefabInstance:
       propertyPath: bonfireName
       value: "\uD654\uD1B3\uBD88 2\uBC88"
       objectReference: {fileID: 0}
+    - target: {fileID: 657925909320123182, guid: a7cfaa5450b14694d9c69c95ccfc2258,
+        type: 3}
+      propertyPath: thisSceneName
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1149913544068623848, guid: a7cfaa5450b14694d9c69c95ccfc2258,
         type: 3}
       propertyPath: m_RootOrder
@@ -12601,6 +12629,16 @@ PrefabInstance:
       propertyPath: cm_FreeLook
       value: 
       objectReference: {fileID: 10404266}
+    - target: {fileID: 6992729853337357029, guid: 690fdfc01be841c4192e76f00620338c,
+        type: 3}
+      propertyPath: leftArm
+      value: 
+      objectReference: {fileID: 1533373781}
+    - target: {fileID: 6992729853337357029, guid: 690fdfc01be841c4192e76f00620338c,
+        type: 3}
+      propertyPath: rightArm
+      value: 
+      objectReference: {fileID: 922273553}
     - target: {fileID: 6992729853337357031, guid: 690fdfc01be841c4192e76f00620338c,
         type: 3}
       propertyPath: m_RootOrder
@@ -19092,6 +19130,11 @@ PrefabInstance:
         type: 3}
       propertyPath: bonfireName
       value: "\uD654\uD1B3\uBD88 1\uBC88"
+      objectReference: {fileID: 0}
+    - target: {fileID: 657925909320123182, guid: a7cfaa5450b14694d9c69c95ccfc2258,
+        type: 3}
+      propertyPath: thisSceneName
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1149913544068623848, guid: a7cfaa5450b14694d9c69c95ccfc2258,
         type: 3}

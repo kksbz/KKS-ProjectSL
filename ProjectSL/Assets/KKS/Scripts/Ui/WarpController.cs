@@ -10,12 +10,12 @@ public class WarpController : MonoBehaviour
     [SerializeField] private Button exitBt; // 나가기 버튼
     [SerializeField] private GameObject warpSlotList; // 워프슬롯 부모오브젝트
     [SerializeField] GameObject selectPanel; // 선택패널
+    [SerializeField] GameObject warpPanel; // 워프패널
     public GameObject warpSelect; // 워프선택 패널
     private Button warpSelectBt; // 워프선택 패널 선택버튼
     private Button warpSelectExitBt; // 워프선택 패널 나가기버튼
     public List<BonfireData> bonfireList = new List<BonfireData>(); // 화톳불 리스트
     public WarpSlot selectWarp; // 선택한 워프슬롯
-    public List<GameObject> bonfires;
 
     // Start is called before the first frame update
     void Start()
@@ -32,9 +32,9 @@ public class WarpController : MonoBehaviour
         warpSelectBt.onClick.AddListener(() =>
         {
             // 플레이어의 위치를 선택한 화톳불 위치로 이동시킴
-            GameManager.Instance.player.transform.position = selectWarp.bonfire.bonfirePos;
+            StartCoroutine(GameManager.Instance.LoadScene(selectWarp.bonfire));
             warpSelect.SetActive(false);
-            gameObject.SetActive(false);
+            warpPanel.SetActive(false);
         });
 
         warpSelectExitBt.onClick.AddListener(() =>
@@ -42,6 +42,11 @@ public class WarpController : MonoBehaviour
             warpSelect.SetActive(false);
         });
     } // Start
+
+    private void OnDisable()
+    {
+        Debug.Log("워프컨트롤러 비활성화!");
+    }
 
     //! 워프슬롯 생성하는 함수
     public void CreateWarpSlot(BonfireData _bonfire)

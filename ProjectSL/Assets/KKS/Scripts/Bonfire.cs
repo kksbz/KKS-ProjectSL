@@ -4,13 +4,32 @@ using UnityEngine;
 
 public class Bonfire : MonoBehaviour
 {
-    [SerializeField] private GameObject fireEffect;
+    public enum sceneName
+    {
+        Lobby,
+        Test
+    }
+
+    [SerializeField] private GameObject fireEffect; // 화톳불 이펙트
+    private string activeSceneName; //화톳불이 존재하는 씬이름
+    public sceneName thisSceneName;
     public string bonfireName; // 화톳불 이름
     public BonfireData bonfireData; // 화톳불 데이터
 
     private void Start()
     {
-        bonfireData = new BonfireData(false, bonfireName, transform.position);
+        activeSceneName = thisSceneName.ToString();
+        bonfireData = new BonfireData(false, activeSceneName, bonfireName, transform.position);
+        foreach (BonfireData _bonfireData in UiManager.Instance.warp.bonfireList)
+        {
+            // 세이브데이터 로드 시 저장했던 화톳불이 자신과 같으면 저장했던 데이터로 덮어씀
+            if (_bonfireData.bonfireName == bonfireName)
+            {
+                bonfireData = _bonfireData;
+                fireEffect.SetActive(true);
+                break;
+            }
+        }
     } // Start
 
     private void OnTriggerEnter(Collider other)
