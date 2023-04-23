@@ -35,6 +35,10 @@ public class Inventory : Singleton<Inventory>
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            UiManager.Instance.loadingPanel.SetActive(!UiManager.Instance.loadingPanel.activeSelf);
+        }
         if (Input.GetKeyDown(KeyCode.B))
         {
             DataManager.Instance.slotNum = 0;

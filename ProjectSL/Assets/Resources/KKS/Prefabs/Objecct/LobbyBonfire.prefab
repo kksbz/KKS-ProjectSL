@@ -6139,7 +6139,7 @@ GameObject:
   - component: {fileID: 9134817931450810574}
   m_Layer: 0
   m_Name: LobbyBonfire
-  m_TagString: Untagged
+  m_TagString: Bonfire
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6211,6 +6211,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecc5f6b9a2dc2a34f9e07cf2f91bcd7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireEffect: {fileID: 0}
+  bonfireName: 
 --- !u!135 &9134817931450810574
 SphereCollider:
   m_ObjectHideFlags: 0

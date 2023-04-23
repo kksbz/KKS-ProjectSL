@@ -5,21 +5,20 @@ using UnityEngine;
 public class Bonfire : MonoBehaviour
 {
     [SerializeField] private GameObject fireEffect;
-    public bool hasBonfire = false;
     public string bonfireName; // 화톳불 이름
-    public Vector3 bonfirePos; // 화톳불 위치
+    public BonfireData bonfireData; // 화톳불 데이터
 
     private void Start()
     {
-        bonfirePos = transform.position;
+        bonfireData = new BonfireData(false, bonfireName, transform.position);
     } // Start
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == GData.PLAYER_MARK)
         {
-            UiManager.Instance.InteractionText.text = "화톳불 사용 : E 키";
-            UiManager.Instance.InteractionBar.SetActive(true);
+            UiManager.Instance.interactionText.text = "화톳불 사용 : E 키";
+            UiManager.Instance.interactionBar.SetActive(true);
         }
     } // OnTriggerEnter
 
@@ -31,18 +30,18 @@ public class Bonfire : MonoBehaviour
             {
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
-                if (hasBonfire == false)
+                if (bonfireData.hasBonfire == false)
                 {
                     // 화톳불을 처음 활성화시키면 화염이펙트 활성화
-                    hasBonfire = true;
+                    bonfireData.hasBonfire = true;
                     fireEffect.SetActive(true);
                     // 워프컨트롤러 화톳불리스트에 화톳불 추가 및 워프슬롯 생성
-                    UiManager.Instance.warp.bonfireList.Add(this);
-                    UiManager.Instance.warp.CreateWarpSlot(this);
+                    UiManager.Instance.warp.bonfireList.Add(bonfireData);
+                    UiManager.Instance.warp.CreateWarpSlot(bonfireData);
                 }
                 UiManager.Instance.bonfirePanel.SetActive(true);
-                UiManager.Instance.InteractionBar.SetActive(false);
-                UiManager.Instance.InteractionText.text = null;
+                UiManager.Instance.interactionBar.SetActive(false);
+                UiManager.Instance.interactionText.text = null;
             }
         }
     } // OnTriggerStay
@@ -51,8 +50,8 @@ public class Bonfire : MonoBehaviour
     {
         if (other.tag == GData.PLAYER_MARK)
         {
-            UiManager.Instance.InteractionBar.SetActive(false);
-            UiManager.Instance.InteractionText.text = null;
+            UiManager.Instance.interactionBar.SetActive(false);
+            UiManager.Instance.interactionText.text = null;
         }
     } // OnTriggerExit
 } // Bonfire

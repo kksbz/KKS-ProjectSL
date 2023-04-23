@@ -9,7 +9,7 @@ public class WarpSlot : MonoBehaviour
     [SerializeField] private WarpController warpController;
     [SerializeField] private Button warpBt;
     [SerializeField] private TMP_Text warpText;
-    public Bonfire bonfire;
+    public BonfireData bonfire;
     // Start is called before the first frame update
     void Start()
     {

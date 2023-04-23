@@ -13,6 +13,7 @@ public class DataManager : Singleton<DataManager>
     private string wSlot = "무기슬롯"; // json 데이터 파싱할 때 슬롯 구분자
     private string aSlot = "방어구슬롯"; // json 데이터 파싱할 때 슬롯 구분자
     private string cSlot = "소모품슬롯"; // json 데이터 파싱할 때 슬롯 구분자
+    private string bonfire = "화톳불리스트"; // json 데이터 파싱할 때 슬롯 구분자
     public override void InitManager()
     {
         StartCoroutine(GoogleSheetManager.InitData());
@@ -33,6 +34,7 @@ public class DataManager : Singleton<DataManager>
         string saveData = null;
         saveData = SaveInventoryData();
         saveData += SaveEquipSlotData();
+        saveData += SaveBonfireList();
         Debug.Log(saveData);
         File.WriteAllText(path + slotNum.ToString(), saveData);
     } // SaveData
@@ -111,6 +113,17 @@ public class DataManager : Singleton<DataManager>
         }
         return SaveEquipSlotData;
     } // SaveEquipSlotData
+
+    //! 화톳불 리스트 저장하는 함수
+    private string SaveBonfireList()
+    {
+        string bonfireData = bonfire + "\n";
+        foreach (BonfireData bonfire in UiManager.Instance.warp.bonfireList)
+        {
+            bonfireData += JsonUtility.ToJson(bonfire) + "\n";
+        }
+        return bonfireData;
+    } // SaveBonfireList
 
     //! 세이브데이터 로드하는 함수
     public void LoadData()
@@ -196,6 +209,11 @@ public class DataManager : Singleton<DataManager>
         // 소모품 장착 슬롯 데이터 로드
         for (int i = number; i < itemDatas.Length - 1; i++)
         {
+            if (itemDatas[i] == bonfire)
+            {
+                number = i + 1;
+                break;
+            }
             string[] cSlotData = itemDatas[i].Split("번");
             //Debug.Log($"{cSlotData.Length} 인덱스 : {cSlotData[0]} 아이템 : {cSlotData[1]}");
             int cSlotIndex = int.Parse(cSlotData[0]);
@@ -210,6 +228,14 @@ public class DataManager : Singleton<DataManager>
                     break;
                 }
             }
+        }
+
+        //! 화톳불 리스트 데이터 로드
+        for (int i = number; i < itemDatas.Length - 1; i++)
+        {
+            Debug.Log($"화톳불 데이터 : {itemDatas[i]}");
+            UiManager.Instance.warp.bonfireList.Add(JsonUtility.FromJson<BonfireData>(itemDatas[i]));
+            UiManager.Instance.warp.CreateWarpSlot(JsonUtility.FromJson<BonfireData>(itemDatas[i]));
         }
     } // LoadData
 } // DataManager

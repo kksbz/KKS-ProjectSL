@@ -16,8 +16,8 @@ public class ItemPickup : MonoBehaviour
     {
         if (other.tag == GData.PLAYER_MARK)
         {
-            UiManager.Instance.InteractionText.text = "æ∆¿Ã≈€ »πµÊ : E ≈∞";
-            UiManager.Instance.InteractionBar.SetActive(true);
+            UiManager.Instance.interactionText.text = "æ∆¿Ã≈€ »πµÊ : E ≈∞";
+            UiManager.Instance.interactionBar.SetActive(true);
         }
     } // OnTriggerEnter
 
@@ -28,8 +28,8 @@ public class ItemPickup : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E))
             {
                 Pickup();
-                UiManager.Instance.InteractionBar.SetActive(false);
-                UiManager.Instance.InteractionText.text = null;
+                UiManager.Instance.interactionBar.SetActive(false);
+                UiManager.Instance.interactionText.text = null;
             }
         }
     } // OnTriggerStay
@@ -38,8 +38,8 @@ public class ItemPickup : MonoBehaviour
     {
         if (other.tag == GData.PLAYER_MARK)
         {
-            UiManager.Instance.InteractionBar.SetActive(false);
-            UiManager.Instance.InteractionText.text = null;
+            UiManager.Instance.interactionBar.SetActive(false);
+            UiManager.Instance.interactionText.text = null;
         }
     } // OnTriggerExit
 } // ItemPickup

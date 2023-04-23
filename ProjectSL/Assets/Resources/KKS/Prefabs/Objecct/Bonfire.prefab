@@ -376,7 +376,7 @@ GameObject:
   - component: {fileID: 1941626462482436120}
   m_Layer: 0
   m_Name: Bonfire
-  m_TagString: Untagged
+  m_TagString: Bonfire
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -439,7 +439,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireEffect: {fileID: 6710958863083129781}
-  hasBonfire: 0
+  bonfireName: 
 --- !u!135 &1941626462482436120
 SphereCollider:
   m_ObjectHideFlags: 0

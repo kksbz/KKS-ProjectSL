@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class WarpController : MonoBehaviour
 {
@@ -12,8 +13,9 @@ public class WarpController : MonoBehaviour
     public GameObject warpSelect; // 워프선택 패널
     private Button warpSelectBt; // 워프선택 패널 선택버튼
     private Button warpSelectExitBt; // 워프선택 패널 나가기버튼
-    public List<Bonfire> bonfireList = new List<Bonfire>(); // 화톳불 리스트
+    public List<BonfireData> bonfireList = new List<BonfireData>(); // 화톳불 리스트
     public WarpSlot selectWarp; // 선택한 워프슬롯
+    public List<GameObject> bonfires;
 
     // Start is called before the first frame update
     void Start()
@@ -42,7 +44,7 @@ public class WarpController : MonoBehaviour
     } // Start
 
     //! 워프슬롯 생성하는 함수
-    public void CreateWarpSlot(Bonfire _bonfire)
+    public void CreateWarpSlot(BonfireData _bonfire)
     {
         GameObject warpSlot = Instantiate(warpSlotPrefab);
         warpSlot.transform.parent = warpSlotList.transform;
