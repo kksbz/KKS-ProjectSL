@@ -15,6 +15,7 @@ public class Bonfire : MonoBehaviour
     public sceneName thisSceneName;
     public string bonfireName; // 화톳불 이름
     public BonfireData bonfireData; // 화톳불 데이터
+    private bool isEnterPlayer = false;
 
     private void Start()
     {
@@ -32,18 +33,9 @@ public class Bonfire : MonoBehaviour
         }
     } // Start
 
-    private void OnTriggerEnter(Collider other)
+    private void Update()
     {
-        if (other.tag == GData.PLAYER_MARK)
-        {
-            UiManager.Instance.interactionText.text = "화톳불 사용 : E 키";
-            UiManager.Instance.interactionBar.SetActive(true);
-        }
-    } // OnTriggerEnter
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.tag == GData.PLAYER_MARK)
+        if (isEnterPlayer == true)
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
@@ -63,7 +55,17 @@ public class Bonfire : MonoBehaviour
                 UiManager.Instance.interactionText.text = null;
             }
         }
-    } // OnTriggerStay
+    } // Update
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == GData.PLAYER_MARK)
+        {
+            UiManager.Instance.interactionText.text = "화톳불 사용 : E 키";
+            UiManager.Instance.interactionBar.SetActive(true);
+            isEnterPlayer = true;
+        }
+    } // OnTriggerEnter
 
     private void OnTriggerExit(Collider other)
     {
@@ -71,6 +73,7 @@ public class Bonfire : MonoBehaviour
         {
             UiManager.Instance.interactionBar.SetActive(false);
             UiManager.Instance.interactionText.text = null;
+            isEnterPlayer = false;
         }
     } // OnTriggerExit
 } // Bonfire

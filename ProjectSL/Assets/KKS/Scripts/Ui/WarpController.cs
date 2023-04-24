@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class WarpController : MonoBehaviour
 {
@@ -35,6 +34,8 @@ public class WarpController : MonoBehaviour
             StartCoroutine(GameManager.Instance.LoadScene(selectWarp.bonfire));
             warpSelect.SetActive(false);
             warpPanel.SetActive(false);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         });
 
         warpSelectExitBt.onClick.AddListener(() =>
@@ -42,11 +43,6 @@ public class WarpController : MonoBehaviour
             warpSelect.SetActive(false);
         });
     } // Start
-
-    private void OnDisable()
-    {
-        Debug.Log("워프컨트롤러 비활성화!");
-    }
 
     //! 워프슬롯 생성하는 함수
     public void CreateWarpSlot(BonfireData _bonfire)

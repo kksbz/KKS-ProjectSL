@@ -6,10 +6,12 @@ using static UnityEditor.Progress;
 
 [Serializable]
 public class ItemData
-{
+{  
     public enum ItemType
     {
         NONE,
+        //ATTACK_CONSUMPTION,
+        //RECOVERY_CONSUMPTION,
         CONSUMPTION,
         WEAPON,
         HELMET,

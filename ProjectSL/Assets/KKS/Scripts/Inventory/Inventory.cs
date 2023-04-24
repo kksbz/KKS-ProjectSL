@@ -4,6 +4,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using static ItemData;
+using static UnityEditor.Progress;
 
 public class Inventory : Singleton<Inventory>
 {
@@ -109,7 +110,7 @@ public class Inventory : Singleton<Inventory>
                 itemData = new ItemData(_itemData);
             }
         }
-        Debug.Log($"인벤에 넣기 전 획득한 아이템 : {itemData.itemName}");
+        //Debug.Log($"인벤에 넣기 전 획득한 아이템 : {itemData.itemName}");
 
         // 인벤토리에 같은 아이템이 있는지 체크
         foreach (ItemData _item in inventory)
@@ -127,7 +128,7 @@ public class Inventory : Singleton<Inventory>
                 }
             }
         }
-        Debug.Log($"템획득했소");
+
         // 인벤토리에 같은 아이템이 없을 경우
         for (int i = 0; i < inventory.Count; i++)
         {
@@ -155,12 +156,16 @@ public class Inventory : Singleton<Inventory>
     } // AddItem
 
     //! 아이템 버리는 함수
-    public void ThrowItem(ItemData item)
+    public void ThrowItem(ItemData itemData)
     {
         for (int i = 0; i < inventory.Count; i++)
         {
-            if (inventory[i] == item)
+            if (inventory[i] == itemData)
             {
+                // 버리는 아이템의 프리팹을 인스턴스하고 아이템데이터 대입
+                GameObject item = Instantiate(Resources.Load<GameObject>($"KKS/Prefabs/Item/{itemData.itemID}"));
+                item.transform.position = GameManager.Instance.player.transform.position;
+                item.GetComponent<Item>().itemData = itemData;
                 inventory[i] = null;
                 return;
             }
@@ -168,11 +173,11 @@ public class Inventory : Singleton<Inventory>
     } // ThrowItem
 
     //! 아이템 파괴하는 함수
-    public void RemoveItem(ItemData item)
+    public void RemoveItem(ItemData itemData)
     {
         for (int i = 0; i < inventory.Count; i++)
         {
-            if (inventory[i] == item)
+            if (inventory[i] == itemData)
             {
                 inventory[i] = null;
                 return;
