@@ -65,8 +65,11 @@ public class ItemTypeController : MonoBehaviour
                 case ItemType.NONE:
                     typeName = "전체";
                     break;
-                case ItemType.CONSUMPTION:
-                    typeName = "소모품";
+                case ItemType.RECOVERY_CONSUMPTION:
+                    typeName = "회복용 소모품";
+                    break;
+                case ItemType.ATTACK_CONSUMPTION:
+                    typeName = "공격용 소모품";
                     break;
                 case ItemType.WEAPON:
                     typeName = "무기";

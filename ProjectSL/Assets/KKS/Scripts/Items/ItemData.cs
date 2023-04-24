@@ -5,13 +5,12 @@ using UnityEngine;
 
 [Serializable]
 public class ItemData
-{  
+{
     public enum ItemType
     {
         NONE,
-        //ATTACK_CONSUMPTION,
-        //RECOVERY_CONSUMPTION,
-        CONSUMPTION,
+        RECOVERY_CONSUMPTION,
+        ATTACK_CONSUMPTION,
         WEAPON,
         HELMET,
         CHEST,

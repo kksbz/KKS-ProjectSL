@@ -50,7 +50,14 @@ public class ConsumptionSlot : MonoBehaviour, IPublicSlot, IPointerEnterHandler,
             Debug.Log("소모품 슬롯 선택함");
             Inventory.Instance.selectSlot = this;
             Inventory.Instance.InitSameTypeEquipSlot(slotType);
-            Inventory.Instance.equipInvenText.text = "소모품";
+            if (slotType == ItemType.ATTACK_CONSUMPTION)
+            {
+                Inventory.Instance.equipInvenText.text = "공격용 소모품";
+            }
+            else
+            {
+                Inventory.Instance.equipInvenText.text = "회복용 소모품";
+            }
             Inventory.Instance.equipInvenPanel.SetActive(true);
             Inventory.Instance.equipSlotPanel.SetActive(false);
         });

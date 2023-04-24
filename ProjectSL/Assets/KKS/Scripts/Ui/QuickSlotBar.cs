@@ -5,31 +5,29 @@ using UnityEngine.UI;
 
 public class QuickSlotBar : MonoBehaviour
 {
-    [SerializeField] private GameObject playerLeftArm; // 무기가 장착될 플레이어의 왼손 위치
-    [SerializeField] private GameObject playerRightArm; // 무기가 장착될 플레이어의 오른손 위치
     [SerializeField] private QuickSlot LeftArm; // 왼손 퀵슬롯
     [SerializeField] private QuickSlot RightArm; // 오른손 퀵슬롯
-    [SerializeField] private QuickSlot consumption; // 소모품 퀵슬롯
-    [SerializeField] private QuickSlot spell; // 스펠 퀵슬롯
+    [SerializeField] private QuickSlot attackC; // 공격용 소모품 퀵슬롯
+    [SerializeField] private QuickSlot recoveryC; // 회복용 소모품 퀵슬롯
     [SerializeField] private List<WeaponSlot> LeftWeaponList; // 왼손 무기 리스트
     [SerializeField] private List<WeaponSlot> RightWeaponList; // 오른손 무기 리스트
-    [SerializeField] private List<ConsumptionSlot> consumptionList; // 소모품 리스트
+    [SerializeField] private List<ConsumptionSlot> AttackC_List; // 공격용 소모품 리스트
+    [SerializeField] private List<ConsumptionSlot> RecoveryC_List; // 회복용 소모품 리스트
     private int leftArmNum = -1;
     private int rightArmNum = -1;
-    private int consumptionNum = -1;
-    private int spellNum = 0;
+    private int attackC_Num = -1;
+    private int recoveryC_Num = -1;
     // Start is called before the first frame update
     void Start()
     {
-        playerLeftArm = GameManager.Instance.playerLeftArm;
-        playerRightArm = GameManager.Instance.playerRightArm;
         RightWeaponList = Inventory.Instance.weaponSlotList.GetRange(0, 3);
         LeftWeaponList = Inventory.Instance.weaponSlotList.GetRange(3, 3);
-        consumptionList = Inventory.Instance.consumptionSlotList;
+        AttackC_List = Inventory.Instance.consumptionSlotList.GetRange(0, 3);
+        RecoveryC_List = Inventory.Instance.consumptionSlotList.GetRange(3, 3);
         LeftArm.Item = null;
         RightArm.Item = null;
-        consumption.Item = null;
-        spell.Item = null;
+        attackC.Item = null;
+        recoveryC.Item = null;
     } // Start
 
     // Update is called once per frame
@@ -51,7 +49,7 @@ public class QuickSlotBar : MonoBehaviour
                 {
                     if (RightWeaponList[rightArmNum].Item != null)
                     {
-                        // 전 슬롯의 아이템 오브젝트 비활성화
+                        // 이전 슬롯의 아이템 오브젝트 비활성화
                         RightWeaponList[rightArmNum].equipItem.SetActive(false);
                     }
                 }
@@ -67,7 +65,7 @@ public class QuickSlotBar : MonoBehaviour
                 if (RightWeaponList[rightArmNum].Item != null)
                 {
                     // 무기 오브젝트를 플레이어의 오른손으로 위치 조정하고 활성화
-                    RightWeaponList[rightArmNum].equipItem.transform.parent = playerRightArm.transform;
+                    RightWeaponList[rightArmNum].equipItem.transform.parent = GameManager.Instance.playerRightArm.transform;
                     RightWeaponList[rightArmNum].equipItem.transform.localPosition = Vector3.zero;
                     RightWeaponList[rightArmNum].equipItem.transform.localRotation = Quaternion.identity;
                     RightWeaponList[rightArmNum].equipItem.SetActive(true);
@@ -81,7 +79,7 @@ public class QuickSlotBar : MonoBehaviour
                 {
                     if (LeftWeaponList[leftArmNum].Item != null)
                     {
-                        // 전 슬롯의 아이템 오브젝트 비활성화
+                        // 이전 슬롯의 아이템 오브젝트 비활성화
                         LeftWeaponList[leftArmNum].equipItem.SetActive(false);
                     }
                 }
@@ -97,7 +95,7 @@ public class QuickSlotBar : MonoBehaviour
                 if (LeftWeaponList[leftArmNum].Item != null)
                 {
                     // 무기 오브젝트를 플레이어의 오른손으로 위치 조정하고 활성화
-                    LeftWeaponList[leftArmNum].equipItem.transform.parent = playerLeftArm.transform;
+                    LeftWeaponList[leftArmNum].equipItem.transform.parent = GameManager.Instance.playerLeftArm.transform;
                     LeftWeaponList[leftArmNum].equipItem.transform.localPosition = Vector3.zero;
                     LeftWeaponList[leftArmNum].equipItem.transform.localRotation = Quaternion.identity;
                     LeftWeaponList[leftArmNum].equipItem.SetActive(true);
@@ -108,37 +106,62 @@ public class QuickSlotBar : MonoBehaviour
         else
         {
             float scroll = Input.GetAxis("Mouse ScrollWheel");
-            // 마우스 휠을 위로 스크롤했을 때 스펠 장착
+            // 마우스 휠을 위로 스크롤했을 때 공격용 소모품 장착
             if (scroll > 0f)
             {
-            }
-            // 마우스 휠을 아래로 스크롤했을 때 소모품 장착
-            else if (scroll < 0f)
-            {
-                if (consumptionNum != -1)
+                if (attackC_Num != -1)
                 {
-                    if (consumptionList[consumptionNum].Item != null)
+                    if (AttackC_List[attackC_Num].Item != null)
                     {
-                        // 전 슬롯의 아이템 오브젝트 비활성화
-                        consumptionList[consumptionNum].equipItem.SetActive(false);
+                        // 이전 슬롯의 아이템 오브젝트 비활성화
+                        AttackC_List[attackC_Num].equipItem.SetActive(false);
                     }
                 }
                 // 슬롯의 크기를 벗어나면 인덱스 초기화
-                if (consumptionNum == consumptionList.Count - 1)
+                if (attackC_Num == AttackC_List.Count - 1)
                 {
-                    consumptionNum = -1;
+                    attackC_Num = -1;
                 }
-                consumptionNum++;
-                consumption.Item = consumptionList[consumptionNum].Item;
+                attackC_Num++;
+                attackC.Item = AttackC_List[attackC_Num].Item;
 
-                // 퀵슬롯에 소모품이 있을 때
-                if (consumptionList[consumptionNum].Item != null)
+                // 퀵슬롯에 공격용 소모품이 있을 때
+                if (AttackC_List[attackC_Num].Item != null)
                 {
-                    // 소모품 오브젝트를 플레이어의 오른손으로 위치 조정하고 활성화
-                    consumptionList[consumptionNum].equipItem.transform.parent = playerRightArm.transform;
-                    consumptionList[consumptionNum].equipItem.transform.localPosition = Vector3.zero;
-                    consumptionList[consumptionNum].equipItem.transform.localRotation = Quaternion.identity;
-                    consumptionList[consumptionNum].equipItem.SetActive(true);
+                    // 공격용 소모품 오브젝트를 플레이어의 오른손으로 위치 조정하고 활성화
+                    AttackC_List[attackC_Num].equipItem.transform.parent = GameManager.Instance.playerRightArm.transform;
+                    AttackC_List[attackC_Num].equipItem.transform.localPosition = Vector3.zero;
+                    AttackC_List[attackC_Num].equipItem.transform.localRotation = Quaternion.identity;
+                    AttackC_List[attackC_Num].equipItem.SetActive(true);
+                }
+            }
+            // 마우스 휠을 아래로 스크롤했을 때 회복용 소모품 장착
+            else if (scroll < 0f)
+            {
+                if (recoveryC_Num != -1)
+                {
+                    if (RecoveryC_List[recoveryC_Num].Item != null)
+                    {
+                        // 이전 슬롯의 아이템 오브젝트 비활성화
+                        RecoveryC_List[recoveryC_Num].equipItem.SetActive(false);
+                    }
+                }
+                // 슬롯의 크기를 벗어나면 인덱스 초기화
+                if (recoveryC_Num == RecoveryC_List.Count - 1)
+                {
+                    recoveryC_Num = -1;
+                }
+                recoveryC_Num++;
+                recoveryC.Item = RecoveryC_List[recoveryC_Num].Item;
+
+                // 퀵슬롯에 회복용 소모품이 있을 때
+                if (RecoveryC_List[recoveryC_Num].Item != null)
+                {
+                    // 회복용 소모품 오브젝트를 플레이어의 오른손으로 위치 조정하고 활성화
+                    RecoveryC_List[recoveryC_Num].equipItem.transform.parent = GameManager.Instance.playerRightArm.transform;
+                    RecoveryC_List[recoveryC_Num].equipItem.transform.localPosition = Vector3.zero;
+                    RecoveryC_List[recoveryC_Num].equipItem.transform.localRotation = Quaternion.identity;
+                    RecoveryC_List[recoveryC_Num].equipItem.SetActive(true);
                 }
             }
         }

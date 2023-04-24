@@ -230,8 +230,24 @@ public class Inventory : Singleton<Inventory>
                                 }
                             }
                             break;
-                        case ItemType.CONSUMPTION:
-                            for (int j = 0; j < consumptionSlotList.Count; j++)
+                        case ItemType.ATTACK_CONSUMPTION:
+                            for (int j = 0; j < 3; j++)
+                            {
+                                // 소모품슬롯의 아이템이 존재할 경우
+                                if (consumptionSlotList[j].Item != null)
+                                {
+                                    // 소모품슬롯의 아이템과 장착슬롯의 아이템이 같고 장착슬롯의 아이템이 장착 중일 때
+                                    if (consumptionSlotList[j].Item.itemID == equipSlots[i].Item.itemID
+                                        && equipSlots[i].Item.IsEquip == true)
+                                    {
+                                        // 슬롯 연동
+                                        equipSlots[i].equipSlot = consumptionSlotList[j];
+                                    }
+                                }
+                            }
+                            break;
+                        case ItemType.RECOVERY_CONSUMPTION:
+                            for (int j = 3; j < consumptionSlotList.Count; j++)
                             {
                                 // 소모품슬롯의 아이템이 존재할 경우
                                 if (consumptionSlotList[j].Item != null)
