@@ -85,11 +85,11 @@ public class Inventory : Singleton<Inventory>
             // 장비인벤 슬롯 세팅
             GameObject slot = Instantiate(equipSlotPrefab);
             EquipSlot equipSlot = slot.GetComponent<EquipSlot>();
-            slot.transform.parent = equipInvenPanel.transform.Find("Scroll View/Viewport/Content").transform;
+            slot.transform.SetParent(equipInvenPanel.transform.Find("Scroll View/Viewport/Content").transform);
             // 통합인벤 슬롯 세팅
             GameObject tSlot = Instantiate(totalSlotPrefab);
             Slot totalSlot = tSlot.GetComponent<Slot>();
-            tSlot.transform.parent = totalInvenPanel.transform.Find("Scroll View/Viewport/Content").transform;
+            tSlot.transform.SetParent(totalInvenPanel.transform.Find("Scroll View/Viewport/Content").transform);
             equipSlots.Add(equipSlot);
             totalSlots.Add(totalSlot);
             inventory.Add(null);
