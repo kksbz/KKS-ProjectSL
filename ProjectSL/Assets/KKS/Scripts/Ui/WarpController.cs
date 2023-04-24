@@ -25,7 +25,7 @@ public class WarpController : MonoBehaviour
 
         exitBt.onClick.AddListener(() =>
         {
-            gameObject.SetActive(false);
+            warpPanel.SetActive(false);
             selectPanel.SetActive(true);
         });
 

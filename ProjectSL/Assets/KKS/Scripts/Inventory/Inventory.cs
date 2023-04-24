@@ -274,7 +274,16 @@ public class Inventory : Singleton<Inventory>
         // NONE이면 모든타입의 아이템을 보여줌
         if (_itemType == ItemType.NONE)
         {
-            // itemID 순으로 정렬
+            // 기존 인벤토리 크기 캐싱
+            int num = inventory.Count;
+            // 인벤토리가 비어있지 않을 경우만 itemID 순으로 정렬
+            inventory = inventory.Where(x => x != null).OrderBy(x => x.itemID).ToList();
+            // null을 제외한 아이템으로 정렬했기 때문에 인벤의 크기가 변경됨 => 기존 크기만큼 나머지 null로 채움
+            for (int i = inventory.Count; i < num; i++)
+            {
+                inventory.Add(null);
+            }
+
             for (int i = 0; i < totalSlots.Count; i++)
             {
                 if (inventory[i] != null)
