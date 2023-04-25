@@ -20,9 +20,9 @@ public class Inventory : Singleton<Inventory>
     public ItemDescriptionPanel descriptionPanel; // 아이템 설명 패널
     public SelectPanel selectPanel; // 선택창 패널
 
-    public List<WeaponSlot> weaponSlotList;
-    public List<ArmorSlot> armorSlotList;
-    public List<ConsumptionSlot> consumptionSlotList;
+    public List<WeaponSlot> weaponSlotList; // 무기,방패 장착슬롯 리스트
+    public List<ArmorSlot> armorSlotList; // 방어구 장착슬롯 리스트
+    public List<ConsumptionSlot> consumptionSlotList; // 소모품 장착슬롯 리스트
 
     public List<ItemData> inventory = new List<ItemData>(); // 인벤토리
     public List<EquipSlot> equipSlots = new List<EquipSlot>(); // 장비인벤 슬롯
@@ -124,6 +124,10 @@ public class Inventory : Singleton<Inventory>
                     {
                         _item.Quantity++;
                         InitSlotItemData();
+                        if (_item.IsEquip == true)
+                        {
+                            UiManager.Instance.quickSlotBar.LoadQuickSlotData();
+                        }
                         return;
                     }
                 }
@@ -136,7 +140,7 @@ public class Inventory : Singleton<Inventory>
             if (inventory[i] == null || inventory[i].itemType.Equals(ItemType.NONE))
             {
                 inventory[i] = item;
-                Debug.Log($"인벤토리 빈 슬롯에 추가된 아이템 : {inventory[i].itemName}");
+                //Debug.Log($"인벤토리 빈 슬롯에 추가된 아이템 : {inventory[i].itemName}");
                 InitSlotItemData();
                 return;
             }
@@ -167,7 +171,7 @@ public class Inventory : Singleton<Inventory>
             {
                 // 버리는 아이템의 프리팹을 인스턴스하고 아이템데이터 대입
                 GameObject item = Instantiate(Resources.Load<GameObject>($"KKS/Prefabs/Item/{itemData.itemID}"));
-                item.transform.position = GameManager.Instance.player.transform.position;
+                item.transform.position = GameManager.Instance.player.transform.position + (Vector3.up * 0.5f);
                 item.GetComponent<Item>().itemData = itemData;
                 inventory[i] = null;
                 return;
@@ -195,15 +199,19 @@ public class Inventory : Singleton<Inventory>
         foreach (ItemData _item in inventory)
         {
             // 같은 타입의 아이템만 따로 캐싱
-            if (_item != null && _item.itemType == _itemType)
+            if (_itemType == ItemType.WEAPON || _itemType == ItemType.SHIELD)
+            {
+                if (_item != null && (_item.itemType == ItemType.WEAPON || _item.itemType == ItemType.SHIELD))
+                {
+                    sameTypes.Add(_item);
+                }
+            }
+            else if (_item != null && _item.itemType == _itemType)
             {
                 sameTypes.Add(_item);
             }
         }
-        for (int i = 0; i < sameTypes.Count; i++)
-        {
-            Debug.Log($"{sameTypes.Count}, {sameTypes[i].itemName}, {sameTypes[i].Quantity}");
-        }
+
         // itemID 기준으로 오름차순 정렬
         sameTypes = sameTypes.OrderBy(x => x.itemID).ToList();
         for (int i = 0; i < equipSlots.Count; i++)
@@ -218,6 +226,23 @@ public class Inventory : Singleton<Inventory>
                     switch (equipSlots[i].Item.itemType)
                     {
                         case ItemType.WEAPON:
+                            for (int j = 0; j < weaponSlotList.Count; j++)
+                            {
+                                // 무기슬롯의 아이템이 존재할 경우
+                                if (weaponSlotList[j].Item != null)
+                                {
+                                    // 무기슬롯의 아이템과 장착슬롯의 아이템이 같고 장착슬롯의 아이템이 장착 중일 때
+                                    if (weaponSlotList[j].Item.itemID == equipSlots[i].Item.itemID
+                                        && equipSlots[i].Item.IsEquip == true)
+                                    {
+                                        // 슬롯 연동
+                                        equipSlots[i].equipSlot = weaponSlotList[j];
+                                        weaponSlotList[j].Item = equipSlots[i].Item;
+                                    }
+                                }
+                            }
+                            break;
+                        case ItemType.SHIELD:
                             for (int j = 0; j < weaponSlotList.Count; j++)
                             {
                                 // 무기슬롯의 아이템이 존재할 경우
@@ -337,7 +362,7 @@ public class Inventory : Singleton<Inventory>
                 sameTypes.Add(_item);
             }
         }
-        Debug.Log($"{sameTypes.Count}");
+        //Debug.Log($"{sameTypes.Count}");
         // itemID 기준으로 오름차순 정렬
         sameTypes = sameTypes.OrderBy(x => x.itemID).ToList();
         for (int i = 0; i < totalSlots.Count; i++)
@@ -362,10 +387,19 @@ public class Inventory : Singleton<Inventory>
         {
             if (inventory[i] != null && inventory[i].IsEquip == true)
             {
-                Debug.Log($"{i}번 : 장착중인 아이템 존재함 슬롯데이터 갱신");
                 switch (inventory[i].itemType)
                 {
                     case ItemType.WEAPON:
+                        foreach (var wSlot in weaponSlotList)
+                        {
+                            if (wSlot.Item != null && wSlot.Item.itemID == inventory[i].itemID)
+                            {
+                                wSlot.Item = inventory[i];
+                                break;
+                            }
+                        }
+                        break;
+                    case ItemType.SHIELD:
                         foreach (var wSlot in weaponSlotList)
                         {
                             if (wSlot.Item != null && wSlot.Item.itemID == inventory[i].itemID)

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -458,6 +458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 198824823}
   equipSlotBg: {fileID: 1352681527}
+  quickSlotBar: {fileID: 1353667671}
   equipItem: {fileID: 0}
   slotType: 3
   item:
@@ -981,17 +982,17 @@ PrefabInstance:
     - target: {fileID: 6471593895145263296, guid: 8949c98172748b74b8f528024471d2b5,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.018075343
+      value: 0.01807534
       objectReference: {fileID: 0}
     - target: {fileID: 6471593895145263296, guid: 8949c98172748b74b8f528024471d2b5,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.13674016
+      value: 0.1367402
       objectReference: {fileID: 0}
     - target: {fileID: 6471593895145263296, guid: 8949c98172748b74b8f528024471d2b5,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.00654247
+      value: 0.0065424712
       objectReference: {fileID: 0}
     - target: {fileID: 6471593895423147773, guid: 8949c98172748b74b8f528024471d2b5,
         type: 3}
@@ -1368,6 +1369,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 845531310}
   quantity: {fileID: 1461174430}
+  quickSlotBar: {fileID: 1353667671}
   equipItem: {fileID: 0}
   slotType: 2
   item:
@@ -1657,6 +1659,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 1188134394}
   equipSlotBg: {fileID: 341992697}
+  quickSlotBar: {fileID: 1353667671}
   equipItem: {fileID: 0}
   slotType: 3
   item:
@@ -2782,7 +2785,7 @@ MonoBehaviour:
   icon: {fileID: 1978153953}
   equipSlotBg: {fileID: 1320342929}
   equipItem: {fileID: 0}
-  slotType: 6
+  slotType: 7
   item:
     itemID: 0
     itemName: 
@@ -3650,7 +3653,7 @@ MonoBehaviour:
   icon: {fileID: 74430203}
   equipSlotBg: {fileID: 1334986998}
   equipItem: {fileID: 0}
-  slotType: 8
+  slotType: 9
   item:
     itemID: 0
     itemName: 
@@ -4710,6 +4713,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 1108193856}
   quantity: {fileID: 1522907042}
+  quickSlotBar: {fileID: 1353667671}
   equipItem: {fileID: 0}
   slotType: 1
   item:
@@ -5040,7 +5044,7 @@ MonoBehaviour:
   icon: {fileID: 1262185053}
   equipSlotBg: {fileID: 1123672164}
   equipItem: {fileID: 0}
-  slotType: 8
+  slotType: 9
   item:
     itemID: 0
     itemName: 
@@ -5526,6 +5530,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 51068424}
   quantity: {fileID: 404758042}
+  quickSlotBar: {fileID: 1353667671}
   equipItem: {fileID: 0}
   slotType: 1
   item:
@@ -5910,6 +5915,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 1713087617}
   quantity: {fileID: 687455705}
+  quickSlotBar: {fileID: 1353667671}
   equipItem: {fileID: 0}
   slotType: 2
   item:
@@ -6139,6 +6145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 245624979}
   equipSlotBg: {fileID: 1449480809}
+  quickSlotBar: {fileID: 1353667671}
   equipItem: {fileID: 0}
   slotType: 3
   item:
@@ -7148,7 +7155,7 @@ MonoBehaviour:
   icon: {fileID: 1695673997}
   equipSlotBg: {fileID: 1137039053}
   equipItem: {fileID: 0}
-  slotType: 5
+  slotType: 6
   item:
     itemID: 0
     itemName: 
@@ -11950,7 +11957,7 @@ MonoBehaviour:
   icon: {fileID: 678999993}
   equipSlotBg: {fileID: 422710941}
   equipItem: {fileID: 0}
-  slotType: 8
+  slotType: 9
   item:
     itemID: 0
     itemName: 
@@ -13687,10 +13694,10 @@ MonoBehaviour:
   RightWeaponList: []
   AttackC_List: []
   RecoveryC_List: []
-  leftArmNum: -1
-  rightArmNum: -1
-  attackC_Num: -1
-  recoveryC_Num: -1
+  leftArmNum: 0
+  rightArmNum: 0
+  attackC_Num: 0
+  recoveryC_Num: 0
 --- !u!1 &1365671323
 GameObject:
   m_ObjectHideFlags: 0
@@ -13990,6 +13997,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 2112308959}
   quantity: {fileID: 183015577}
+  quickSlotBar: {fileID: 1353667671}
   equipItem: {fileID: 0}
   slotType: 1
   item:
@@ -15489,7 +15497,7 @@ MonoBehaviour:
   icon: {fileID: 1498393428}
   equipSlotBg: {fileID: 1454081342}
   equipItem: {fileID: 0}
-  slotType: 8
+  slotType: 9
   item:
     itemID: 0
     itemName: 
@@ -17712,6 +17720,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 1196389088}
   equipSlotBg: {fileID: 1083040542}
+  quickSlotBar: {fileID: 1353667671}
   equipItem: {fileID: 0}
   slotType: 3
   item:
@@ -18479,7 +18488,7 @@ MonoBehaviour:
   icon: {fileID: 206150867}
   equipSlotBg: {fileID: 331021030}
   equipItem: {fileID: 0}
-  slotType: 7
+  slotType: 8
   item:
     itemID: 0
     itemName: 
@@ -19238,6 +19247,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 849885773}
   equipSlotBg: {fileID: 1310896149}
+  quickSlotBar: {fileID: 1353667671}
   equipItem: {fileID: 0}
   slotType: 3
   item:
@@ -20440,7 +20450,7 @@ MonoBehaviour:
   icon: {fileID: 137967763}
   equipSlotBg: {fileID: 1250582272}
   equipItem: {fileID: 0}
-  slotType: 4
+  slotType: 5
   item:
     itemID: 0
     itemName: 
@@ -20770,6 +20780,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 6507293955538744038}
   quantity: {fileID: 2459737834222449562}
+  quickSlotBar: {fileID: 1353667671}
   equipItem: {fileID: 0}
   slotType: 2
   item:
@@ -21032,6 +21043,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 1583526984}
   equipSlotBg: {fileID: 2129856767}
+  quickSlotBar: {fileID: 1353667671}
   equipItem: {fileID: 0}
   slotType: 3
   item:

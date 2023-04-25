@@ -74,6 +74,9 @@ public class ItemTypeController : MonoBehaviour
                 case ItemType.WEAPON:
                     typeName = "무기";
                     break;
+                case ItemType.SHIELD:
+                    typeName = "방패";
+                    break;
                 case ItemType.HELMET:
                     typeName = "투구";
                     break;

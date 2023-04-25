@@ -6,7 +6,7 @@ using UnityEngine.Networking;
 
 public class GoogleSheetManager
 {
-    const string URL = "https://docs.google.com/spreadsheets/d/1fc7zvkSFdMGstxoSrExcC7ZaMutmBfqONeRNgoNVqW8/export?format=csv&range=A2:J";
+    const string URL = "https://docs.google.com/spreadsheets/d/1fc7zvkSFdMGstxoSrExcC7ZaMutmBfqONeRNgoNVqW8/export?format=csv&range=A2:P";
     //! 구글시트에 담긴 정보를 URL로 가져오는 함수
     public static IEnumerator InitData()
     {

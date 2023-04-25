@@ -266,7 +266,7 @@ public class DataManager : Singleton<DataManager>
             UiManager.Instance.quickSlotBar.rightArmNum = int.Parse(qSlotDatas[1]);
             UiManager.Instance.quickSlotBar.attackC_Num = int.Parse(qSlotDatas[2]);
             UiManager.Instance.quickSlotBar.recoveryC_Num = int.Parse(qSlotDatas[3]);
-            UiManager.Instance.quickSlotBar.InitQuickSlotData();
+            UiManager.Instance.quickSlotBar.LoadQuickSlotData();
         }
 
         //! 화톳불 리스트 데이터 로드
