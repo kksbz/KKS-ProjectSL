@@ -13,10 +13,10 @@ public class QuickSlotBar : MonoBehaviour
     [SerializeField] private List<WeaponSlot> RightWeaponList; // 오른손 무기 리스트
     [SerializeField] private List<ConsumptionSlot> AttackC_List; // 공격용 소모품 리스트
     [SerializeField] private List<ConsumptionSlot> RecoveryC_List; // 회복용 소모품 리스트
-    private int leftArmNum = -1;
-    private int rightArmNum = -1;
-    private int attackC_Num = -1;
-    private int recoveryC_Num = -1;
+    public int leftArmNum = -1;
+    public int rightArmNum = -1;
+    public int attackC_Num = -1;
+    public int recoveryC_Num = -1;
     // Start is called before the first frame update
     void Start()
     {
@@ -166,4 +166,58 @@ public class QuickSlotBar : MonoBehaviour
             }
         }
     } // InPutQuickSlot
+
+    //! 데이터 로드시 퀵슬롯 아이템 갱신하는 함수
+    public void InitQuickSlotData()
+    {
+        // 오른손 무기 퀵슬롯 갱신
+        if (rightArmNum != -1)
+        {
+            if (RightWeaponList[rightArmNum].Item != null)
+            {
+                RightArm.Item = RightWeaponList[rightArmNum].Item;
+                RightWeaponList[rightArmNum].equipItem.transform.parent = GameManager.Instance.playerRightArm.transform;
+                RightWeaponList[rightArmNum].equipItem.transform.localPosition = Vector3.zero;
+                RightWeaponList[rightArmNum].equipItem.transform.localRotation = Quaternion.identity;
+                RightWeaponList[rightArmNum].equipItem.SetActive(true);
+            }
+        }
+
+        // 왼손 무기 퀵슬롯 갱신
+        if (leftArmNum != -1)
+        {
+            if (LeftWeaponList[leftArmNum].Item != null)
+            {
+                LeftArm.Item = LeftWeaponList[leftArmNum].Item;
+                LeftWeaponList[leftArmNum].equipItem.transform.parent = GameManager.Instance.playerLeftArm.transform;
+                LeftWeaponList[leftArmNum].equipItem.transform.localPosition = Vector3.zero;
+                LeftWeaponList[leftArmNum].equipItem.transform.localRotation = Quaternion.identity;
+                LeftWeaponList[leftArmNum].equipItem.SetActive(true);
+            }
+        }
+
+        // 공격용 소모품 퀵슬롯 갱신
+        if (attackC_Num != -1)
+        {
+            if (AttackC_List[attackC_Num].Item != null)
+            {
+                attackC.Item = AttackC_List[attackC_Num].Item;
+                AttackC_List[attackC_Num].equipItem.transform.parent = GameManager.Instance.playerRightArm.transform;
+                AttackC_List[attackC_Num].equipItem.transform.localPosition = Vector3.zero;
+                AttackC_List[attackC_Num].equipItem.transform.localRotation = Quaternion.identity;
+            }
+        }
+
+        // 회복용 소모품 퀵슬롯 갱신
+        if (recoveryC_Num != -1)
+        {
+            if (RecoveryC_List[recoveryC_Num].Item != null)
+            {
+                recoveryC.Item = RecoveryC_List[recoveryC_Num].Item;
+                RecoveryC_List[recoveryC_Num].equipItem.transform.parent = GameManager.Instance.playerRightArm.transform;
+                RecoveryC_List[recoveryC_Num].equipItem.transform.localPosition = Vector3.zero;
+                RecoveryC_List[recoveryC_Num].equipItem.transform.localRotation = Quaternion.identity;
+            }
+        }
+    } // InitQuickSlotData
 } // QuickSlotBar
