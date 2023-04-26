@@ -4,5 +4,7 @@
 퀵슬롯 왼손/오른손/공격소모품/회복소모품
 0/0/0/0
 화톳불리스트
+{"hasBonfire":true,"activeSceneName":"Test","bonfireName":"화톳불 1번","bonfirePos":{"x":-183.0,"y":-2.0,"z":60.0}}
+{"hasBonfire":true,"activeSceneName":"Test","bonfireName":"화톳불 2번","bonfirePos":{"x":-167.0,"y":-2.0,"z":58.0}}
 플레이어 정보
 {"_name":"","_level":1,"_vigor":1,"_attunement":1,"_endurance":1,"_vitality":1,"_strength":1,"_dexterity":1}

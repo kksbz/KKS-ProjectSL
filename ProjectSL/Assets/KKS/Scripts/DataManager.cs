@@ -56,9 +56,7 @@ public class DataManager : Singleton<DataManager>
         string saveData = playerData + "\n";
         PlayerCharacter player = GameManager.Instance.player.GetComponent<PlayerCharacter>();
         PlayerStatus _playerStatus = player.SavePlayerData();
-        Debug.Log($"{_playerStatus.Endurance}, {_playerStatus.Level}, {_playerStatus.Attunement}");
         saveData += JsonUtility.ToJson(_playerStatus) + "\n";
-        Debug.Log($"플레이어 스텟 데이터 : {saveData}");
         return saveData;
     } // SavePlayerData
 
@@ -286,6 +284,12 @@ public class DataManager : Singleton<DataManager>
         //! 화톳불 리스트 데이터 로드
         for (int i = number; i < itemDatas.Length - 1; i++)
         {
+            // playerData의 값을 만나면 그 다음 줄부턴 플레이어 데이터
+            if (itemDatas[i] == playerData)
+            {
+                number = i + 1;
+                break;
+            }
             BonfireData bonfire = JsonUtility.FromJson<BonfireData>(itemDatas[i]);
             // bonfireList에 불러온 화톳불데이터의 이름과 동일한 이름이 존재하지 않는 경우에만 add 및 slot생성
             if (!UiManager.Instance.warp.bonfireList.Any(b => b.bonfireName == bonfire.bonfireName))
@@ -293,6 +297,14 @@ public class DataManager : Singleton<DataManager>
                 UiManager.Instance.warp.bonfireList.Add(bonfire);
                 UiManager.Instance.warp.CreateWarpSlot(bonfire);
             }
+        }
+
+        //! 플레이어 데이터 로드
+        for (int i = number; i < itemDatas.Length - 1; i++)
+        {
+            PlayerCharacter player = GameManager.Instance.player.GetComponent<PlayerCharacter>();
+            PlayerStatus playerStatus = JsonUtility.FromJson<PlayerStatus>(itemDatas[i]);
+            player.LoadPlayerData(playerStatus);
         }
         Debug.Log("저장된 데이터 로드 완료!");
     } // LoadData
