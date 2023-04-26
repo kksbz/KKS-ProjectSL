@@ -12,6 +12,7 @@ public class DataManager : Singleton<DataManager>
     private string path; // 데이터 저장 경로
     public int slotNum; // 세이브 슬롯 넘버
     public bool[] hasSavefile; // 세이브 슬롯의 데이터 존재 유무
+    private string playerData = "플레이어 정보"; // json 데이터 파싱할 때 슬롯 구분자
     private string wSlot = "무기슬롯"; // json 데이터 파싱할 때 슬롯 구분자
     private string aSlot = "방어구슬롯"; // json 데이터 파싱할 때 슬롯 구분자
     private string cSlot = "소모품슬롯"; // json 데이터 파싱할 때 슬롯 구분자
@@ -40,6 +41,7 @@ public class DataManager : Singleton<DataManager>
         saveData = SaveInventoryData();
         saveData += SaveEquipSlotData();
         saveData += SaveBonfireList();
+        saveData += SavePlayerData();
         Debug.Log(saveData);
         if (!Directory.Exists(path))
         {
@@ -47,6 +49,18 @@ public class DataManager : Singleton<DataManager>
         }
         File.WriteAllText(path + "SaveData" + slotNum.ToString() + ".json", saveData);
     } // SaveData
+
+    //! 플레이어 데이터 저장하는 함수
+    private string SavePlayerData()
+    {
+        string saveData = playerData + "\n";
+        PlayerCharacter player = GameManager.Instance.player.GetComponent<PlayerCharacter>();
+        PlayerStatus _playerStatus = player.SavePlayerData();
+        Debug.Log($"{_playerStatus.Endurance}, {_playerStatus.Level}, {_playerStatus.Attunement}");
+        saveData += JsonUtility.ToJson(_playerStatus) + "\n";
+        Debug.Log($"플레이어 스텟 데이터 : {saveData}");
+        return saveData;
+    } // SavePlayerData
 
     //! 인벤토리 데이터 저장하는 함수
     private string SaveInventoryData()

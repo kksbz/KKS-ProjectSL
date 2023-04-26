@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerCharacter : CharacterBase
+public class PlayerCharacter : CharacterBase, IPlayerDataAccess
 {
     public static PlayerCharacter Instance { get { return instance; } }
 
@@ -17,8 +17,6 @@ public class PlayerCharacter : CharacterBase
     // Status Field
     private HealthSystem _healthSystem = new HealthSystem();
     private PlayerStatus _status = new PlayerStatus();
-
-
 
     public BehaviorStateMachine SM_Behavior { get; private set; }
     public LookStateMachine SM_Look { get; private set; }
@@ -48,7 +46,7 @@ public class PlayerCharacter : CharacterBase
             return;
         }
         DestroyImmediate(gameObject);
-        
+
     }
     // Start is called before the first frame update
     void Start()
@@ -77,4 +75,15 @@ public class PlayerCharacter : CharacterBase
     {
         // SM_Look = new LookStateMachine(ELookStateName.FREELOOK, new )
     }
+
+    //! { 플레이어 데이터 세이브 및 로드하는 인터페이스함수
+    public PlayerStatus SavePlayerData()
+    {
+        return _status;
+    }
+    public void LoadPlayerData(PlayerStatus _playerStatusData)
+    {
+        _status = _playerStatusData;
+    }
+    //! } 플레이어 데이터 세이브 및 로드하는 인터페이스함수
 }
