@@ -10,9 +10,9 @@ public class GoogleSheetManager
     //! 구글시트에 담긴 정보를 URL로 가져오는 함수
     public static IEnumerator InitData()
     {
-        UnityWebRequest www = UnityWebRequest.Get(URL);
-        yield return www.SendWebRequest();
-        string itemDataBase = www.downloadHandler.text;
+        UnityWebRequest wwwItemDatas = UnityWebRequest.Get(URL);
+        yield return wwwItemDatas.SendWebRequest();
+        string itemDataBase = wwwItemDatas.downloadHandler.text;
         // URL로 가져온 구글시트의 아이템데이터를 파싱함
         List<string[]> itemDatas = CSVReader.CSVRead(itemDataBase);
         // 데이터매니저 itemDatas 변수에 파싱된 아이템리스트를 캐싱
