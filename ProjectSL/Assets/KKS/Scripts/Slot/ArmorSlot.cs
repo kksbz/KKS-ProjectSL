@@ -9,7 +9,7 @@ public class ArmorSlot : MonoBehaviour, IPublicSlot, IPointerEnterHandler, IPoin
 {
     private Button button;
     [SerializeField] private Image icon; // 슬롯에 표시될 icon
-    [SerializeField] private Image equipSlotBg; // 아이템 장착 시 슬롯의 배경 이미지
+    [SerializeField] private GameObject pointerEffect; // 커서가 슬롯에 들어올 시 나올 이펙트
     private ItemDescriptionPanel descriptionPanel; // 아이템 설명 패널
     private string invenText;
     public GameObject equipItem; // 슬롯에 장착한 방어구 아이템 오브젝트
@@ -29,13 +29,11 @@ public class ArmorSlot : MonoBehaviour, IPublicSlot, IPointerEnterHandler, IPoin
                 // 아이템이 있으면 이미지 출력
                 icon.sprite = Resources.Load<Sprite>(item.itemIcon);
                 icon.color = new Color(1, 1, 1, 1);
-                equipSlotBg.color = new Color(1, 1, 1, 1);
             }
             else
             {
                 // 아이템이 없으면 알파값 0으로 숨김
                 icon.color = new Color(1, 1, 1, 0);
-                equipSlotBg.color = new Color(1, 1, 1, 0);
             }
         }
     } // Item
@@ -53,8 +51,14 @@ public class ArmorSlot : MonoBehaviour, IPublicSlot, IPointerEnterHandler, IPoin
             Inventory.Instance.equipInvenText.text = invenText;
             Inventory.Instance.equipInvenPanel.SetActive(true);
             Inventory.Instance.equipSlotPanel.SetActive(false);
+            pointerEffect.SetActive(false);
         });
     } // Start
+
+    private void OnDisable()
+    {
+        pointerEffect.SetActive(false);
+    } // OnDisable
 
     public void AddItem(ItemData _item)
     {
@@ -99,6 +103,7 @@ public class ArmorSlot : MonoBehaviour, IPublicSlot, IPointerEnterHandler, IPoin
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        pointerEffect.SetActive(true);
         if (item != null)
         {
             Debug.Log("템있는 슬롯에 커서 들옴");
@@ -108,6 +113,7 @@ public class ArmorSlot : MonoBehaviour, IPublicSlot, IPointerEnterHandler, IPoin
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        pointerEffect.SetActive(false);
         descriptionPanel.HideItemData();
     } // OnPointerExit
 } // ArmorSlot

@@ -37,3 +37,4 @@
 2023-04-26 / v0.3.1 / [Merge]ProjectSl Merge kks to suminKim</br>
 2023-04-26 / v0.3.2 / [KKS] 플레이어 데이터 세이브,로드 interface 구현</br>
 2023-04-26 / v0.3.3 / [KKS] 플레이어 스테이터스 데이터 세이브, 로드, 상태창UI 구현</br>
+2023-04-27 / v0.3.4 / [KKS] UI Resource 전면교체 작업, 장착인벤UI, 장비인벤UI, 통합인벤UI 교체</br>
