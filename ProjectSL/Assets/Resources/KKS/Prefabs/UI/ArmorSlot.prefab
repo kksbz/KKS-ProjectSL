@@ -94,6 +94,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 8902983311623152297}
   pointerEffect: {fileID: 6149893963133131678}
+  itemSprites:
+  - {fileID: 1023042624, guid: 87163e503426c5745a16fb0dbfd4b393, type: 3}
+  - {fileID: 472589032, guid: 87163e503426c5745a16fb0dbfd4b393, type: 3}
+  - {fileID: -1565177303, guid: 87163e503426c5745a16fb0dbfd4b393, type: 3}
+  - {fileID: 1488964369, guid: 87163e503426c5745a16fb0dbfd4b393, type: 3}
+  - {fileID: 2072177300, guid: 87163e503426c5745a16fb0dbfd4b393, type: 3}
   equipItem: {fileID: 0}
   slotType: 5
   item:

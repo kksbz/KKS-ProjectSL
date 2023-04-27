@@ -10,6 +10,7 @@ public class WeaponSlot : MonoBehaviour, IPublicSlot, IPointerEnterHandler, IPoi
     private Button button;
     [SerializeField] private Image icon; // 슬롯에 표시될 icon
     [SerializeField] private GameObject pointerEffect; // 커서가 슬롯에 들어올 시 나올 이펙트
+    [SerializeField] private Sprite typeSprite; // 장비인벤 상단에 표시될 무기 스프라이트
     private ItemDescriptionPanel descriptionPanel; // 아이템 설명 패널
     public GameObject equipItem; // 슬롯에 장착한 무기 아이템 오브젝트
     public GameObject SlotObj { get { return gameObject; } }
@@ -47,7 +48,7 @@ public class WeaponSlot : MonoBehaviour, IPublicSlot, IPointerEnterHandler, IPoi
             Debug.Log("무기 슬롯 선택함");
             Inventory.Instance.selectSlot = this;
             Inventory.Instance.InitSameTypeEquipSlot(slotType);
-            Inventory.Instance.equipInvenText.text = "무기 & 방패";
+            Inventory.Instance.equipInvenImage.sprite = typeSprite;
             Inventory.Instance.equipInvenPanel.SetActive(true);
             Inventory.Instance.equipSlotPanel.SetActive(false);
             pointerEffect.SetActive(false);

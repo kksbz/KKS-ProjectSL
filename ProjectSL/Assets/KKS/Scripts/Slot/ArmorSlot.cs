@@ -10,8 +10,9 @@ public class ArmorSlot : MonoBehaviour, IPublicSlot, IPointerEnterHandler, IPoin
     private Button button;
     [SerializeField] private Image icon; // 슬롯에 표시될 icon
     [SerializeField] private GameObject pointerEffect; // 커서가 슬롯에 들어올 시 나올 이펙트
+    [SerializeField] List<Sprite> itemSprites = new List<Sprite>(); // 장비인벤 상단에 표시될 방어구 스프라이트 리스트
+    private Sprite invenSprite; // 장비인벤 상단에 표시될 선택한 방어구 스프라이트
     private ItemDescriptionPanel descriptionPanel; // 아이템 설명 패널
-    private string invenText;
     public GameObject equipItem; // 슬롯에 장착한 방어구 아이템 오브젝트
     public GameObject SlotObj { get { return gameObject; } }
 
@@ -48,7 +49,7 @@ public class ArmorSlot : MonoBehaviour, IPublicSlot, IPointerEnterHandler, IPoin
             Inventory.Instance.selectSlot = this;
             Inventory.Instance.InitSameTypeEquipSlot(slotType);
             ShowInvenText();
-            Inventory.Instance.equipInvenText.text = invenText;
+            Inventory.Instance.equipInvenImage.sprite = invenSprite;
             Inventory.Instance.equipInvenPanel.SetActive(true);
             Inventory.Instance.equipSlotPanel.SetActive(false);
             pointerEffect.SetActive(false);
@@ -84,19 +85,19 @@ public class ArmorSlot : MonoBehaviour, IPublicSlot, IPointerEnterHandler, IPoin
         switch (slotType)
         {
             case ItemType.HELMET:
-                invenText = "투구";
+                invenSprite = itemSprites[0];
                 break;
             case ItemType.CHEST:
-                invenText = "상의";
+                invenSprite = itemSprites[1];
                 break;
             case ItemType.GLOVES:
-                invenText = "장갑";
+                invenSprite = itemSprites[2];
                 break;
             case ItemType.PANTS:
-                invenText = "하의";
+                invenSprite = itemSprites[3];
                 break;
             case ItemType.RING:
-                invenText = "반지";
+                invenSprite = itemSprites[4];
                 break;
         }
     } // ShowInvenText

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 430658151844308008}
   - component: {fileID: 430658151844308015}
   m_Layer: 0
-  m_Name: AttackSlot
+  m_Name: ConsumptionSlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,6 +95,10 @@ MonoBehaviour:
   icon: {fileID: 430658152095495571}
   quantity: {fileID: 9049476205006501103}
   pointerEffect: {fileID: 2405064638980349741}
+  attack_TypeSprite: {fileID: -1745565466, guid: 87163e503426c5745a16fb0dbfd4b393,
+    type: 3}
+  recovery_TypeSprite: {fileID: -978481166, guid: 87163e503426c5745a16fb0dbfd4b393,
+    type: 3}
   equipItem: {fileID: 0}
   slotType: 2
   item:

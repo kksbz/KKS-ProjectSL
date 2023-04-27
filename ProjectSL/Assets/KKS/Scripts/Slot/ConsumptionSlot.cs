@@ -12,6 +12,8 @@ public class ConsumptionSlot : MonoBehaviour, IPublicSlot, IPointerEnterHandler,
     [SerializeField] private Image icon; // 슬롯에 표시될 icon
     [SerializeField] private TMP_Text quantity; // 수량표시 Text
     [SerializeField] private GameObject pointerEffect; // 커서가 슬롯에 들어올 시 나올 이펙트
+    [SerializeField] private Sprite attack_TypeSprite; // 장비인벤 상단에 표시될 공격용 소모품 스프라이트
+    [SerializeField] private Sprite recovery_TypeSprite; // 장비인벤 상단에 표시될 회복용 소모품 스프라이트
     private ItemDescriptionPanel descriptionPanel; // 아이템 설명 패널
     public GameObject equipItem; // 슬롯에 장착한 소모품 아이템 오브젝트
     public GameObject SlotObj { get { return gameObject; } }
@@ -53,11 +55,11 @@ public class ConsumptionSlot : MonoBehaviour, IPublicSlot, IPointerEnterHandler,
             Inventory.Instance.InitSameTypeEquipSlot(slotType);
             if (slotType == ItemType.ATTACK_CONSUMPTION)
             {
-                Inventory.Instance.equipInvenText.text = "공격용 소모품";
+                Inventory.Instance.equipInvenImage.sprite = attack_TypeSprite;
             }
             else
             {
-                Inventory.Instance.equipInvenText.text = "회복용 소모품";
+                Inventory.Instance.equipInvenImage.sprite = recovery_TypeSprite;
             }
             Inventory.Instance.equipInvenPanel.SetActive(true);
             Inventory.Instance.equipSlotPanel.SetActive(false);

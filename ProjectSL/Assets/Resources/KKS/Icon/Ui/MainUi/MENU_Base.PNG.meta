@@ -403,7 +403,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 770
+        y: 771
         width: 1928
         height: 135
       alignment: 0
@@ -503,6 +503,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: MENU_Souls
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 614
+        width: 1766
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 369a5c54f5603ec46951848196db51bc
+      internalID: 1658432767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -542,6 +563,7 @@ TextureImporter:
       MENU_Base_7: -689934974
       MENU_Base_8: -757187068
       MENU_Base_9: 2043157430
+      MENU_Souls: 1658432767
       MENU_Top: 1130125208
       MENU_bottom: 1682296474
   spritePackingTag: 

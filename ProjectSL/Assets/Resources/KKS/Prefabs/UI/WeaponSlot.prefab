@@ -170,6 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   icon: {fileID: 7785073614624417}
   pointerEffect: {fileID: 8472378656631300962}
+  typeSprite: {fileID: 1743434633, guid: 87163e503426c5745a16fb0dbfd4b393, type: 3}
   equipItem: {fileID: 0}
   slotType: 3
   item:

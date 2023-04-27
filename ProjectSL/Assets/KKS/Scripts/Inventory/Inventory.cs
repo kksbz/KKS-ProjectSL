@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 using static ItemData;
 using static UnityEditor.Progress;
 
@@ -15,8 +16,7 @@ public class Inventory : Singleton<Inventory>
     public GameObject equipSlotPanel; // 장비슬롯 패널
     public GameObject equipInvenPanel; // 장비인벤토리 패널
     public GameObject totalInvenPanel; // 통합인벤 패널
-    public TMP_Text equipInvenText; // 장비인벤토리 패널 상단 텍스트
-    public TMP_Text totalInvenText; // 통합인벤토리 패널 상단 텍스트
+    public Image equipInvenImage; // 장비인벤토리 패널 상단 이미지
     public ItemDescriptionPanel descriptionPanel; // 아이템 설명 패널
     public SelectPanel selectPanel; // 선택창 패널
 
