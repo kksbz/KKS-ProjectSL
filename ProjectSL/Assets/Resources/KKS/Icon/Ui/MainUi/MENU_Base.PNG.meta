@@ -423,10 +423,10 @@ TextureImporter:
       name: MENU_Base_24
       rect:
         serializedVersion: 2
-        x: 0
-        y: 187
-        width: 624
-        height: 417
+        x: 6
+        y: 193
+        width: 616
+        height: 411
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -512,7 +512,7 @@ TextureImporter:
         width: 1766
         height: 57
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

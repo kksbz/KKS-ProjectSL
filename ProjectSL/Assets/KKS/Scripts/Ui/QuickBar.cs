@@ -19,6 +19,7 @@ public class QuickBar : MonoBehaviour
             Debug.Log("장비 인벤 선택함");
             inventory.SetActive(true);
             gameObject.SetActive(false);
+            UiManager.Instance.RenewalstatusPanel();
         });
 
         inven.onClick.AddListener(() =>
@@ -28,6 +29,7 @@ public class QuickBar : MonoBehaviour
             Inventory.Instance.equipSlotPanel.SetActive(false);
             Inventory.Instance.totalInvenPanel.SetActive(true);
             gameObject.SetActive(false);
+            UiManager.Instance.RenewalstatusPanel();
         });
 
         stat.onClick.AddListener(() =>

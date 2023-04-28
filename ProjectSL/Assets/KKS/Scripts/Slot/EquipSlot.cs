@@ -73,11 +73,13 @@ public class EquipSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
                 equipSlot.AddItem(item);
                 Inventory.Instance.equipSlotPanel.SetActive(true);
                 Inventory.Instance.equipInvenPanel.SetActive(false);
+                UiManager.Instance.RenewalstatusPanel();
             }
             else
             {
                 // 아이템 장착 해제
                 equipSlot.RemoveItem();
+                UiManager.Instance.RenewalstatusPanel();
             }
             item.IsEquip = !item.IsEquip;
             Inventory.Instance.InitSameTypeEquipSlot(item.itemType);

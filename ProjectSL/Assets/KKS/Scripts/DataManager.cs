@@ -54,11 +54,10 @@ public class DataManager : Singleton<DataManager>
     private string SavePlayerData()
     {
         string saveData = playerData + "\n";
-        PlayerCharacter player = GameManager.Instance.player.GetComponent<PlayerCharacter>();
-        PlayerStatus _playerStatus = player.SavePlayerData();
+        PlayerStatus _playerStatus = GameManager.Instance.player.GetPlayerData();
         saveData += JsonUtility.ToJson(_playerStatus) + "\n";
         return saveData;
-    } // SavePlayerData
+    } // GetPlayerData.
 
     //! 인벤토리 데이터 저장하는 함수
     private string SaveInventoryData()
@@ -302,9 +301,8 @@ public class DataManager : Singleton<DataManager>
         //! 플레이어 데이터 로드
         for (int i = number; i < itemDatas.Length - 1; i++)
         {
-            PlayerCharacter player = GameManager.Instance.player.GetComponent<PlayerCharacter>();
             PlayerStatus playerStatus = JsonUtility.FromJson<PlayerStatus>(itemDatas[i]);
-            player.LoadPlayerData(playerStatus);
+            GameManager.Instance.player.LoadPlayerData(playerStatus);
         }
         Debug.Log("저장된 데이터 로드 완료!");
     } // LoadData

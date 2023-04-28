@@ -39,10 +39,9 @@ public class PlayerCharacter : CharacterBase, IPlayerDataAccess
             GameObject ownMeshObj = gameObject.FindChildObj("Mesh");
             animator = ownMeshObj.GetComponent<Animator>();
 
-            // 테스트용
-            GameManager.Instance.playerLeftArm = leftArm;
             GameManager.Instance.playerRightArm = rightArm;
-            GameManager.Instance.player = gameObject;
+            GameManager.Instance.playerLeftArm = leftArm;
+            GameManager.Instance.player = this;
             return;
         }
         DestroyImmediate(gameObject);
@@ -77,13 +76,18 @@ public class PlayerCharacter : CharacterBase, IPlayerDataAccess
     }
 
     //! { 플레이어 데이터 세이브 및 로드하는 인터페이스함수
-    public PlayerStatus SavePlayerData()
+    public PlayerStatus GetPlayerData()
     {
         return _status;
     }
     public void LoadPlayerData(PlayerStatus _playerStatusData)
     {
         _status = _playerStatusData;
+    }
+
+    public HealthSystem GetHealth()
+    {
+        return _healthSystem;
     }
     //! } 플레이어 데이터 세이브 및 로드하는 인터페이스함수
 }
