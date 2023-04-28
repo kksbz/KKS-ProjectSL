@@ -34,9 +34,10 @@
 2023-04-25 / v0.2.8 / [KKS] 세이브데이터 로드 시 퀵슬롯 데이터 연동 및 무기 장착 중일 시 무기장착상태까지 로드 기능 구현</br>
 2023-04-25 / v0.2.9 / [KKS] 아이템데이터 목록 세분화 및 무기타입 => (무기, 방패)로 나눔, 퀵슬롯 데이터 갱신함수 구현</br>
 2023-04-26 / v0.3.0 / [KKS] 소울가방Ui 및 소울획득 시 텍스트 출력</br>
-2023-04-26 / v0.3.1 / [Merge]ProjectSl Merge kks to suminKim</br>
+2023-04-26 / v0.3.1 / [Merge] ProjectSL Merge kks to suminKim</br>
 2023-04-26 / v0.3.2 / [KKS] 플레이어 데이터 세이브,로드 interface 구현</br>
 2023-04-26 / v0.3.3 / [KKS] 플레이어 스테이터스 데이터 세이브, 로드, 상태창UI 구현</br>
 2023-04-27 / v0.3.4 / [KKS] UI Resource 전면교체 작업, 장착인벤UI, 장비인벤UI, 통합인벤UI 교체</br>
 2023-04-27 / v0.3.5 / [KKS] 아이템 아이콘, 퀵바, 로딩창, 인터렉션바 setup</br>
 2023-04-28 / v0.3.6 / [KKS] StatusPanel, UiInputManager 구현</br>
+2023-04-28 / v0.3.7 / [Merge] ProjectSL Merge to All</br>
