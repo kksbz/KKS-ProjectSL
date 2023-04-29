@@ -43,3 +43,4 @@
 2023-04-28 / v0.3.7 / [Merge] ProjectSL Merge to All</br>
 2023-04-29 / v0.3.8 / [KKS] 세부상태창, 인벤토리 간이 상태창 setup</br>
 2023-04-29 / v0.3.9 / [KKS] 화톳불 전송 시스템 UI교체</br>
+2023-04-29 / v0.4.0 / [KKS] Font 및 Ui 리소스 변경</br>
