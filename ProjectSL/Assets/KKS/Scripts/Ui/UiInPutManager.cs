@@ -23,6 +23,10 @@ public class UiInPutManager : Singleton<UiInPutManager>
             {
                 ExitUiPanel();
             }
+            else if (UiManager.Instance.statusPanel.gameObject.activeInHierarchy == true)
+            {
+                UiManager.Instance.statusPanel.gameObject.SetActive(false);
+            }
             else
             {
                 UiManager.Instance.optionBar.SetActive(!UiManager.Instance.optionBar.activeSelf);

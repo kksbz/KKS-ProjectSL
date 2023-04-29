@@ -41,3 +41,4 @@
 2023-04-27 / v0.3.5 / [KKS] 아이템 아이콘, 퀵바, 로딩창, 인터렉션바 setup</br>
 2023-04-28 / v0.3.6 / [KKS] StatusPanel, UiInputManager 구현</br>
 2023-04-28 / v0.3.7 / [Merge] ProjectSL Merge to All</br>
+2023-04-29 / v0.3.8 / [KKS] 세부상태창, 인벤토리 간이 상태창 setup</br>
