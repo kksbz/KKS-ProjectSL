@@ -24,7 +24,7 @@ public class WarpController : MonoBehaviour
         warpSelectBt.onClick.AddListener(() =>
         {
             // 플레이어의 위치를 선택한 화톳불 위치로 이동시킴
-            StartCoroutine(GameManager.Instance.LoadScene(selectWarp.bonfire));
+            GameManager.Instance.LoadBonfire(selectWarp.bonfire);
             warpSelect.SetActive(false);
             warpPanel.SetActive(false);
             Cursor.lockState = CursorLockMode.Locked;
