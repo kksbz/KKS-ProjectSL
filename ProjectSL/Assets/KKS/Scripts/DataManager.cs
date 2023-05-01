@@ -26,6 +26,12 @@ public class DataManager : Singleton<DataManager>
         path = Application.dataPath + "/SaveFolder/";
         StartCoroutine(GoogleSheetManager.InitData());
         hasSavefile = new bool[4];
+        RenewalSavefile();
+    } // InitManager
+
+    //! 세이브파일 목록 갱신하는 함수
+    public void RenewalSavefile()
+    {
         for (int i = 0; i < hasSavefile.Length; i++)
         {
             // 세이브 데이터 파일이 존재할 경우 true
@@ -35,7 +41,7 @@ public class DataManager : Singleton<DataManager>
             }
             Debug.Log(hasSavefile[i]);
         }
-    } // InitManager
+    } // RenewalSavefile
 
     //! 플레이어 데이터 세이브하는 함수
     public void SaveData()
@@ -48,7 +54,6 @@ public class DataManager : Singleton<DataManager>
         saveData += SavePlayerData();
         saveData += nowTime + "\n";
         saveData += DateTime.Now.ToString(("yyyy-MM-dd HH:mm:ss"));
-        Debug.Log($"{DateTime.Now.ToString(("yyyy-MM-dd HH:mm:ss"))}");
         if (!Directory.Exists(path))
         {
             Directory.CreateDirectory(path);
@@ -322,6 +327,10 @@ public class DataManager : Singleton<DataManager>
         //! 플레이어 데이터 로드
         for (int i = number; i < itemDatas.Length - 1; i++)
         {
+            if (itemDatas[i] == nowTime)
+            {
+                break;
+            }
             PlayerStatus playerStatus = JsonUtility.FromJson<PlayerStatus>(itemDatas[i]);
             GameManager.Instance.player.LoadPlayerData(playerStatus);
         }

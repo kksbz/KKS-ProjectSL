@@ -13,7 +13,7 @@ public class TitleController : MonoBehaviour
     [Header("타이틀 패널 모음")]
     [SerializeField] private GameObject newGamePanel; // 뉴게임패널
     [SerializeField] private GameObject loadPanel; // 로드패널
-    // Start is called before the first frame update
+
     void Start()
     {
         //! 자동저장 데이터가 있으면 컨티뉴버튼 활성화
@@ -24,14 +24,15 @@ public class TitleController : MonoBehaviour
         // 계속하기 버튼
         continueBt.onClick.AddListener(() =>
         {
-
+            // 자동저장슬롯의 데이터로 바로 시작
+            GameManager.Instance.LoadSaveDataScene(0);
         });
-        // 새게임 버튼
+        // 새게임 버튼 플레이어 이름 입력창 활성화
         newGameBt.onClick.AddListener(() =>
         {
             newGamePanel.SetActive(true);
         });
-        // 로드 버튼
+        // 로드 버튼 세이브 슬롯 패널 활성화
         loadBt.onClick.AddListener(() =>
         {
             loadPanel.SetActive(true);
@@ -45,6 +46,7 @@ public class TitleController : MonoBehaviour
         exitBt.onClick.AddListener(() =>
         {
             Application.Quit();
+            UnityEditor.EditorApplication.isPlaying = false;
         });
     } // Start
 } // TitleController
