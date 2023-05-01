@@ -54,6 +54,7 @@ public class QuickBar : MonoBehaviour
         option.onClick.AddListener(() =>
         {
             Debug.Log("옵션창 선택함");
+            UiManager.Instance.optionPanel.gameObject.SetActive(true);
             gameObject.SetActive(false);
         });
     } // Start

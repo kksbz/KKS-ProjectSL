@@ -93,8 +93,8 @@ public class GameManager : Singleton<GameManager>
         Debug.Log($"씬로드 끝");
         DataManager.Instance.slotNum = num;
         DataManager.Instance.LoadData();
-        yield return new WaitForSeconds(3f);
         player.transform.position = player.GetPlayerData().PlayerPos;
+        yield return new WaitForSeconds(3f);
         UiManager.Instance.loadingPanel.FadeOutLoadingPanel();
         yield return new WaitForSeconds(fadeTime);
         // 로딩창 비활성화
