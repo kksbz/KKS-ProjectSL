@@ -45,4 +45,6 @@
 2023-04-29 / v0.3.9 / [KKS] 화톳불 전송 시스템 UI교체</br>
 2023-04-29 / v0.4.0 / [KKS] Font 및 Ui 리소스 변경</br>
 2023-05-01 / v0.4.1 / [KKS] 타이틀씬 NewGame, LoadGame, GameExit setup</br>
-2023-05-01 / v0.4.2 / [Merge] ProjectSL Merge kks to suminKim</br>
+2023-05-01 / v0.4.2 / [KKS] 퀵바 옵션창 Save, Load, Exit setup</br>
+2023-05-01 / v0.4.3 / [KKS] 새로운 맵에셋 추가</br>
+2023-05-01 / v0.4.4 / [Merge] ProjectSL Merge kks to suminKim</br>
