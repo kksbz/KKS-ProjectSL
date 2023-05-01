@@ -48,3 +48,4 @@
 2023-05-01 / v0.4.2 / [KKS] 퀵바 옵션창 Save, Load, Exit setup</br>
 2023-05-01 / v0.4.3 / [KKS] 새로운 맵에셋 추가</br>
 2023-05-01 / v0.4.4 / [Merge] ProjectSL Merge kks to suminKim</br>
+2023-05-02 / v0.4.5 / [KKS] 레벨업패널 Prototype setup</br>
