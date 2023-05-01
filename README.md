@@ -46,3 +46,4 @@
 2023-04-29 / v0.4.0 / [KKS] Font 및 Ui 리소스 변경</br>
 2023-05-01 / v0.4.1 / [KKS] 타이틀씬 NewGame, LoadGame, GameExit setup</br>
 2023-05-01 / v0.4.2 / [KKS] 퀵바 옵션창 Save, Load, Exit setup</br>
+2023-05-01 / v0.4.3 / [KKS] 새로운 맵에셋 추가</br>
