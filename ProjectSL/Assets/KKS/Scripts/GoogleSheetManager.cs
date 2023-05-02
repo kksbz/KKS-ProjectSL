@@ -9,8 +9,11 @@ public class GoogleSheetManager
     // 아이템 데이터 테이블 주소
     const string ITEMDATA_URL = "https://docs.google.com/spreadsheets/d/1fc7zvkSFdMGstxoSrExcC7ZaMutmBfqONeRNgoNVqW8/export?format=csv&range=A2:P";
     // 경험치 테이블 주소
-    const string ExperienceDATA_URL = "https://docs.google.com/spreadsheets/d/1fc7zvkSFdMGstxoSrExcC7ZaMutmBfqONeRNgoNVqW8/export?format=csv&range=A2:C&gid=1728483937";
-    //! 구글시트에 담긴 정보를 URL로 가져오는 함수
+    const string EXPERIENCEDATA_URL = "https://docs.google.com/spreadsheets/d/1fc7zvkSFdMGstxoSrExcC7ZaMutmBfqONeRNgoNVqW8/export?format=csv&range=A2:C&gid=1728483937";
+    // 드랍 테이블 주소
+    const string DROPTABLEDATA_URL = "https://docs.google.com/spreadsheets/d/1fc7zvkSFdMGstxoSrExcC7ZaMutmBfqONeRNgoNVqW8/export?format=csv&range=A2:H&gid=1955775546";
+
+    //! 구글시트에 담긴 아이템정보를 URL로 가져오는 함수
     public static IEnumerator InitItemData()
     {
         UnityWebRequest wwwItemDatas = UnityWebRequest.Get(ITEMDATA_URL);
@@ -24,9 +27,10 @@ public class GoogleSheetManager
         Debug.Log("데이터 불러오기 완료");
     } // Start
 
+    //! 구글시트에 담긴 경험치테이블 정보를 URL로 가져오는 함수
     public static IEnumerator InitExperienceData()
     {
-        UnityWebRequest wwwExperienceDatas = UnityWebRequest.Get(ExperienceDATA_URL);
+        UnityWebRequest wwwExperienceDatas = UnityWebRequest.Get(EXPERIENCEDATA_URL);
         yield return wwwExperienceDatas.SendWebRequest();
         string experienceBase = wwwExperienceDatas.downloadHandler.text;
         List<string[]> experienceDatas = CSVReader.CSVRead(experienceBase);
@@ -44,4 +48,34 @@ public class GoogleSheetManager
         //    Debug.Log($"키값 : {data.Key}, 벨류값 : {data.Value}");
         //}
     } // InitExperienceData
+
+    //! 구글시트에 담긴 드랍테이블 정보를 URL로 가져오는 함수
+    public static IEnumerator InitDropTableData()
+    {
+        UnityWebRequest wwwDropTableDatas = UnityWebRequest.Get(DROPTABLEDATA_URL);
+        yield return wwwDropTableDatas.SendWebRequest();
+        string dropTable = wwwDropTableDatas.downloadHandler.text;
+        List<string[]> dropTableData = CSVReader.CSVRead(dropTable);
+
+        Dictionary<string, List<string>> dropTableDic = new Dictionary<string, List<string>>();
+        foreach (string[] dropData in dropTableData)
+        {
+            string key = dropData[0];
+            List<string> value = new List<string>();
+            for (int i = 1; i < dropData.Length; i++)
+            {
+                value.Add(dropData[i]);
+            }
+            dropTableDic.Add(key, value);
+        }
+        DataManager.Instance.dropTable = dropTableDic;
+        foreach (var data in DataManager.Instance.dropTable)
+        {
+            for (int i = 0; i < data.Value.Count - 1; i++)
+            {
+                Debug.Log($"{data.Key} 의 드랍템 : {data.Value[i]}");
+            }
+            Debug.Log("=======================================");
+        }
+    } // InitDropTableData
 } // GoogleSheetManager
