@@ -51,4 +51,5 @@
 2023-05-02 / v0.4.5 / [KKS] 레벨업패널 Prototype setup</br>
 2023-05-02 / v0.4.6 / [KKS] 레벨업시스템, 몬스터 DropTable setup</br>
 2023-05-02 / v0.4.7 / [KKS] 상점시스템 prototype setup</br>
-2023-05-02 / v0.4.8 / [Merge] ProjectSL Merge All</br> 
+2023-05-02 / v0.4.8 / [Merge] ProjectSL Merge All</br>
+2023-05-03 / v0.4.9 / [KKS] 에스트병 강화 시스템 setup</br>
