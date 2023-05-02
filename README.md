@@ -50,3 +50,4 @@
 2023-05-01 / v0.4.4 / [Merge] ProjectSL Merge kks to suminKim</br>
 2023-05-02 / v0.4.5 / [KKS] 레벨업패널 Prototype setup</br>
 2023-05-02 / v0.4.6 / [KKS] 레벨업시스템, 몬스터 DropTable setup</br>
+2023-05-02 / v0.4.7 / [KKS] 상점시스템 prototype setup</br>

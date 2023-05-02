@@ -210,7 +210,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Shop
+      name: Shop_1
       rect:
         serializedVersion: 2
         x: 1868
@@ -273,12 +273,12 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: MENU_Base_8
+      name: Shop_2
       rect:
         serializedVersion: 2
         x: 1852
         y: 1354
-        width: 92
+        width: 90
         height: 90
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -560,12 +560,12 @@ TextureImporter:
       MENU_Base_29: -1725494304
       MENU_Base_6: -1223674584
       MENU_Base_7: -689934974
-      MENU_Base_8: -757187068
       MENU_Base_9: 2043157430
       MENU_Souls: 1658432767
       MENU_Top: 1130125208
       MENU_bottom: 1682296474
-      Shop: 1501706712
+      Shop_1: 1501706712
+      Shop_2: -757187068
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
