@@ -53,3 +53,4 @@
 2023-05-02 / v0.4.7 / [KKS] 상점시스템 prototype setup</br>
 2023-05-02 / v0.4.8 / [Merge] ProjectSL Merge All</br>
 2023-05-03 / v0.4.9 / [KKS] 에스트병 강화 시스템 setup</br>
+2023-05-03 / v0.5.0 / [KKS] 스테이터스 레벨당 보정치 데이터 테이블, 상점 구매, 판매 UI setup</br>
