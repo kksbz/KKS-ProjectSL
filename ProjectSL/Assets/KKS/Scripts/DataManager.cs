@@ -23,6 +23,7 @@ public class DataManager : Singleton<DataManager>
     private string bonfire = "화톳불리스트"; // json 데이터 파싱할 때 슬롯 구분자
     private string nowTime = "저장한 시간"; // json 데이터 파싱할 때 슬롯 구분자
     public string selectPlayerName; // 뉴게임시 입력한 플레이어 이름
+    public StatusSaveData playerStatusSaveData;
     public override void InitManager()
     {
         // 데이터 저장 경로 설정
@@ -70,9 +71,8 @@ public class DataManager : Singleton<DataManager>
     //! 플레이어 데이터 저장하는 함수
     private string SavePlayerData()
     {
-        GameManager.Instance.player.SavePlayerPos();
         string saveData = playerData + "\n";
-        PlayerStatus _playerStatus = GameManager.Instance.player.GetPlayerData();
+        StatusSaveData _playerStatus = GameManager.Instance.player.GetPlayerData();
         saveData += JsonUtility.ToJson(_playerStatus) + "\n";
         return saveData;
     } // GetPlayerData.
@@ -205,6 +205,14 @@ public class DataManager : Singleton<DataManager>
             Inventory.Instance.AddItem(item);
         }
 
+        for (int i = 0; i < Inventory.Instance.inventory.Count; i++)
+        {
+            if (Inventory.Instance.inventory[i] != null)
+            {
+                Debug.Log($"현재 인벤에 들어있는 아이템 : {Inventory.Instance.inventory[i].itemName}, 장착여부 : {Inventory.Instance.inventory[i].IsEquip}");
+            }
+        }
+
         for (int i = number; i < itemDatas.Length - 1; i++)
         {
             // wSlot 값을 만나면 그 다음 줄부턴 무기슬롯 데이터
@@ -234,6 +242,7 @@ public class DataManager : Singleton<DataManager>
             ItemData item = JsonUtility.FromJson<ItemData>(wSlotData[1]);
             foreach (ItemData _item in Inventory.Instance.inventory)
             {
+                Debug.Log($"인벤 아이템 : {_item.itemName}, 슬롯 아이템 : {item.itemName}, 장착확인 : {_item.IsEquip}");
                 // 로드한 통합 인벤토리에서 장착중인 같은 아이템을 찾아서 무기슬롯에 등록
                 if (_item.itemID == item.itemID && _item.IsEquip == true)
                 {
@@ -329,6 +338,11 @@ public class DataManager : Singleton<DataManager>
                 UiManager.Instance.warp.CreateWarpSlot(bonfire);
             }
         }
+        Bonfire[] bonfires = GameObject.FindGameObjectsWithTag(GData.BONFIRE_MARK).Select(go => go.GetComponent<Bonfire>()).ToArray();
+        for (int i = 0; i < bonfires.Length; i++)
+        {
+            bonfires[i].InitBonfireData();
+        }
 
         //! 플레이어 데이터 로드
         for (int i = number; i < itemDatas.Length - 1; i++)
@@ -337,8 +351,9 @@ public class DataManager : Singleton<DataManager>
             {
                 break;
             }
-            PlayerStatus playerStatus = JsonUtility.FromJson<PlayerStatus>(itemDatas[i]);
+            StatusSaveData playerStatus = JsonUtility.FromJson<StatusSaveData>(itemDatas[i]);
             GameManager.Instance.player.LoadPlayerData(playerStatus);
+            playerStatusSaveData = playerStatus;
         }
         Debug.Log("저장된 데이터 로드 완료!");
     } // LoadData

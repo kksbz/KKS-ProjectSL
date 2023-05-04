@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCharacter : CharacterBase, IPlayerDataAccess, GData.IDamageable
 {
@@ -63,6 +65,9 @@ public class PlayerCharacter : CharacterBase, IPlayerDataAccess, GData.IDamageab
     void Start()
     {
         InitBehaviorStateMachine();
+        // 테스트용 코루틴
+        StartCoroutine(TestStatInit());
+        // StatInitialize();
     }
 
     [SerializeField]
@@ -92,24 +97,58 @@ public class PlayerCharacter : CharacterBase, IPlayerDataAccess, GData.IDamageab
     }
 
     //! { �÷��̾� ������ ���̺� �� �ε��ϴ� �������̽��Լ�
-    public PlayerStatus GetPlayerData()
+    public StatusSaveData GetPlayerData()
     {
-        return _status;
+        StatusSaveData saveData = new StatusSaveData(_status, _healthSystem, gameObject.transform.position);
+        return saveData;
     }
-    public void LoadPlayerData(PlayerStatus _playerStatusData)
+    public void LoadPlayerData(StatusSaveData _playerStatusData)
     {
-        _status = _playerStatusData;
+        _status = _playerStatusData._playerStatusData;
+        StatInitialize();
     }
 
-    public void SavePlayerPos()
-    {
-        _status.PlayerPos = gameObject.transform.position;
-    }
     public void PlayerNameSelect(string _name)
     {
         _status.Name = _name;
     }
 
+    #region Stat Initialize
+
+    // 스탯(헬스, 컴뱃스탯) 초기화 타입 열거
+    /*
+    public enum EStatusInitializeType : byte
+    {
+        ChangedStatus,
+        ChangedEquipment,
+        SaveDataLoad_AfterDead,
+        SaveDataLoad_FromTitleScene
+    }
+    */
+    IEnumerator TestStatInit()
+    {
+        yield return new WaitForSeconds(3f);
+        StatInitialize();
+    }
+    public void StatInitialize()
+    {
+        if (this._healthSystem == null)
+            return;
+        if (this._combatStatus == null)
+            return;
+
+        // 체력 초기화 * 임시 아이템 스탯 정보도 추가해야되나?
+        _healthSystem.InitializeHealthSystem(_status);
+        _combatStatus.InitializeCombatStatus(_status);
+
+        // 현재 체력, 마나를 맥스로 회복시켜주는 부분인데, 세이브데이터 로드시
+        // 세이브데이터 내 현제체력 무시하고 회복시키니까 수정 드갈것 같음
+        _healthSystem.HealHP(_healthSystem.MaxHP);
+        _healthSystem.HealMP(_healthSystem.MaxMP);
+        //
+
+    }
+    #endregion  // Stat Initialize
     public HealthSystem GetHealth()
     {
         return _healthSystem;
@@ -121,7 +160,7 @@ public class PlayerCharacter : CharacterBase, IPlayerDataAccess, GData.IDamageab
         string hitDir = GetHitAngle(_hitTR, damageCauser.transform);
         Debug.Log($"direction : {hitDir}");
         combatController.HitAnimationTag = hitDir;
-        if(combatController.HitAnimationTag == "Hit_Light_F" && combatController.IsGuard)
+        if (combatController.HitAnimationTag == "Hit_Light_F" && combatController.IsGuard)
         {
             _stateMachine.BlockFlag = true;
         }
@@ -142,21 +181,21 @@ public class PlayerCharacter : CharacterBase, IPlayerDataAccess, GData.IDamageab
         Vector3 cross = Vector3.Cross(hit.forward, direction);
         Debug.Log($"angle : {angle}");
 
-        if(cross.y < 0f)
+        if (cross.y < 0f)
         {
             angle = 360 - angle;
         }
         //
 
-        if(angle >= 45f && angle < 135f)
+        if (angle >= 45f && angle < 135f)
         {
             resultStr = "Hit_Light_L";
         }
-        else if(angle >= 135f && angle < 225f)
+        else if (angle >= 135f && angle < 225f)
         {
             resultStr = "Hit_Light_F";
         }
-        else if(angle >= 225f && angle < 315f)
+        else if (angle >= 225f && angle < 315f)
         {
             resultStr = "Hit_Light_R";
         }

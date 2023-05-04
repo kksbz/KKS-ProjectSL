@@ -18,18 +18,19 @@ public class UiManager : Singleton<UiManager>
     public OptionPanel optionPanel; // 옵션 패널
     public QuickSlotBar quickSlotBar; // 퀵슬롯바
     public SoulBagUi soulBag; // 소울가방UI
+    public HealthSystemHUD healthHud; // 체력,마력,스태미너 바
 
     //! 인벤토리 스테이터스 패널 갱신하는 함수
     public void RenewalInvenStatusPanel()
     {
-        invenStatusPanel.ShowPlayerStatusPanel(GameManager.Instance.player.GetPlayerData(),
+        invenStatusPanel.ShowPlayerStatusPanel(GameManager.Instance.player.GetPlayerData()._playerStatusData,
                 GameManager.Instance.player.GetHealth());
     } // RenewalstatusPanel
 
     //! 스테이터스 패널 갱신하는 함수
     public void RenewalStatusPanel()
     {
-        statusPanel.ShowPlayerStatusPanel(GameManager.Instance.player.GetPlayerData(),
+        statusPanel.ShowPlayerStatusPanel(GameManager.Instance.player.GetPlayerData()._playerStatusData,
             GameManager.Instance.player.GetHealth(), quickSlotBar.RightWeaponList, quickSlotBar.LeftWeaponList);
     } // RenewalStatusPanel
 } // UiManager
