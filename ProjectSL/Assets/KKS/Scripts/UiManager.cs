@@ -22,14 +22,14 @@ public class UiManager : Singleton<UiManager>
     //! 인벤토리 스테이터스 패널 갱신하는 함수
     public void RenewalInvenStatusPanel()
     {
-        invenStatusPanel.ShowPlayerStatusPanel(GameManager.Instance.player.GetPlayerData(),
+        invenStatusPanel.ShowPlayerStatusPanel(GameManager.Instance.player.GetPlayerData()._playerStatusData,
                 GameManager.Instance.player.GetHealth());
     } // RenewalstatusPanel
 
     //! 스테이터스 패널 갱신하는 함수
     public void RenewalStatusPanel()
     {
-        statusPanel.ShowPlayerStatusPanel(GameManager.Instance.player.GetPlayerData(),
+        statusPanel.ShowPlayerStatusPanel(GameManager.Instance.player.GetPlayerData()._playerStatusData,
             GameManager.Instance.player.GetHealth(), quickSlotBar.RightWeaponList, quickSlotBar.LeftWeaponList);
     } // RenewalStatusPanel
 } // UiManager

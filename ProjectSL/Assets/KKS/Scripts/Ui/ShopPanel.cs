@@ -18,8 +18,12 @@ public class ShopPanel : MonoBehaviour
     [SerializeField] private GameObject warningPanel; // 경고창
     [SerializeField] private TMP_Text warningText; // 경고창
     [SerializeField] private TMP_Text buySellText; // 구매, 판매 안내 텍스트
+    [SerializeField] private TMP_Text selectQuantityPanelText; // 수량 안내 텍스트
     [SerializeField] private TMP_Text itemNameText; // 구매, 판매 아이템 이름 텍스트
     [SerializeField] private TMP_Text priceText; // 구매, 판매 아이템 가격 텍스트
+    [SerializeField] private TMP_Text selectQuantityText; // 선택한 수량 텍스트
+    [SerializeField] private Button upBt; // 수량 업 버튼
+    [SerializeField] private Button downBt; // 수량 다운 버튼
     [SerializeField] private Button selectBt; // 구매, 판매 결정 버튼
     [SerializeField] private Button cancleBt; // 구매, 판매 취소 버튼
     [SerializeField] private TMP_Text soulText; // 보유 소울 텍스트
@@ -29,6 +33,7 @@ public class ShopPanel : MonoBehaviour
     private List<ItemType> typeList = new List<ItemType>((ItemType[])Enum.GetValues(typeof(ItemType))); // 아이템타입 리스트
     private Dictionary<ItemType, Sprite> typeDic = new Dictionary<ItemType, Sprite>(); // 딕셔너리로 저장
     private int num = 0;
+    private int buyItemQuantity; // 구매 수량
     public bool isBuyPanel = true; // 구매, 판매 체크 변수
     public ItemData selectItem; // 선택한 아이템
     private void Start()
@@ -71,6 +76,60 @@ public class ShopPanel : MonoBehaviour
                 InitSameTypeShopSlot(typeList[num], Inventory.Instance.inventory);
             }
         });
+        // 수량 업 버튼
+        upBt.onClick.AddListener(() =>
+        {
+            if (isBuyPanel == true)
+            {
+                if (Inventory.Instance.Soul < ((buyItemQuantity + 1) * selectItem.buyPrice))
+                {
+                    warningText.text = "보유 소울이 부족합니다";
+                    warningPanel.SetActive(true);
+                    return;
+                }
+                buyItemQuantity += 1;
+                priceText.text = (selectItem.buyPrice * buyItemQuantity).ToString();
+            }
+            else
+            {
+                if (selectItem.Quantity == buyItemQuantity)
+                {
+                    warningText.text = "이미 최대 보유수량입니다";
+                    warningPanel.SetActive(true);
+                    return;
+                }
+                buyItemQuantity += 1;
+                priceText.text = (selectItem.sellPrice * buyItemQuantity).ToString();
+            }
+            selectQuantityText.text = buyItemQuantity.ToString();
+        });
+        // 수량 다운 버튼
+        downBt.onClick.AddListener(() =>
+        {
+            if (isBuyPanel == true)
+            {
+                if (buyItemQuantity == 1)
+                {
+                    warningText.text = "이미 최소 수량입니다";
+                    warningPanel.SetActive(true);
+                    return;
+                }
+                buyItemQuantity -= 1;
+                priceText.text = (selectItem.buyPrice * buyItemQuantity).ToString();
+            }
+            else
+            {
+                if (buyItemQuantity == 1)
+                {
+                    warningText.text = "이미 최소 수량입니다";
+                    warningPanel.SetActive(true);
+                    return;
+                }
+                buyItemQuantity -= 1;
+                priceText.text = (selectItem.sellPrice * buyItemQuantity).ToString();
+            }
+            selectQuantityText.text = buyItemQuantity.ToString();
+        });
 
         // 구매, 판매 결정 버튼
         selectBt.onClick.AddListener(() =>
@@ -78,16 +137,19 @@ public class ShopPanel : MonoBehaviour
             if (isBuyPanel == true)
             {
                 // 아이템 구매
-                if (Inventory.Instance.Soul < selectItem.buyPrice)
+                if (Inventory.Instance.Soul < selectItem.buyPrice * buyItemQuantity)
                 {
                     // 보유 소울이 아이템 가격보다 적으면 경고창 출력
                     warningText.text = "보유 소울이 부족합니다";
                     warningPanel.SetActive(true);
                     return;
                 }
-                UiManager.Instance.soulBag.GetSoul(-selectItem.buyPrice);
+                UiManager.Instance.soulBag.GetSoul(-(selectItem.buyPrice * buyItemQuantity));
                 soulText.text = Inventory.Instance.Soul.ToString();
-                Inventory.Instance.AddItem(selectItem);
+                for (int i = 0; i < buyItemQuantity; i++)
+                {
+                    Inventory.Instance.AddItem(selectItem);
+                }
             }
             else
             {
@@ -99,15 +161,15 @@ public class ShopPanel : MonoBehaviour
                     warningPanel.SetActive(true);
                     return;
                 }
-                UiManager.Instance.soulBag.GetSoul(selectItem.sellPrice);
+                UiManager.Instance.soulBag.GetSoul(selectItem.sellPrice * buyItemQuantity);
                 soulText.text = Inventory.Instance.Soul.ToString();
-                if (selectItem.Quantity > 1)
+                if (selectItem.Quantity > buyItemQuantity)
                 {
                     for (int i = 0; i < Inventory.Instance.inventory.Count; i++)
                     {
                         if (Inventory.Instance.inventory[i] == selectItem)
                         {
-                            Inventory.Instance.inventory[i].Quantity -= 1;
+                            Inventory.Instance.inventory[i].Quantity -= buyItemQuantity;
                             break;
                         }
                     }
@@ -116,7 +178,7 @@ public class ShopPanel : MonoBehaviour
                 {
                     Inventory.Instance.RemoveItem(selectItem);
                 }
-                InitSameTypeShopSlot(selectItem.itemType, Inventory.Instance.inventory);
+                InitSameTypeShopSlot(typeList[num], Inventory.Instance.inventory);
             }
             buySellMessege.SetActive(false);
         });
@@ -131,6 +193,7 @@ public class ShopPanel : MonoBehaviour
     {
         soulText.text = Inventory.Instance.Soul.ToString();
         num = 0;
+        buyItemQuantity = 1;
         shopItemTypeIcon.sprite = typeDic[typeList[num]];
         if (isBuyPanel == true)
         {
@@ -165,6 +228,8 @@ public class ShopPanel : MonoBehaviour
     public void RenewalBuySellMessege(ItemData _item)
     {
         selectItem = _item;
+        buyItemQuantity = 1;
+        selectQuantityText.text = buyItemQuantity.ToString();
         if (isBuyPanel == true)
         {
             buySellText.text = "선택한 아이템을 구매 하시겠습니까?";
@@ -182,6 +247,10 @@ public class ShopPanel : MonoBehaviour
     //! 상점슬롯 갱신하는 함수
     private void InitSameTypeShopSlot(ItemType _itemType, List<ItemData> _itemList)
     {
+        for (int i = 0; i < shopSlots.Count; i++)
+        {
+            shopSlots[i].Item = null;
+        }
         // 구매패널 = 상점판매용아이템 리스트, 판매패널 = 인벤토리아이템 리스트 매개변수로 받음
         List<ItemData> inven = _itemList;
         // NONE이면 모든타입의 아이템을 보여줌
