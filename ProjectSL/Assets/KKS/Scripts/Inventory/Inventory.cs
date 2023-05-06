@@ -46,16 +46,17 @@ public class Inventory : Singleton<Inventory>
     public delegate void EventHandler();
     public EventHandler _onEquipSlotUpdated;
 
+    public override void InitManager()
+    {
+        InitSlot();
+        Soul = 0;
+    }
+
     private void Awake()
     {
         _onEquipSlotUpdated = new EventHandler(() => Debug.Log("Equipment Updated"));
     }
     //
-    private void Start()
-    {
-        InitSlot();
-        Soul = 0;
-    } // Start
 
     private void Update()
     {

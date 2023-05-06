@@ -28,6 +28,12 @@ public class GameManager : Singleton<GameManager>
         StartCoroutine(LoadSaveDataPlayScene(num));
     } // LoadSaveDataScene
 
+    //! 타이틀씬 불러오는 함수
+    public void GoTitleScene()
+    {
+        StartCoroutine(LoadTitleScene());
+    } // GoTitleScene
+
     private IEnumerator LoadBonfireScene(BonfireData bonfire)
     {
         // �ڵ����� ���Կ� ���絥���� ����
@@ -146,4 +152,25 @@ public class GameManager : Singleton<GameManager>
             player.HealthSys.MP = _playerStatusData._currentManaPoint;
         }
     } // InitPlayer
+
+    //! 타이틀씬 불러오는 코루틴함수
+    private IEnumerator LoadTitleScene()
+    {
+        // 자동저장슬롯에 데이터 저장
+        DataManager.Instance.slotNum = 0;
+        DataManager.Instance.SaveData();
+        UiManager.Instance.optionPanel.gameObject.SetActive(false);
+        UiManager.Instance.loadingPanel.gameObject.SetActive(true);
+        float fadeTime = UiManager.Instance.loadingPanel.FadeInLoadingPanel();
+        yield return new WaitForSeconds(fadeTime);
+        var asyncLoad = SceneManager.LoadSceneAsync(GData.SCENENAME_TITLE);
+        while (!asyncLoad.isDone)
+        {
+            yield return null;
+        }
+        yield return new WaitForSeconds(3f);
+        UiManager.Instance.loadingPanel.FadeOutLoadingPanel();
+        yield return new WaitForSeconds(fadeTime);
+        UiManager.Instance.loadingPanel.gameObject.SetActive(false);
+    } // GoTitleScene
 } // GameManager
