@@ -116,7 +116,7 @@ public class GameManager : Singleton<GameManager>
         {
             // �÷��̾ �׾��� ���
             float neardistance = Mathf.Infinity;
-            Vector3 revivePos = Vector3.zero;
+            Vector3 revivePos = new Vector3(78f, 9.28726578f, -11f);
 
             // ������ġ���� Ȱ��ȭ�� ���� ����� ȭ����� ��ġ���� ��Ȱ��Ŵ
             for (int i = 0; i < UiManager.Instance.warp.bonfireList.Count; i++)

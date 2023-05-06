@@ -272,6 +272,10 @@ public class LevelUpPanel : MonoBehaviour
         increaseNum = 0;
         sumWantSoul = 0;
         hasSelectBt = false;
+
+        // 레벨업 확정하면 자동저장 슬롯에 플레이어 데이터 저장
+        DataManager.Instance.slotNum = 0;
+        DataManager.Instance.SaveData();
     } // DecisionBtClick
 
     //! 능력치 패널 텍스트 할당하는 함수

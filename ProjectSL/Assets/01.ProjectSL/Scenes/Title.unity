@@ -2613,7 +2613,7 @@ GameObject:
   - component: {fileID: 66219243}
   - component: {fileID: 66219242}
   m_Layer: 0
-  m_Name: BehindImage
+  m_Name: BehindMessage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2630,15 +2630,14 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 383261086}
+  m_Children: []
   m_Father: {fileID: 982129946}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 734, y: 124}
+  m_SizeDelta: {x: 1506, y: 122}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &66219242
 MonoBehaviour:
@@ -2660,7 +2659,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -618434255, guid: cd070ae8b02f7e14cbdd9ea8c64e49f2, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -12220,13 +12219,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 66219241}
+  m_Father: {fileID: 982129946}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 734, y: 124}
+  m_SizeDelta: {x: 1506, y: 122}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &383261087
 MonoBehaviour:
@@ -12248,7 +12247,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1709562136, guid: cd070ae8b02f7e14cbdd9ea8c64e49f2, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -28225,13 +28224,14 @@ GameObject:
   - component: {fileID: 886851746}
   - component: {fileID: 886851745}
   - component: {fileID: 886851744}
+  - component: {fileID: 886851747}
   m_Layer: 0
   m_Name: MessagePanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &886851743
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28314,6 +28314,34 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 3
   m_TargetDisplay: 0
+--- !u!114 &886851747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 886851742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a5d463de42f2854693efd00ac061558, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  frontSprites:
+  - {fileID: 182019643, guid: 92d83e9cefb68904897ba4903e5da3d5, type: 3}
+  - {fileID: -1709562136, guid: cd070ae8b02f7e14cbdd9ea8c64e49f2, type: 3}
+  - {fileID: 1197289631, guid: 55102072fbf75aa428d4bc08c09a3de1, type: 3}
+  - {fileID: 341473714, guid: cb291bbc9be47b44fb7df773374eeb68, type: 3}
+  - {fileID: -807477576, guid: 6190f39bdc72c3943ac3e984094f49c0, type: 3}
+  behindSprites:
+  - {fileID: 182019643, guid: 92d83e9cefb68904897ba4903e5da3d5, type: 3}
+  - {fileID: -618434255, guid: cd070ae8b02f7e14cbdd9ea8c64e49f2, type: 3}
+  - {fileID: 1126573045, guid: 55102072fbf75aa428d4bc08c09a3de1, type: 3}
+  - {fileID: -49341021, guid: cb291bbc9be47b44fb7df773374eeb68, type: 3}
+  - {fileID: 899331274, guid: 6190f39bdc72c3943ac3e984094f49c0, type: 3}
+  messageObj: {fileID: 982129945}
+  messageAni: {fileID: 982129949}
+  frontImage: {fileID: 383261087}
+  behindImage: {fileID: 66219242}
 --- !u!1 &887169159
 GameObject:
   m_ObjectHideFlags: 0
@@ -31449,13 +31477,14 @@ GameObject:
   - component: {fileID: 982129946}
   - component: {fileID: 982129948}
   - component: {fileID: 982129947}
+  - component: {fileID: 982129949}
   m_Layer: 0
   m_Name: MessageBg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &982129946
 RectTransform:
   m_ObjectHideFlags: 0
@@ -31468,6 +31497,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 383261086}
   - {fileID: 66219241}
   m_Father: {fileID: 886851743}
   m_RootOrder: 0
@@ -31475,7 +31505,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1950, y: 200}
+  m_SizeDelta: {x: 1950, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &982129947
 MonoBehaviour:
@@ -31515,6 +31545,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 982129945}
   m_CullTransparentMesh: 1
+--- !u!95 &982129949
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982129945}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 76310891d90a3ce419e27d1ac6278008, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &983703105
 GameObject:
   m_ObjectHideFlags: 0
@@ -89466,11 +89517,11 @@ RectTransform:
   m_Father: {fileID: 62291101670191606}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -50, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 50, y: 0}
   m_SizeDelta: {x: 200, y: 200}
-  m_Pivot: {x: 1, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!95 &62291101438831825
 Animator:
   serializedVersion: 5
@@ -104159,6 +104210,7 @@ MonoBehaviour:
   statusPanel: {fileID: 62291101924962664}
   invenStatusPanel: {fileID: 62291102136939432}
   optionPanel: {fileID: 62291101190473276}
+  messagePanel: {fileID: 886851747}
   quickSlotBar: {fileID: 62291102167510783}
   soulBag: {fileID: 62291100794959009}
   healthHud: {fileID: 896157287}
