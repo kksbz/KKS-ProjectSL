@@ -9,6 +9,12 @@ public class GameManager : Singleton<GameManager>
     public GameObject playerRightArm;
     public PlayerCharacter player;
 
+    //! 현재 씬이 타이틀씬인지 아닌지 확인하는 함수
+    public bool CheckActiveTitleScene()
+    {
+        return SceneManager.GetActiveScene().name != GData.SCENENAME_TITLE;
+    } // CheckActiveTitleScene
+
     //! ȭ��� �̿�� �� �ε��ϴ� �Լ�
     public void LoadBonfire(BonfireData bonfire)
     {

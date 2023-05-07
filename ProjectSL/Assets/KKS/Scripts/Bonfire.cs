@@ -20,6 +20,7 @@ public class Bonfire : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.E))
             {
+                GameManager.Instance.player.StateMachine.LockInput();
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
                 if (bonfireData.hasBonfire == false)
