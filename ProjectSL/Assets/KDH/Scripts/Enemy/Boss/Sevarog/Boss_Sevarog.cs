@@ -30,6 +30,14 @@ public class Boss_Sevarog : BossBase
         base.Init();
         //SetState(new Boss_None_State(this));
         SetState(new Boss_Idle_State(this));
+
+        foreach (BonfireData bonfire in UiManager.Instance.warp.bonfireList)
+        {
+            if (bonfire.bonfireID == 6)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 
     public override void TakeDamage(GameObject damageCauser, float damage)
@@ -196,20 +204,9 @@ public class Boss_Sevarog : BossBase
         enragePrefab.SetActive(true);
         enragePrefab.GetComponent<Enrage>().damage = Status.currentAttackDamage;
 
-        List<GameObject> pillars_ = new List<GameObject>();
-        for (int i = 0; i < 2; i++)
-        {
-            for (int j = 0; j < 2; j++)
-            {
-                float x_ = -179f - 16 * i;
-                float y_ = -94f - 16 * j;
-                Vector3 pillarPos_ = new Vector3(x_, 9.5f, y_);
-                Debug.Log($"pillarPos : {pillarPos_}");
-                GameObject tempObject_ = Instantiate(enragePillarPrefab, pillarPos_, Quaternion.identity);
-                pillars_.Add(tempObject_);
-            }
-        }
-        enragePrefab.GetComponent<Enrage>().pillars = pillars_;
+        GameObject tempObject_ = Instantiate(enragePillarPrefab, middlePos, Quaternion.identity);
+
+        enragePrefab.GetComponent<Enrage>().pillar = tempObject_;
     }
     #endregion
 }
