@@ -10,6 +10,7 @@ public class OptionPanel : MonoBehaviour
     [SerializeField] private Image panelImage; // 상단패널 이미지
     [SerializeField] private TMP_Text panelText; // 상단패널 텍스트
     [SerializeField] private SaveAndLoadPanel saveAndLoadPanel; // 세이브,로드 패널
+    [SerializeField] private GameObject manualPanel; // 플레이어 조작법 패널
     [SerializeField] private GameObject checkPanel; // 확인 패널
     [SerializeField] private TMP_Text checkText; // 확인 패널 텍스트
     [SerializeField] private Button checkPanelSelectBt; // 확인 패널 선택 버튼
@@ -42,14 +43,15 @@ public class OptionPanel : MonoBehaviour
         OptionBt.onClick.AddListener(() =>
         {
             panelImage.sprite = panelSprites[1];
-            panelText.text = "설정";
+            panelText.text = "조작법";
+            manualPanel.SetActive(true);
             goBackText.SetActive(true);
         });
         // 세이브 버튼
         SaveBt.onClick.AddListener(() =>
         {
             panelImage.sprite = panelSprites[2];
-            panelText.text = "세이브";
+            panelText.text = "저장하기";
             saveAndLoadPanel.isSave = true;
             saveAndLoadPanel.gameObject.SetActive(true);
             goBackText.SetActive(true);
@@ -58,7 +60,7 @@ public class OptionPanel : MonoBehaviour
         LoadBt.onClick.AddListener(() =>
         {
             panelImage.sprite = panelSprites[3];
-            panelText.text = "로드";
+            panelText.text = "불러오기";
             saveAndLoadPanel.isSave = false;
             saveAndLoadPanel.gameObject.SetActive(true);
             goBackText.SetActive(true);
@@ -92,8 +94,10 @@ public class OptionPanel : MonoBehaviour
     private void OnEnable()
     {
         panelImage.sprite = panelSprites[0];
-        panelText.text = "옵션";
+        panelText.text = "설정";
         goBackText.SetActive(false);
+        manualPanel.SetActive(false);
+        saveAndLoadPanel.gameObject.SetActive(false);
     } // OnEnable
 
     private void Update()
@@ -103,8 +107,9 @@ public class OptionPanel : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 saveAndLoadPanel.gameObject.SetActive(false);
+                manualPanel.SetActive(false);
                 panelImage.sprite = panelSprites[0];
-                panelText.text = "옵션";
+                panelText.text = "설정";
                 goBackText.SetActive(false);
             }
         }
