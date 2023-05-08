@@ -146,8 +146,8 @@ public class PlayerStateMachine : MonoBehaviour
 
         // Ui Input Binding
         _playerInput.UiInput.ESC.started += OnESCInput;
-
-
+        _playerInput.UiInput.NUM0.started += CheatInvincibilityInput;
+        _playerInput.UiInput.NUM1.started += CheatGetSoulInput;
         //
         //_playerInput.PlayerCharacterInput.SwitchArm.started += (InputAction.CallbackContext context) => Debug.Log("SwitchArm Started");
         //_playerInput.PlayerCharacterInput.SwitchArm.performed += (InputAction.CallbackContext context) => Debug.Log("SwitchArm performed");
@@ -307,12 +307,18 @@ public class PlayerStateMachine : MonoBehaviour
     public void OnESCInput(InputAction.CallbackContext context)
     {
         _isESCPressed = context.ReadValueAsButton();
-        Debug.Log("Debugging UIInput Pressed");
         UiInPutManager.Instance.UiInPutSystem();
-
     }
 
+    public void CheatInvincibilityInput(InputAction.CallbackContext context)
+    {
+        UiInPutManager.Instance.Cheat_Invincibility();
+    }
 
+    public void CheatGetSoulInput(InputAction.CallbackContext context)
+    {
+        UiInPutManager.Instance.Cheat_GetSoul();
+    }
     public void LockInput()
     {
         _playerInput.PlayerCharacterInput.Disable();

@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class UiInPutManager : Singleton<UiInPutManager>
 {
     private bool isExitUi = false;
-
+    public bool isInvincibility = false;
 
     public void UiInPutSystem()
     {
@@ -63,6 +63,19 @@ public class UiInPutManager : Singleton<UiInPutManager>
             Cursor.visible = false;
         }
     } // UiInPutSystem
+
+    // 치트 : 무적 OnOff
+    public void Cheat_Invincibility()
+    {
+        isInvincibility = !isInvincibility;
+        Debug.Log($"무적치트 On : {isInvincibility}");
+    } // Cheat_Invincibility
+
+    // 치트 : 소울 얻기
+    public void Cheat_GetSoul()
+    {
+        UiManager.Instance.soulBag.GetSoul(10000);
+    } // Cheat_GetSoul
 
     //! ESC��ư ��� �Լ�
     private void ExitUiPanel()

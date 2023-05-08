@@ -280,6 +280,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "NUM0",
+                    "type": "Button",
+                    "id": "05030b8b-c250-48a3-b1be-f2c06a46a1ba",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "NUM1",
+                    "type": "Button",
+                    "id": "2fe214b3-c326-4b4c-986f-443e33603c13",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -291,6 +309,28 @@
                     "processors": "",
                     "groups": "PC",
                     "action": "ESC",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "029946ea-61e2-4331-b091-a317432dd4ae",
+                    "path": "<Keyboard>/numpad0",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NUM0",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ba9dd932-70c3-45ad-9d56-74d6e2957c58",
+                    "path": "<Keyboard>/numpad1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "NUM1",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
