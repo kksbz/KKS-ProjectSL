@@ -33,6 +33,8 @@ public class InteractionObject : MonoBehaviour
         if (isEnterPlayer && Input.GetKeyDown(KeyCode.E))
         {
             OnInteraction();
+            UiManager.Instance.interactionBar.SetActive(false);
+            UiManager.Instance.interactionText.text = null;
         }
     }
 

@@ -31,10 +31,11 @@ public class Boss_Sevarog : BossBase
         //SetState(new Boss_None_State(this));
         SetState(new Boss_Idle_State(this));
 
-        foreach (BonfireData bonfire in UiManager.Instance.warp.bonfireList)
+        foreach (BonfireData _bonfire in UiManager.Instance.warp.bonfireList)
         {
-            if (bonfire.bonfireID == 6)
+            if (_bonfire.bonfireID == 6)
             {
+                bonfire.SetActive(true);
                 Destroy(gameObject);
             }
         }
