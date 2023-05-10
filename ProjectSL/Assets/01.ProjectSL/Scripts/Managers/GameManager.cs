@@ -147,9 +147,22 @@ public class GameManager : Singleton<GameManager>
                 GameObject Soul = Instantiate(Resources.Load<GameObject>("KKS/Prefabs/Objecct/DropSoul"));
                 int _soul = Inventory.Instance.Soul;
                 Soul.GetComponent<DropSoul>().souls = _soul;
-                Debug.Log($"잃어버린 소울 값 : {_soul} / {Inventory.Instance.Soul} / 실제 값 : {Soul.GetComponent<DropSoul>().souls}");
+                //Debug.Log($"잃어버린 소울 값 : {_soul} / {Inventory.Instance.Soul} / 실제 값 : {Soul.GetComponent<DropSoul>().souls}");
                 UiManager.Instance.soulBag.GetSoul(-Inventory.Instance.Soul);
                 Soul.transform.position = _playerStatusData._playerPos;
+            }
+            // 에스트병 보유횟수 초기화
+            for (int i = 0; i < Inventory.Instance.inventory.Count; i++)
+            {
+                if (Inventory.Instance.inventory[i].itemID == 1)
+                {
+                    Inventory.Instance.inventory[i].Quantity = Inventory.Instance.inventory[i].maxQuantity;
+                }
+                if (Inventory.Instance.inventory[i].itemID == 2)
+                {
+                    Inventory.Instance.inventory[i].Quantity = Inventory.Instance.inventory[i].maxQuantity;
+                    break;
+                }
             }
         }
         else

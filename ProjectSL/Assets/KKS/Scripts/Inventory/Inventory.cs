@@ -56,14 +56,6 @@ public class Inventory : Singleton<Inventory>
     }
     //
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            UiManager.Instance.soulBag.GetSoul(5000);
-        }
-    } // Update
-
     //! ���� �ʱ�ȭ
     public void InitSlot()
     {
@@ -336,7 +328,7 @@ public class Inventory : Singleton<Inventory>
                                     }
                                 }
                             }
-                            _onEquipArmorUpdated();
+                            //_onEquipArmorUpdated();
                             break;
                     } // switch
                 }

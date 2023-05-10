@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerStateMachine : MonoBehaviour
 {
+    Rigidbody _rigidbody;
     CharacterController _characterController;
     Animator _animator;
     [SerializeField]
@@ -38,7 +39,6 @@ public class PlayerStateMachine : MonoBehaviour
     bool _isRunPressed;
     bool _isWalkPressed;
     float runPressedRate = 0.5f;
-
 
     // ���
     int _zero = 0;
@@ -72,6 +72,7 @@ public class PlayerStateMachine : MonoBehaviour
     // getter and setter
     public PlayerCharacter PlayerCharacter { get { return _playerCharacter; } }
     public PlayerBaseState CurrentState { get { return _currentState; } set { _currentState = value; } }
+    public Rigidbody Rigidbody { get { return _rigidbody; } }
     public CharacterController CharacterController { get { return _characterController; } }
     public PlayerController PlayerController { get { return _playerController; } }
     public AnimationController AnimationController { get { return _animationController; } }
@@ -99,11 +100,13 @@ public class PlayerStateMachine : MonoBehaviour
     public Vector3 AppliedMovement { get { return _appliedMovement; } }
     public Behavior NextBehavior { get { return _nextBehavior; } set { _nextBehavior = value; } }
     public PlayerInput PlayerInput { get { return _playerInput; } }
+    public bool CanRotate { get { return _canRotate; } set { _canRotate = value; } }
 
     private void Awake()
     {
         // ��ǲ, ������Ʈ �ʱ�ȭ
         _playerInput = new PlayerInput();
+        _rigidbody = GetComponent<Rigidbody>();
         _characterController = GetComponent<CharacterController>();
         _characterBody = gameObject.FindChildObj("Mesh").transform;
         _animator = _characterBody.gameObject.GetComponent<Animator>();
@@ -152,7 +155,7 @@ public class PlayerStateMachine : MonoBehaviour
         //_playerInput.PlayerCharacterInput.SwitchArm.started += (InputAction.CallbackContext context) => Debug.Log("SwitchArm Started");
         //_playerInput.PlayerCharacterInput.SwitchArm.performed += (InputAction.CallbackContext context) => Debug.Log("SwitchArm performed");
         //_playerInput.PlayerCharacterInput.SwitchArm.canceled += (InputAction.CallbackContext context) => Debug.Log("SwitchArm canceled");
-        Debug.Log("Player State Machine : ��ǲ ���ε�");
+        //Debug.Log("Player State Machine : ��ǲ ���ε�");
 
         // _playerInput.PlayerCharacterInput.
 
@@ -183,11 +186,6 @@ public class PlayerStateMachine : MonoBehaviour
 
         if (!_isMovementPressed)
             return;
-
-        if(_isRunPressed)
-        {
-            PlayerCharacter.HealthSys.ConsumSP(_playerController._sprintActionCost * Time.deltaTime);
-        }
 
         Vector3 newDirection = Vector3.zero;
         // ĳ���� ȸ�� * �ӽ��ϼ��� ����
@@ -227,6 +225,15 @@ public class PlayerStateMachine : MonoBehaviour
         _characterBody.forward = newBodyDirection;
         // transform.forward = newBodyDirection;
     }
+    public void SetDirectionByAttack()
+    {
+        if (_currentMovement == Vector3.zero)
+            return;
+        if (_cameraController.CameraState == ECameraState.LOCKON)
+            return;
+
+        _characterBody.forward = _currentMovement;
+    }
 
     public void RotateCharacterBody()
     {
@@ -246,7 +253,7 @@ public class PlayerStateMachine : MonoBehaviour
     void OnRunInput(InputAction.CallbackContext context)
     {
         _isRunPressed = context.ReadValueAsButton();
-        Debug.Log($"Run Input : {_isRunPressed}");
+        //Debug.Log($"Run Input : {_isRunPressed}");
     }
     void OnWalkInput(InputAction.CallbackContext context)
     {
@@ -254,7 +261,7 @@ public class PlayerStateMachine : MonoBehaviour
     }
     void OnAttackInput(InputAction.CallbackContext context)
     {
-        Debug.Log("Debugging Attack Pressed");
+        //Debug.Log("Debugging Attack Pressed");
         _isAttackPressed = context.ReadValueAsButton();
     }
     void OnGuardInput(InputAction.CallbackContext context)
@@ -279,18 +286,21 @@ public class PlayerStateMachine : MonoBehaviour
     void OnDodgeInputRelease(InputAction.CallbackContext context)
     {
         float pressRate = Time.time - _dodgeStartTime;
-        Debug.Log($"Dodge Press Rate : {pressRate}");
+        //Debug.Log($"Dodge Press Rate : {pressRate}");
         if (!(pressRate < _dodgePressedRate))
+            return;
+
+        if (CombatController.IsDodging)
             return;
 
         if (_currentMovementInput != Vector2.zero)
         {
-            Debug.LogWarning($"isRollPressed, Read Value : {context.ReadValueAsButton()}");
+            //Debug.LogWarning($"isRollPressed, Read Value : {context.ReadValueAsButton()}");
             _isRollPressed = true;
         }
         else
         {
-            Debug.LogWarning($"isBackStepPressed, Read Value : {context.ReadValueAsButton()}");
+            //Debug.LogWarning($"isBackStepPressed, Read Value : {context.ReadValueAsButton()}");
             _isBackStepPressed = true;
         }
     }
@@ -319,6 +329,7 @@ public class PlayerStateMachine : MonoBehaviour
     {
         UiInPutManager.Instance.Cheat_GetSoul();
     }
+    
     public void LockInput()
     {
         _playerInput.PlayerCharacterInput.Disable();

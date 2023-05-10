@@ -26,10 +26,11 @@ public class Boss_Rampage : BossBase
         BossStatus.bossLayerMaskIndex = LayerMask.NameToLayer("Character");
         BossStatus.targetLayerMaskIndex = LayerMask.NameToLayer("Target");
 
-        foreach (BonfireData bonfire in UiManager.Instance.warp.bonfireList)
+        foreach (BonfireData _bonfire in UiManager.Instance.warp.bonfireList)
         {
-            if (bonfire.bonfireID == 5)
+            if (_bonfire.bonfireID == 5)
             {
+                bonfire.SetActive(true);
                 Destroy(gameObject);
             }
         }
