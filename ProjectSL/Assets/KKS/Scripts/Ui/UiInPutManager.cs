@@ -77,7 +77,7 @@ public class UiInPutManager : Singleton<UiInPutManager>
         UiManager.Instance.soulBag.GetSoul(10000);
     } // Cheat_GetSoul
 
-    //! ESC��ư ��� �Լ�
+    //! ESC버튼 Ui끄기
     private void ExitUiPanel()
     {
         Cursor.lockState = CursorLockMode.Locked;

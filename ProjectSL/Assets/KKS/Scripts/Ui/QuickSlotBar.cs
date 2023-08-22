@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class QuickSlotBar : MonoBehaviour
 {
-    [SerializeField] private QuickSlot leftArm; // �޼� ������
-    [SerializeField] private QuickSlot rightArm; // ������ ������
-    [SerializeField] private QuickSlot attackC; // ���ݿ� �Ҹ�ǰ ������
-    [SerializeField] private QuickSlot recoveryC; // ȸ���� �Ҹ�ǰ ������
-    [SerializeField] private List<WeaponSlot> leftWeaponList; // �޼� ���� ����Ʈ
-    [SerializeField] private List<WeaponSlot> rightWeaponList; // ������ ���� ����Ʈ
-    [SerializeField] private List<ConsumptionSlot> attackC_List; // ���ݿ� �Ҹ�ǰ ����Ʈ
-    [SerializeField] private List<ConsumptionSlot> recoveryC_List; // ȸ���� �Ҹ�ǰ ����Ʈ
+    [SerializeField] private QuickSlot leftArm; // 왼손 퀵슬롯
+    [SerializeField] private QuickSlot rightArm; // 오른손 퀵슬롯
+    [SerializeField] private QuickSlot attackC; // 공격소모품 퀵슬롯
+    [SerializeField] private QuickSlot recoveryC; // 회복소모품 퀵슬롯
+    [SerializeField] private List<WeaponSlot> leftWeaponList; // 왼손 무기슬롯
+    [SerializeField] private List<WeaponSlot> rightWeaponList; // 오른손 무기슬롯
+    [SerializeField] private List<ConsumptionSlot> attackC_List; // 공격소모품 슬롯
+    [SerializeField] private List<ConsumptionSlot> recoveryC_List; // 회복소모품 슬롯
     public int leftArmNum = 0;
     public int rightArmNum = 0;
     public int attackC_Num = 0;
@@ -52,7 +52,7 @@ public class QuickSlotBar : MonoBehaviour
         InPutQuickSlot();
     } // Update
 
-    //! ������ ��� Ŀ���
+    //! 퀵슬롯 단축키
     private void InPutQuickSlot()
     {
         if (GameManager.Instance.CheckActiveTitleScene() == true)
@@ -60,15 +60,15 @@ public class QuickSlotBar : MonoBehaviour
             if (Input.GetKey(KeyCode.LeftShift))
             {
                 float scroll = Input.GetAxis("Mouse ScrollWheel");
-                // ���콺 ���� ���� ��ũ������ �� ������ ���� ����
+                // 쉬프트 + 마우스휠업
                 if (scroll > 0f)
                 {
                     if (rightWeaponList[rightArmNum].Item != null)
                     {
-                        // ���� ������ ������ ������Ʈ ��Ȱ��ȭ
+                        // 이전 오른손 퀵슬롯의 아이템 비활성화
                         rightWeaponList[rightArmNum].equipItem.SetActive(false);
                     }
-                    // ������ ũ�⸦ ����� �ε��� �ʱ�ȭ
+                    // 오른손 퀵슬롯 번호 초기화
                     if (rightArmNum == rightWeaponList.Count - 1)
                     {
                         rightArmNum = -1;
@@ -76,23 +76,23 @@ public class QuickSlotBar : MonoBehaviour
                     rightArmNum++;
                     rightArm.Item = rightWeaponList[rightArmNum].Item;
                     Inventory.Instance._onEquipSlotUpdated();
-                    // �����Կ� ���Ⱑ ���� ��
+                    // 선택한 오른손 퀵슬롯의 아이템이 존재할때
                     if (rightWeaponList[rightArmNum].Item != null)
                     {
-                        // ���� ������Ʈ�� �÷��̾��� ���������� ��ġ �����ϰ� Ȱ��ȭ
+                        // 오른손 퀵슬롯의 아이템 활성화
                         rightWeaponList[rightArmNum].equipItem.SetActive(true);
-                        //Debug.Log($"����Ʈ+�پ� : {rightArmNum}");
+                        //Debug.Log($"선택한 오른손 퀵슬롯 번호 : {rightArmNum}");
                     }
                 }
-                // ���콺 ���� �Ʒ��� ��ũ������ �� �޼� ���� ����
+                // 쉬프트 + 마우스휠다운
                 else if (scroll < 0f)
                 {
                     if (leftWeaponList[leftArmNum].Item != null)
                     {
-                        // ���� ������ ������ ������Ʈ ��Ȱ��ȭ
+                        // 이전 왼손 퀵슬롯의 아이템 비활성화
                         leftWeaponList[leftArmNum].equipItem.SetActive(false);
                     }
-                    // ������ ũ�⸦ ����� �ε��� �ʱ�ȭ
+                    // 왼손 퀵슬롯 번호 초기화
                     if (leftArmNum == leftWeaponList.Count - 1)
                     {
                         leftArmNum = -1;
@@ -100,27 +100,27 @@ public class QuickSlotBar : MonoBehaviour
                     leftArmNum++;
                     leftArm.Item = leftWeaponList[leftArmNum].Item;
                     Inventory.Instance._onEquipSlotUpdated();
-                    // �����Կ� ���Ⱑ ���� ��
+                    // 선택한 왼손 퀵슬롯의 아이템이 존재할때
                     if (leftWeaponList[leftArmNum].Item != null)
                     {
-                        // ���� ������Ʈ�� �÷��̾��� ���������� ��ġ �����ϰ� Ȱ��ȭ
+                        // 왼손 퀵슬롯의 아이템 활성화
                         leftWeaponList[leftArmNum].equipItem.SetActive(true);
-                        //Debug.Log($"����Ʈ+�ٴٿ� : {leftArmNum}");
+                        //Debug.Log($"선택한 왼손 퀵슬롯 번호: {leftArmNum}");
                     }
                 }
             }
             else
             {
                 float scroll = Input.GetAxis("Mouse ScrollWheel");
-                // ���콺 ���� ���� ��ũ������ �� ���ݿ� �Ҹ�ǰ ����
+                // 마우스휠업
                 if (scroll > 0f)
                 {
                     if (attackC_List[attackC_Num].Item != null)
                     {
-                        // ���� ������ ������ ������Ʈ ��Ȱ��ȭ
+                        // 이전 공격소모품 퀵슬롯의 아이템 비활성화
                         attackC_List[attackC_Num].equipItem.SetActive(false);
                     }
-                    // ������ ũ�⸦ ����� �ε��� �ʱ�ȭ
+                    // 공격소모품 퀵슬롯 번호 초기화
                     if (attackC_Num == attackC_List.Count - 1)
                     {
                         attackC_Num = -1;
@@ -128,21 +128,21 @@ public class QuickSlotBar : MonoBehaviour
                     attackC_Num++;
                     attackC.Item = attackC_List[attackC_Num].Item;
                     Inventory.Instance._onEquipSlotUpdated();
-                    // �����Կ� ���ݿ� �Ҹ�ǰ�� ���� ��
+                    // 선택한 공격소모품 퀵슬롯의 아이템이 존재할때
                     if (attackC_List[attackC_Num].Item != null)
                     {
-                        // ���ݿ� �Ҹ�ǰ ������Ʈ�� �÷��̾��� ���������� ��ġ �����ϰ� Ȱ��ȭ
+                        //attackC_List[attackC_Num].equipItem.SetActive(true);
                     }
                 }
-                // ���콺 ���� �Ʒ��� ��ũ������ �� ȸ���� �Ҹ�ǰ ����
+                // 마우스휠다운
                 else if (scroll < 0f)
                 {
                     if (recoveryC_List[recoveryC_Num].Item != null)
                     {
-                        // ���� ������ ������ ������Ʈ ��Ȱ��ȭ
+                        // 이전 회복소모품 퀵슬롯의 아이템 비활성화
                         recoveryC_List[recoveryC_Num].equipItem.SetActive(false);
                     }
-                    // ������ ũ�⸦ ����� �ε��� �ʱ�ȭ
+                    // 회복소모품 퀵슬롯 번호 초기화
                     if (recoveryC_Num == recoveryC_List.Count - 1)
                     {
                         recoveryC_Num = -1;
@@ -150,20 +150,20 @@ public class QuickSlotBar : MonoBehaviour
                     recoveryC_Num++;
                     recoveryC.Item = recoveryC_List[recoveryC_Num].Item;
                     Inventory.Instance._onEquipSlotUpdated();
-                    // �����Կ� ȸ���� �Ҹ�ǰ�� ���� ��
+                    // 선택한 회복소모품 퀵슬롯의 아이템이 존재할때
                     if (recoveryC_List[recoveryC_Num].Item != null)
                     {
-                        // ȸ���� �Ҹ�ǰ ������Ʈ�� �÷��̾��� ���������� ��ġ �����ϰ� Ȱ��ȭ
+                        //recoveryC_List[recoveryC_Num].equipItem.SetActive(true);
                     }
                 }
             }
         }
     } // InPutQuickSlot
 
-    //! ������ �ε�� ������ ������ �����ϴ� �Լ�
+    //! 세이브데이터 로드시 퀵슬롯정보 가져오는 함수
     public void LoadQuickSlotData()
     {
-        // ������ ���� ������ ����
+        // 오른손 퀵슬롯의 아이템이 존재할때
         if (rightWeaponList[rightArmNum].Item != null && rightWeaponList[rightArmNum].equipItem != null)
         {
             rightArm.Item = rightWeaponList[rightArmNum].Item;
@@ -174,7 +174,7 @@ public class QuickSlotBar : MonoBehaviour
             rightArm.Item = null;
         }
 
-        // �޼� ���� ������ ����
+        // 왼손 퀵슬롯의 아이템이 존재할때
         if (leftWeaponList[leftArmNum].Item != null && leftWeaponList[leftArmNum].equipItem != null)
         {
             leftArm.Item = leftWeaponList[leftArmNum].Item;
@@ -185,7 +185,7 @@ public class QuickSlotBar : MonoBehaviour
             leftArm.Item = null;
         }
 
-        // ���ݿ� �Ҹ�ǰ ������ ����
+        // 공격소모품 퀵슬롯의 아이템이 존재할때
         if (attackC_List[attackC_Num].Item != null && attackC_List[attackC_Num].equipItem != null)
         {
             attackC.Item = attackC_List[attackC_Num].Item;
@@ -195,7 +195,7 @@ public class QuickSlotBar : MonoBehaviour
             attackC.Item = null;
         }
 
-        // ȸ���� �Ҹ�ǰ ������ ����
+        // 회복소모품 퀵슬롯의 아이템이 존재할때
         if (recoveryC_List[recoveryC_Num].Item != null && recoveryC_List[recoveryC_Num].equipItem != null)
         {
             recoveryC.Item = recoveryC_List[recoveryC_Num].Item;

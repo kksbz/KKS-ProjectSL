@@ -5,14 +5,14 @@ using UnityEngine.UI;
 
 public class QuickWarpPanel : MonoBehaviour
 {
-    public GameObject quickWarpPanel; // �����̵� �г�
-    public GameObject WarningPanel; // ��� �г�
-    [SerializeField] private Button selectBt; // ���ù�ư
-    [SerializeField] private Button cancleBt; // ��ҹ�ư
+    public GameObject quickWarpPanel; // 빠른이동패널
+    public GameObject WarningPanel; // 경고창패널
+    [SerializeField] private Button selectBt; // 선택버튼
+    [SerializeField] private Button cancleBt; // 취소버튼
 
     private void Start()
     {
-        // ���� ��ư
+        // 선택버튼
         selectBt.onClick.AddListener(() =>
         {
             int soul = Inventory.Instance.Soul;
@@ -30,7 +30,7 @@ public class QuickWarpPanel : MonoBehaviour
             UiManager.Instance.quickBar.SetActive(false);
             GameManager.Instance.LoadBonfire(pontiffBonfire);
         });
-        // ��� ��ư
+        // 취소버튼
         cancleBt.onClick.AddListener(() =>
         {
             gameObject.SetActive(false);

@@ -15,20 +15,19 @@ public class GameManager : Singleton<GameManager>
         return SceneManager.GetActiveScene().name != GData.SCENENAME_TITLE;
     } // CheckActiveTitleScene
 
-    //! ȭ��� �̿�� �� �ε��ϴ� �Լ�
+    //! 화톳불 이용시 씬 로드하는 함수
     public void LoadBonfire(BonfireData bonfire)
     {
         StartCoroutine(LoadBonfireScene(bonfire));
     } // LoadBonfire
-    //! ȭ��� �̿�� �� �ε��ϴ� �ڷ�ƾ�Լ�
 
-    //! ������ ���� �� �� �ε��ϴ� �Լ�
+    //! 뉴게임 선택 시 씬 로드하는 함수
     public void NewGamePlay(int num)
     {
         StartCoroutine(NewGameLoadScene(num));
     } // NewGamePlay
 
-    //! ���̺굥���� �ε� �� �ش� �� �ε��ϴ� �Լ�
+    //! 세이브데이터 로드 시 해당 씬 로드하는 함수
     public void LoadSaveDataScene(int num)
     {
         StartCoroutine(LoadSaveDataPlayScene(num));
@@ -40,12 +39,13 @@ public class GameManager : Singleton<GameManager>
         StartCoroutine(LoadTitleScene());
     } // GoTitleScene
 
+    //! 화톳불 이용 시 씬이동 코루틴함수
     private IEnumerator LoadBonfireScene(BonfireData bonfire)
     {
-        // �ڵ����� ���Կ� ���絥���� ����
+        // 자동저장 슬롯에 현재데이터 저장
         DataManager.Instance.slotNum = 0;
         DataManager.Instance.SaveData();
-        // �ε�â Ȱ��ȭ
+        // 로딩창 활성화
         UiManager.Instance.loadingPanel.gameObject.SetActive(true);
         float fadeTime = UiManager.Instance.loadingPanel.FadeInLoadingPanel();
         yield return new WaitForSeconds(fadeTime);
@@ -54,83 +54,89 @@ public class GameManager : Singleton<GameManager>
         {
             yield return null;
         }
-        // ���� �ҷ������� �÷��̾� ������ �ε�
+        // 씬이 불러와지면 플레이어 데이터 로드
         DataManager.Instance.LoadData();
         player.transform.position = bonfire.bonfirePos;
         DataManager.Instance.SaveData();
         yield return new WaitForSeconds(3f);
-        Debug.Log($"���ε� ��");
+        //Debug.Log($"씬로드 끝");
         UiManager.Instance.loadingPanel.FadeOutLoadingPanel();
         yield return new WaitForSeconds(fadeTime);
-        // �ε�â ��Ȱ��ȭ
+        // 로딩창 비활성화
         UiManager.Instance.loadingPanel.gameObject.SetActive(false);
     } // LoadScene
 
-    //! ������ ���� �� ���̵� �ڷ�ƾ�Լ�
+    //! 뉴게임 선택 시 씬이동 코루틴함수
     private IEnumerator NewGameLoadScene(int num)
     {
-        // �ε�â Ȱ��ȭ
+        // 로딩창 활성화
         UiManager.Instance.loadingPanel.gameObject.SetActive(true);
         float fadeTime = UiManager.Instance.loadingPanel.FadeInLoadingPanel();
         yield return new WaitForSeconds(fadeTime);
         var asyncLoad = SceneManager.LoadSceneAsync(GData.SCENENAME_PLAY);
-        Debug.Log($"���ε� ����");
+        //Debug.Log($"씬로드 시작");
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
-        Debug.Log($"���ε� ��");
+        //Debug.Log($"씬로드 끝");
         yield return new WaitForSeconds(3f);
         GameManager.Instance.player.PlayerNameSelect(DataManager.Instance.selectPlayerName);
-        // ������ ���۽� ����Ʈ���� ���� ����Ʈ�� ������ ����
+        // 뉴게임 시작시 기본 무기, 방패, 회복약 가지고 시작
         ItemData hpPotion = new ItemData(DataManager.Instance.itemDatas[0]);
         hpPotion.Quantity = hpPotion.maxQuantity;
         ItemData mpPotion = new ItemData(DataManager.Instance.itemDatas[1]);
         mpPotion.Quantity = mpPotion.maxQuantity;
+        ItemData weapon = new ItemData(DataManager.Instance.itemDatas[8]);
+        ItemData shield = new ItemData(DataManager.Instance.itemDatas[4]);
+
         Inventory.Instance.AddItem(hpPotion);
         Inventory.Instance.AddItem(mpPotion);
+        Inventory.Instance.AddItem(weapon);
+        Inventory.Instance.AddItem(shield);
         DataManager.Instance.slotNum = num;
         DataManager.Instance.SaveData();
         UiManager.Instance.loadingPanel.FadeOutLoadingPanel();
         yield return new WaitForSeconds(fadeTime);
-        // �ε�â ��Ȱ��ȭ
+        // 로딩창 비활성화
         UiManager.Instance.loadingPanel.gameObject.SetActive(false);
     } // LoadScene
 
-    //! ���̺굥���� �ҷ��ͼ� �ش� ������ �÷��̾� �ҷ����� �ڷ�ƾ�Լ�
+    //! 세이브데이터 불러와서 해당 데이터 플레이씬 불러오는 코루틴함수
     private IEnumerator LoadSaveDataPlayScene(int num)
     {
-        // �ε�â Ȱ��ȭ
+        // 로딩창 활성화
         UiManager.Instance.loadingPanel.gameObject.SetActive(true);
         float fadeTime = UiManager.Instance.loadingPanel.FadeInLoadingPanel();
         yield return new WaitForSeconds(fadeTime);
         var asyncLoad = SceneManager.LoadSceneAsync(GData.SCENENAME_PLAY);
-        Debug.Log($"���ε� ����");
+        //Debug.Log($"씬로드 시작");
         while (!asyncLoad.isDone)
         {
             yield return null;
         }
-        Debug.Log($"���ε� ��");
+        //Debug.Log($"씬로드 끝");
         DataManager.Instance.slotNum = num;
         DataManager.Instance.LoadData();
         InitPlayer(DataManager.Instance.playerStatusSaveData);
         yield return new WaitForSeconds(3f);
         UiManager.Instance.loadingPanel.FadeOutLoadingPanel();
         yield return new WaitForSeconds(fadeTime);
-        // �ε�â ��Ȱ��ȭ
+        // 로딩창 비활성화
         UiManager.Instance.loadingPanel.gameObject.SetActive(false);
     } // LoadSaveDataPlayScene
 
-    //! �÷��̾� Dead���¿� ���� ������ �ε��ϴ� �Լ�
+    //! 플레이어 Dead상태에 따른 데이터 로드하는 함수
     public void InitPlayer(StatusSaveData _playerStatusData)
     {
         if (_playerStatusData._isPlayerDead == true)
         {
-            // �÷��̾ �׾��� ���
+            // 플레이어가 죽었을 경우
             float neardistance = Mathf.Infinity;
-            Vector3 revivePos = new Vector3(78f, 9.28726578f, -11f);
+            // 활성화 시킨 화톳불이 없을 경우 교회앞에서 부활
+            Vector3 revivePos = new Vector3(74f, 9.287268f, -122f);
 
-            // ������ġ���� Ȱ��ȭ�� ���� ����� ȭ����� ��ġ���� ��Ȱ��Ŵ
+            // 죽은위치에서 활성화된 가장 가까운 화톳불의 위치에서 부활시킴
             for (int i = 0; i < UiManager.Instance.warp.bonfireList.Count; i++)
             {
                 float _dis = Vector3.SqrMagnitude(_playerStatusData._playerPos - UiManager.Instance.warp.bonfireList[i].bonfirePos);
@@ -141,7 +147,7 @@ public class GameManager : Singleton<GameManager>
                 }
             }
             player.transform.position = revivePos;
-            // �ҿ��� ��� �Ұ� ���� ��ġ�� �������ִ� �ҿ��� ��� ��Ŵ
+            // 소울을 모두 잃고 죽은 위치에 가지고있던 소울을 드랍 시킴
             if (Inventory.Instance.Soul > 0)
             {
                 GameObject Soul = Instantiate(Resources.Load<GameObject>("KKS/Prefabs/Objecct/DropSoul"));
@@ -167,7 +173,7 @@ public class GameManager : Singleton<GameManager>
         }
         else
         {
-            // �÷��̾ ������� ���
+            // 플레이어가 살아있을 경우
             player.transform.position = _playerStatusData._playerPos;
             player.HealthSys.HP = _playerStatusData._currentHealthPoint;
             player.HealthSys.MP = _playerStatusData._currentManaPoint;

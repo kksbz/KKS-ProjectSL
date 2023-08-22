@@ -6,40 +6,40 @@ using UnityEngine.UI;
 
 public class OptionPanel : MonoBehaviour
 {
-    [SerializeField] List<Sprite> panelSprites; // ����г� ��������Ʈ ����Ʈ
-    [SerializeField] private Image panelImage; // ����г� �̹���
-    [SerializeField] private TMP_Text panelText; // ����г� �ؽ�Ʈ
-    [SerializeField] private SaveAndLoadPanel saveAndLoadPanel; // ���̺�,�ε� �г�
-    [SerializeField] private GameObject checkPanel; // Ȯ�� �г�
+    [SerializeField] List<Sprite> panelSprites; // 패널스프라이트 리스트
+    [SerializeField] private Image panelImage; // 패널이미지
+    [SerializeField] private TMP_Text panelText; // 패널텍스트
+    [SerializeField] private SaveAndLoadPanel saveAndLoadPanel; // 저장 및 불러오기 패널
+    [SerializeField] private GameObject checkPanel; // 선택창패널
     [SerializeField] private GameObject manualPanel;
-    [SerializeField] private TMP_Text checkText; // Ȯ�� �г� �ؽ�Ʈ
-    [SerializeField] private Button checkPanelSelectBt; // Ȯ�� �г� ���� ��ư
-    [SerializeField] private Button checkPanelCancleBt; // Ȯ�� �г� ��� ��ư
-    [SerializeField] private Button goTitleBt; // Ÿ��Ʋ�� ���� ��ư
-    [SerializeField] private Button OptionBt; // �ɼ� ��ư
-    [SerializeField] private Button SaveBt; // �����ϱ� ��ư
-    [SerializeField] private Button LoadBt; // �ε��ϱ� ��ư
-    [SerializeField] private Button ExitBt; // �������� ��ư
-    public GameObject goBackText; // �ϴ��г� �ڷΰ��� �ؽ�Ʈ
+    [SerializeField] private TMP_Text checkText; // 선택창에 표시될 텍스트
+    [SerializeField] private Button checkPanelSelectBt; // 선택창패널 선택버튼
+    [SerializeField] private Button checkPanelCancleBt; // 선택창패널 취소버튼
+    [SerializeField] private Button goTitleBt; // 타이틀로 가기 버튼
+    [SerializeField] private Button OptionBt; // 옵션 버튼
+    [SerializeField] private Button SaveBt; // 저장 버튼
+    [SerializeField] private Button LoadBt; // 불러오기 버튼
+    [SerializeField] private Button ExitBt; // 나가기 버튼
+    public GameObject goBackText; // 뒤로가기 텍스트
     private bool isExitGame = false;
 
     private void Start()
     {
-        // Ÿ��Ʋ�� ���� ��ư
+        // 타이틀씬으로 가기
         goTitleBt.onClick.AddListener(() =>
         {
             checkText.text = "타이틀화면으로 돌아가시겠습니까?";
             isExitGame = false;
             checkPanel.SetActive(true);
         });
-        // �������� ��ư
+        // 게임종료
         ExitBt.onClick.AddListener(() =>
         {
             checkText.text = "게임을 종료하시겠습니까?";
             isExitGame = true;
             checkPanel.SetActive(true);
         });
-        // �ɼ� ��ư
+        // 옵션
         OptionBt.onClick.AddListener(() =>
         {
             panelImage.sprite = panelSprites[1];
@@ -47,7 +47,7 @@ public class OptionPanel : MonoBehaviour
             manualPanel.SetActive(true);
             goBackText.SetActive(true);
         });
-        // ���̺� ��ư
+        // 저장하기
         SaveBt.onClick.AddListener(() =>
         {
             panelImage.sprite = panelSprites[2];
@@ -56,7 +56,7 @@ public class OptionPanel : MonoBehaviour
             saveAndLoadPanel.gameObject.SetActive(true);
             goBackText.SetActive(true);
         });
-        // �ε� ��ư
+        // 불러오기
         LoadBt.onClick.AddListener(() =>
         {
             panelImage.sprite = panelSprites[3];
@@ -66,12 +66,12 @@ public class OptionPanel : MonoBehaviour
             goBackText.SetActive(true);
         });
 
-        // Ȯ�� �г� ���� ��ư
+        // 선택창패널 선택버튼
         checkPanelSelectBt.onClick.AddListener(() =>
         {
             if (isExitGame == true)
             {
-                // �ڵ����� �� ��������
+                // 게임종료 선택창일 경우 자동저장슬롯에 데이터저장 후 종료
                 DataManager.Instance.slotNum = 0;
                 DataManager.Instance.SaveData();
                 Application.Quit();
@@ -79,12 +79,12 @@ public class OptionPanel : MonoBehaviour
             }
             else
             {
-                // Ÿ��Ʋ������ �̵�
+                // 게임종료 선택창이 아닐 경우 타이틀씬으로 이동
                 checkPanel.SetActive(false);
                 GameManager.Instance.GoTitleScene();
             }
         });
-        // Ȯ�� �г� ��� ��ư
+        // 선택창패널 취소버튼
         checkPanelCancleBt.onClick.AddListener(() =>
         {
             checkPanel.SetActive(false);
